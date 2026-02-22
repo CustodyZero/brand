@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Archon — The coordination layer that doesn't guess</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:        #0A0A0A;
+      --dark:         #111111;
+      --mid:          #1A1A1A;
+      --border:       #242424;
+      --muted:        #444444;
+      --text:         #C8C8C0;
+      --light:        #E8E8E0;
+      --white:        #F2F2EC;
+      --blue:         #4FC3F7;
+      --blue-bright:  #81D4FA;
+      --blue-dim:     #0277BD;
+      --blue-deep:    #01579B;
+      --panel-border: rgba(79,195,247,0.18);
+      --glow:         rgba(79,195,247,0.07);
+      --scan-opacity: 0.028;
+      --amber:        #D4880A;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── SCAN LINE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.15) 2px,
+        rgba(0,0,0,0.15) 4px
+      );
+      opacity: var(--scan-opacity);
+      pointer-events: none;
+      z-index: 998;
+    }
+
+    /* ── GRAIN ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.025;
+      pointer-events: none;
+      z-index: 997;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(90deg, var(--border) 1px, transparent 1px),
+        linear-gradient(180deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.25;
+      mask-image: radial-gradient(ellipse 70% 70% at 50% 30%, black 20%, transparent 100%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s, background 0.4s;
+    }
+    nav.scrolled {
+      border-color: var(--panel-border);
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+      position: relative;
+    }
+    .nav-logo::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 100%; height: 1px;
+      background: var(--blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .nav-logo:hover::after { transform: scaleX(1); }
+
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.62rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .nav-status-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse 2s ease infinite;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-link {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--blue); }
+
+    .nav-cta {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      border: 1px solid var(--blue-dim);
+      padding: 0.45rem 1.1rem;
+      transition: background 0.2s, color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-cta::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--blue);
+      transform: translateX(-100%);
+      transition: transform 0.25s ease;
+    }
+    .nav-cta:hover::before { transform: translateX(0); }
+    .nav-cta span { position: relative; z-index: 1; }
+    .nav-cta:hover span { color: var(--black); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 2.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Blue glow */
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
+      top: 50%; left: 40%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: glowBreathe 6s ease infinite;
+    }
+
+    /* Corner brackets on hero */
+    .hero-bracket {
+      position: absolute;
+      width: 40px; height: 40px;
+      pointer-events: none;
+    }
+    .hero-bracket-tl { top: 6rem; left: 2.5rem; border-top: 1px solid var(--panel-border); border-left: 1px solid var(--panel-border); }
+    .hero-bracket-tr { top: 6rem; right: 2.5rem; border-top: 1px solid var(--panel-border); border-right: 1px solid var(--panel-border); }
+    .hero-bracket-bl { bottom: 3rem; left: 2.5rem; border-bottom: 1px solid var(--panel-border); border-left: 1px solid var(--panel-border); }
+    .hero-bracket-br { bottom: 3rem; right: 2.5rem; border-bottom: 1px solid var(--panel-border); border-right: 1px solid var(--panel-border); }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+    }
+
+    /* Audience toggle */
+    .audience-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+    }
+    .toggle-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .toggle-btn:first-child { border-right: none; }
+    .toggle-btn.active {
+      color: var(--blue);
+      border-color: var(--blue-dim);
+      background: rgba(79,195,247,0.06);
+    }
+    .toggle-btn.active::before {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 2px;
+      background: var(--blue);
+    }
+    .toggle-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-left: 1rem;
+    }
+
+    /* Hero text */
+    .hero-eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 1px;
+      background: var(--blue);
+    }
+
+    .hero-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8.5rem);
+      line-height: 0.93;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.4s;
+    }
+    .hero-heading .accent { color: var(--blue); display: block; }
+
+    /* Audience-specific content */
+    .audience-content { transition: opacity 0.3s ease; }
+    .audience-content.hidden { opacity: 0; pointer-events: none; position: absolute; }
+
+    .hero-sub {
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: var(--text);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.55s;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards 0.7s;
+    }
+
+    .btn-primary {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--blue);
+      color: var(--black);
+      border: none;
+      padding: 0.9rem 2.2rem;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 500;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary:hover { background: var(--blue-bright); transform: translateY(-1px); }
+
+    .btn-ghost {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-ghost::after { content: '→'; transition: transform 0.2s; }
+    .btn-ghost:hover { color: var(--blue); }
+    .btn-ghost:hover::after { transform: translateX(3px); }
+
+    /* System readout panel */
+    .hero-readout {
+      position: absolute;
+      right: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 280px;
+      border: 1px solid var(--panel-border);
+      background: rgba(17,17,17,0.8);
+      padding: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.9s;
+    }
+    /* Corner brackets on readout */
+    .hero-readout::before, .hero-readout::after {
+      content: '';
+      position: absolute;
+      width: 10px; height: 10px;
+    }
+    .hero-readout::before { top: -1px; left: -1px; border-top: 2px solid var(--blue); border-left: 2px solid var(--blue); }
+    .hero-readout::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--blue); border-right: 2px solid var(--blue); }
+
+    .readout-header {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .readout-status {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .readout-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse 2s ease infinite;
+    }
+
+    .readout-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid rgba(36,36,36,0.5);
+      font-size: 0.65rem;
+    }
+    .readout-row:last-child { border-bottom: none; }
+    .readout-key { color: var(--muted); letter-spacing: 0.08em; }
+    .readout-val { color: var(--blue); font-weight: 500; }
+    .readout-val.ok { color: #81C784; }
+    .readout-val.hash {
+      color: var(--blue-dim);
+      font-size: 0.58rem;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+    }
+    .section-divider::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0;
+      width: 80px; height: 1px;
+      background: var(--blue);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 7rem 2.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 4rem;
+    }
+    .section-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+
+    .how-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .how-card {
+      background: var(--dark);
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .how-card:hover { background: var(--mid); }
+
+    /* Corner brackets on hover */
+    .how-card .bracket-tl,
+    .how-card .bracket-br {
+      position: absolute;
+      width: 12px; height: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .how-card .bracket-tl { top: 0; left: 0; border-top: 1px solid var(--blue); border-left: 1px solid var(--blue); }
+    .how-card .bracket-br { bottom: 0; right: 0; border-bottom: 1px solid var(--blue); border-right: 1px solid var(--blue); }
+    .how-card:hover .bracket-tl,
+    .how-card:hover .bracket-br { opacity: 1; }
+
+    .how-number {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      color: var(--blue-dim);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .how-number::before {
+      content: '';
+      display: inline-block;
+      width: 16px; height: 1px;
+      background: var(--blue-dim);
+    }
+
+    .how-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .how-desc {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .how-detail {
+      font-size: 0.68rem;
+      color: var(--blue-dim);
+      letter-spacing: 0.06em;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      line-height: 1.6;
+    }
+
+    /* ── CONTRAST SECTION ── */
+    .contrast {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .contrast-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin-top: 4rem;
+    }
+
+    .contrast-col {
+      background: var(--dark);
+      padding: 2.5rem;
+    }
+    .contrast-col.archon { background: var(--mid); }
+
+    .contrast-col-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .contrast-col-label.theirs { color: var(--muted); }
+    .contrast-col-label.ours {
+      color: var(--blue);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .contrast-col-label.ours::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse 2s ease infinite;
+    }
+
+    .contrast-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(36,36,36,0.6);
+      font-size: 0.78rem;
+    }
+    .contrast-item:last-child { border-bottom: none; }
+    .contrast-item-icon { flex-shrink: 0; margin-top: 0.1rem; }
+    .contrast-item-icon.x { color: var(--muted); }
+    .contrast-item-icon.check { color: var(--blue); }
+    .contrast-item-text { color: var(--text); line-height: 1.5; }
+    .contrast-item-text.muted { color: var(--muted); }
+
+    /* ── CAPABILITIES ── */
+    .capabilities {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cap-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--border);
+      margin-top: 4rem;
+    }
+
+    .cap-card {
+      background: var(--dark);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      transition: background 0.3s;
+      position: relative;
+    }
+    .cap-card:hover { background: var(--mid); }
+    .cap-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 2px;
+      background: var(--blue);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.4s ease;
+    }
+    .cap-card:hover::before { transform: scaleY(1); }
+
+    .cap-icon {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: var(--blue);
+      text-transform: uppercase;
+      background: rgba(79,195,247,0.08);
+      border: 1px solid var(--panel-border);
+      padding: 0.5rem 0.6rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+    }
+
+    .cap-content h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .cap-content p {
+      font-size: 0.78rem;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── FOR WHO ── */
+    .forwho {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+    .forwho-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .forwho-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .forwho-card {
+      border: 1px solid var(--panel-border);
+      padding: 2.5rem;
+      position: relative;
+      background: rgba(17,17,17,0.5);
+    }
+    /* Four corner brackets */
+    .forwho-card::before,
+    .forwho-card::after,
+    .forwho-card .corner-bl,
+    .forwho-card .corner-tr {
+      content: '';
+      position: absolute;
+      width: 14px; height: 14px;
+    }
+    .forwho-card::before { top: -1px; left: -1px; border-top: 2px solid var(--blue); border-left: 2px solid var(--blue); }
+    .forwho-card::after  { bottom: -1px; right: -1px; border-bottom: 2px solid var(--blue); border-right: 2px solid var(--blue); }
+
+    .corner-bl, .corner-tr { display: block; }
+    .forwho-card .corner-tr { top: -1px; right: -1px; border-top: 2px solid var(--blue); border-right: 2px solid var(--blue); }
+    .forwho-card .corner-bl { bottom: -1px; left: -1px; border-bottom: 2px solid var(--blue); border-left: 2px solid var(--blue); }
+
+    .forwho-tag {
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .forwho-tag::before {
+      content: '';
+      width: 16px; height: 1px;
+      background: var(--blue);
+    }
+
+    .forwho-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      margin-bottom: 1rem;
+      line-height: 1;
+    }
+
+    .forwho-desc {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .forwho-list {
+      list-style: none;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .forwho-list li {
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .forwho-list li::before {
+      content: '→';
+      color: var(--blue);
+      font-size: 0.65rem;
+      flex-shrink: 0;
+    }
+
+    .forwho-cta {
+      display: inline-block;
+      margin-top: 1.5rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blue-dim);
+      padding-bottom: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .forwho-cta:hover { color: var(--blue-bright); border-color: var(--blue-bright); }
+
+    /* ── OPEN SOURCE ── */
+    .opensource {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      overflow: hidden;
+    }
+    .opensource::before {
+      content: 'OPEN';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28vw;
+      color: var(--border);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      letter-spacing: -0.05em;
+      opacity: 0.4;
+      white-space: nowrap;
+    }
+    .opensource-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .opensource-inner .section-label { display: block; margin-bottom: 1.5rem; }
+    .opensource-inner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .opensource-inner h2 span { color: var(--blue); }
+    .opensource-inner p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.8;
+      margin-bottom: 0.8rem;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .license-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      border: 1px solid var(--panel-border);
+      padding: 0.5rem 1rem;
+      background: rgba(79,195,247,0.05);
+    }
+    .license-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    /* ── CAPTURE ── */
+    .capture {
+      padding: 7rem 2.5rem;
+      border-top: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .capture-copy h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .capture-copy h2 span { color: var(--blue); }
+    .capture-copy p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .capture-form { display: flex; flex-direction: column; gap: 0.8rem; }
+    .form-row { display: flex; }
+    .form-input {
+      flex: 1;
+      background: var(--mid);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--white);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      padding: 0.9rem 1.1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus { border-color: var(--blue); }
+    .form-submit {
+      background: var(--blue);
+      color: var(--black);
+      border: none;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.4rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .form-submit:hover { background: var(--blue-bright); }
+    .form-note {
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer-parent {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+    .footer-parent a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-parent a:hover { color: var(--amber); }
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .footer-link {
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-link:hover { color: var(--blue); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+    @keyframes glowBreathe {
+      0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      50%       { opacity: 0.6; transform: translate(-50%, -50%) scale(1.08); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-readout { display: none; }
+      .how-grid { grid-template-columns: 1fr; }
+      .contrast-grid { grid-template-columns: 1fr; }
+      .cap-grid { grid-template-columns: 1fr; }
+      .forwho-grid { grid-template-columns: 1fr; }
+      .capture { grid-template-columns: 1fr; gap: 3rem; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
+      .hero { padding: 6rem 1.5rem 4rem; }
+      .how, .capabilities, .forwho-inner, .capture, .opensource-inner { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .contrast, .forwho, .opensource { padding: 5rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-left { flex-direction: column; gap: 0.5rem; }
+      .hero-bracket-tr, .hero-bracket-br { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-left">
+    <a href="/" class="nav-logo">ARCHON</a>
+    <div class="nav-status">
+      <div class="nav-status-dot"></div>
+      <span>System Active</span>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="#how-it-works" class="nav-link">How It Works</a>
+    <a href="https://github.com/custodyzero/archon" class="nav-link">GitHub</a>
+    <a href="https://docs.archon.custodyzero.com" class="nav-link">Docs</a>
+    <a href="#early-access" class="nav-cta"><span>Early Access</span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-bracket hero-bracket-tl"></div>
+  <div class="hero-bracket hero-bracket-tr"></div>
+  <div class="hero-bracket hero-bracket-bl"></div>
+  <div class="hero-bracket hero-bracket-br"></div>
+
+  <div class="hero-inner">
+
+    <!-- Audience toggle -->
+    <div class="audience-toggle">
+      <button class="toggle-btn active" id="btn-operator" onclick="setAudience('operator')">Operator</button>
+      <button class="toggle-btn" id="btn-enthusiast" onclick="setAudience('enthusiast')">Enthusiast</button>
+      <span class="toggle-label">— Select your context</span>
+    </div>
+
+    <!-- Operator content -->
+    <div class="audience-content" id="content-operator">
+      <div class="hero-eyebrow">Deterministic Agent Coordination</div>
+      <h1 class="hero-heading">The coordination<br><span class="accent">layer that</span><br>doesn't guess.</h1>
+      <p class="hero-sub">A deterministic coordination kernel for local AI agents and human–AI workflows. Operator-defined capability boundaries. Every action validated against a hashed rule snapshot before execution. No inference. No drift. No surprises.</p>
+      <div class="hero-cta-group">
+        <a href="https://github.com/custodyzero/archon" class="btn-primary">View on GitHub</a>
+        <a href="https://docs.archon.custodyzero.com" class="btn-ghost">Read the docs</a>
+      </div>
+    </div>
+
+    <!-- Enthusiast content -->
+    <div class="audience-content hidden" id="content-enthusiast">
+      <div class="hero-eyebrow">AI That Stays In Bounds</div>
+      <h1 class="hero-heading">Your AI.<br><span class="accent">Your rules.</span><br>Finally.</h1>
+      <p class="hero-sub">Archon puts you back in control of your AI assistants. Set what they're allowed to do — Archon makes sure that's exactly what they do. Nothing more. No surprises. No rogue actions. Just your AI, behaving.</p>
+      <div class="hero-cta-group">
+        <a href="#early-access" class="btn-primary">Get Early Access</a>
+        <a href="#how-it-works" class="btn-ghost">See how it works</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- System readout panel -->
+  <div class="hero-readout">
+    <div class="readout-header">
+      <span>System Status</span>
+      <div class="readout-status">
+        <div class="readout-dot"></div>
+        <span>Enforcing</span>
+      </div>
+    </div>
+    <div class="readout-row">
+      <span class="readout-key">Mode</span>
+      <span class="readout-val">Deterministic</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-key">Capabilities</span>
+      <span class="readout-val">3 active</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-key">Restrictions</span>
+      <span class="readout-val">12 rules</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-key">Last action</span>
+      <span class="readout-val ok">Validated</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-key">Drift</span>
+      <span class="readout-val ok">None</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-key">Rule snapshot</span>
+      <span class="readout-val hash">a3f7c2b1...</span>
+    </div>
+  </div>
+
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how-it-works">
+  <div class="section-header reveal">
+    <span class="section-label">How It Works</span>
+    <h2 class="section-title">Three layers. No ambiguity.</h2>
+  </div>
+
+  <div class="how-grid">
+    <div class="how-card reveal">
+      <div class="bracket-tl"></div>
+      <div class="bracket-br"></div>
+      <div class="how-number">01 — Capability</div>
+      <div class="how-title">What agents are allowed to do</div>
+      <p class="how-desc">Capability modules define the outer boundary of what any agent in your system can do. Nothing outside an enabled capability module can execute. Period.</p>
+      <div class="how-detail">No capability is active without explicit operator enablement. The default state is restricted.</div>
+    </div>
+    <div class="how-card reveal">
+      <div class="bracket-tl"></div>
+      <div class="bracket-br"></div>
+      <div class="how-number">02 — Restriction</div>
+      <div class="how-title">What is currently permitted</div>
+      <p class="how-desc">Dynamic restriction rules define what's permitted right now, within the capability boundary. Rules are explicit, inspectable, and hashed. No rule widens authority implicitly.</p>
+      <div class="how-detail">Every rule set is evaluated against a hashed snapshot. If the snapshot doesn't match, execution stops.</div>
+    </div>
+    <div class="how-card reveal">
+      <div class="bracket-tl"></div>
+      <div class="bracket-br"></div>
+      <div class="how-number">03 — Execution</div>
+      <div class="how-title">What actually runs</div>
+      <p class="how-desc">Only actions that pass deterministic validation against both capability modules and restriction rules reach execution. Archon doesn't reason about policy. It enforces it.</p>
+      <div class="how-detail">Every decision is logged. Every enforcement event is inspectable. Nothing runs invisibly.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTRAST -->
+<section class="contrast">
+  <div class="contrast-inner">
+    <div class="section-header reveal">
+      <span class="section-label">Why Archon</span>
+      <h2 class="section-title">Emergent vs. enforced.</h2>
+    </div>
+
+    <div class="contrast-grid reveal">
+      <div class="contrast-col">
+        <div class="contrast-col-label theirs">Emergent Orchestration</div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon x">✕</span>
+          <span class="contrast-item-text muted">Agents coordinate by hoping they stay in bounds</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon x">✕</span>
+          <span class="contrast-item-text muted">Policy is inferred from context, not enforced from rules</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon x">✕</span>
+          <span class="contrast-item-text muted">Authority widens implicitly as agents learn</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon x">✕</span>
+          <span class="contrast-item-text muted">No way to inspect what decision was made or why</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon x">✕</span>
+          <span class="contrast-item-text muted">Drift accumulates. Behavior changes over time.</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon x">✕</span>
+          <span class="contrast-item-text muted">Operator is out of the loop by design</span>
+        </div>
+      </div>
+      <div class="contrast-col archon">
+        <div class="contrast-col-label ours">Archon</div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon check">→</span>
+          <span class="contrast-item-text">Every action validated before execution. Always.</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon check">→</span>
+          <span class="contrast-item-text">Rules are explicit, operator-defined, and hashed</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon check">→</span>
+          <span class="contrast-item-text">No rule widens authority implicitly. Ever.</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon check">→</span>
+          <span class="contrast-item-text">Every decision is logged and inspectable</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon check">→</span>
+          <span class="contrast-item-text">Deterministic. Same input always produces same decision.</span>
+        </div>
+        <div class="contrast-item">
+          <span class="contrast-item-icon check">→</span>
+          <span class="contrast-item-text">Operator authority is preserved, not delegated away</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CAPABILITIES -->
+<section class="capabilities">
+  <div class="section-header reveal">
+    <span class="section-label">Capabilities</span>
+    <h2 class="section-title">What Archon enforces.</h2>
+  </div>
+
+  <div class="cap-grid">
+    <div class="cap-card reveal">
+      <div class="cap-icon">CAP</div>
+      <div class="cap-content">
+        <h3>Capability Modules</h3>
+        <p>Define the outer boundary of what agents can do. Modules are operator-enabled explicitly. The default state is restricted. Nothing executes outside an active module.</p>
+      </div>
+    </div>
+    <div class="cap-card reveal">
+      <div class="cap-icon">RULE</div>
+      <div class="cap-content">
+        <h3>Rule Enforcement</h3>
+        <p>Dynamic restriction rules evaluated deterministically at every execution gate. Rules are hashed. Snapshot mismatches halt execution. No implicit authority.</p>
+      </div>
+    </div>
+    <div class="cap-card reveal">
+      <div class="cap-icon">LOG</div>
+      <div class="cap-content">
+        <h3>Inspectable Decisions</h3>
+        <p>Every enforcement decision is logged with full context. Every validated or rejected action is auditable. Nothing runs invisibly. The system is always explainable.</p>
+      </div>
+    </div>
+    <div class="cap-card reveal">
+      <div class="cap-icon">LOCAL</div>
+      <div class="cap-content">
+        <h3>Local First</h3>
+        <p>Archon runs on your hardware. No cloud dependency, no external enforcement service, no phone-home. Your agent stack, your rules, your infrastructure.</p>
+      </div>
+    </div>
+    <div class="cap-card reveal">
+      <div class="cap-icon">HASH</div>
+      <div class="cap-content">
+        <h3>Rule Snapshots</h3>
+        <p>Every rule set is evaluated against a cryptographic hash of the current snapshot. Rules can't be silently modified. Integrity is enforced at evaluation time.</p>
+      </div>
+    </div>
+    <div class="cap-card reveal">
+      <div class="cap-icon">API</div>
+      <div class="cap-content">
+        <h3>Agent Agnostic</h3>
+        <p>Archon coordinates agents, not frameworks. Bring your existing agent setup. Archon sits as the enforcement layer between your agents and execution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOR WHO -->
+<section class="forwho">
+  <div class="forwho-inner">
+    <div class="section-header reveal">
+      <span class="section-label">Who It's For</span>
+      <h2 class="section-title">Two ways in.</h2>
+    </div>
+
+    <div class="forwho-grid">
+      <div class="forwho-card reveal">
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <div class="forwho-tag">Operators &amp; Engineers</div>
+        <div class="forwho-title">You read source before you trust anything.</div>
+        <p class="forwho-desc">Apache 2.0, fully open. Install via CLI, configure via rules files, inspect every decision. Archon is infrastructure — treat it like infrastructure.</p>
+        <ul class="forwho-list">
+          <li>Full source on GitHub</li>
+          <li>Apache 2.0 — always, permanently</li>
+          <li>CLI install, no GUI required</li>
+          <li>Structured logging, audit trail</li>
+          <li>Agent-agnostic integration</li>
+        </ul>
+        <a href="https://github.com/custodyzero/archon" class="forwho-cta">View on GitHub →</a>
+      </div>
+
+      <div class="forwho-card reveal">
+        <span class="corner-tr"></span>
+        <span class="corner-bl"></span>
+        <div class="forwho-tag">AI Enthusiasts</div>
+        <div class="forwho-title">You want your AI to behave. That shouldn't require a PhD.</div>
+        <p class="forwho-desc">Set up your AI assistants once. Tell Archon what they're allowed to do. It handles the rest — you stay in control without staying in the loop.</p>
+        <ul class="forwho-list">
+          <li>GUI installer — no CLI required</li>
+          <li>Available on App Store and Google Play</li>
+          <li>Plain language rule builder</li>
+          <li>Visual status dashboard</li>
+          <li>Works with popular AI assistants</li>
+        </ul>
+        <a href="#early-access" class="forwho-cta">Get early access →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- OPEN SOURCE -->
+<section class="opensource">
+  <div class="opensource-inner reveal">
+    <span class="section-label">Licensing</span>
+    <h2>Apache 2.0.<br><span>Always.</span></h2>
+    <p>Archon is open source under Apache 2.0 and will remain so permanently. No bait-and-switch. No open-core. No future relicensing.</p>
+    <p>If you build on Archon, that foundation will not be pulled out from under you. This is a commitment, not a marketing position.</p>
+    <div class="license-badge">Apache License 2.0 — Permanent</div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CAPTURE -->
+<section class="capture" id="early-access">
+  <div class="capture-copy reveal">
+    <h2>Early<br><span>access.</span></h2>
+    <p>Archon is in active development. Early access is open for both operators and enthusiasts. Get on the list and we'll reach out when it's ready for your setup.</p>
+  </div>
+  <div class="capture-form reveal">
+    <div class="form-row">
+      <input type="email" class="form-input" placeholder="your@email.com" id="emailInput" />
+      <button class="form-submit" id="submitBtn">Request access</button>
+    </div>
+    <p class="form-note" id="formNote">No drip campaigns. Signal when it matters.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">
+    <a href="/" class="footer-logo">ARCHON</a>
+    <span class="footer-parent">A <a href="https://custodyzero.com">CustodyZero</a> product</span>
+  </div>
+  <div class="footer-right">
+    <a href="https://github.com/custodyzero/archon" class="footer-link">GitHub</a>
+    <a href="https://docs.archon.custodyzero.com" class="footer-link">Docs</a>
+    <a href="https://custodyzero.com" class="footer-link">CustodyZero</a>
+    <span class="footer-link" style="color:var(--muted);cursor:default;">Apache 2.0</span>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Audience toggle
+  function setAudience(audience) {
+    const btnOp = document.getElementById('btn-operator');
+    const btnEn = document.getElementById('btn-enthusiast');
+    const contOp = document.getElementById('content-operator');
+    const contEn = document.getElementById('content-enthusiast');
+
+    if (audience === 'operator') {
+      btnOp.classList.add('active');
+      btnEn.classList.remove('active');
+      contOp.classList.remove('hidden');
+      contEn.classList.add('hidden');
+    } else {
+      btnEn.classList.add('active');
+      btnOp.classList.remove('active');
+      contEn.classList.remove('hidden');
+      contOp.classList.add('hidden');
+    }
+  }
+
+  // Simulated readout — cycles the last action value
+  const actions = ['Validated', 'Validated', 'Validated', 'Blocked', 'Validated'];
+  let actionIdx = 0;
+  const actionEl = document.querySelector('.readout-val.ok');
+  if (actionEl) {
+    setInterval(() => {
+      actionIdx = (actionIdx + 1) % actions.length;
+      const val = actions[actionIdx];
+      actionEl.textContent = val;
+      actionEl.style.color = val === 'Blocked' ? '#CF6679' : '#81C784';
+    }, 3000);
+  }
+
+  // Email capture
+  document.getElementById('submitBtn').addEventListener('click', () => {
+    const input = document.getElementById('emailInput');
+    const note = document.getElementById('formNote');
+    const btn = document.getElementById('submitBtn');
+    const email = input.value.trim();
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      input.style.borderColor = '#CF6679';
+      setTimeout(() => input.style.borderColor = '', 1400);
+      return;
+    }
+
+    input.value = '';
+    note.textContent = "You're on the list. We'll be in touch when it's ready.";
+    note.style.color = 'var(--blue)';
+    btn.textContent = 'Done';
+    btn.style.background = 'var(--blue-dim)';
+    btn.disabled = true;
+  });
+</script>
+</body>
+</html>
