@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Archon icon: diagonal corner brackets + center enforcement node -->
+  <!-- Two L-brackets on the top-left / bottom-right diagonal axis -->
+  <!-- imply a containment boundary and validation threshold -->
+  <polyline points="8,22 8,8 22,8"
+            fill="none" stroke="#4FC3F7" stroke-width="2"
+            stroke-linecap="square" stroke-linejoin="miter"/>
+  <polyline points="42,56 56,56 56,42"
+            fill="none" stroke="#4FC3F7" stroke-width="2"
+            stroke-linecap="square" stroke-linejoin="miter"/>
+  <!-- Center node: enforcement validation point -->
+  <circle cx="32" cy="32" r="3.5" fill="#4FC3F7"/>
+</svg>
