@@ -43,3 +43,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# Brand asset directories named 'icon' — must not be caught by the macOS
+# 'Icon' pattern above (case-insensitive filesystem collision on macOS).
+!brand/**/icon/
+!brand/**/icon/**
