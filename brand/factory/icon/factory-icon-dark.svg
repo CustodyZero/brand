@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Factory icon: The Gate — two vertical bars + horizontal threshold -->
+  <!-- Vertical bars define the process boundary; threshold is the verification gate -->
+  <!-- Left bar -->
+  <line x1="16" y1="14" x2="16" y2="50"
+        stroke="#5A9A6E" stroke-width="2.5" stroke-linecap="square"/>
+  <!-- Right bar -->
+  <line x1="48" y1="14" x2="48" y2="50"
+        stroke="#5A9A6E" stroke-width="2.5" stroke-linecap="square"/>
+  <!-- Horizontal threshold -->
+  <line x1="16" y1="32" x2="48" y2="32"
+        stroke="#5A9A6E" stroke-width="2.5" stroke-linecap="square"/>
+</svg>
