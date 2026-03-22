@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Type — Brand Identity Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300;1,7..72,400&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   TYPE — DESIGN TOKENS
+   ============================================================ */
+
+:root {
+  /* --- Surfaces --- */
+  --t-paper:         #F5F0E8;   /* the ground — warm, like quality typing paper */
+  --t-paper-bright:  #FAF8F3;   /* the page itself — slightly lifted from the ground */
+  --t-surface-1:     #EDE8DC;   /* recessed panels, sidebars when visible */
+  --t-surface-2:     #E4DDD0;   /* input wells, deeper recesses */
+  --t-surface-3:     #D8D0C4;   /* borders, dividers, structural lines */
+
+  /* --- Ink --- */
+  --t-ink:           #1C1917;   /* primary text — warm near-black */
+  --t-ink-secondary: #4A4540;   /* secondary text, body in chrome */
+  --t-ink-muted:     #8A8070;   /* annotations, labels, timestamps */
+  --t-ink-ghost:     #B8AFA0;   /* structural rules, placeholder text */
+
+  /* --- Accents --- */
+  --t-pencil:        #8B3A3A;   /* editor's pencil — focus, active, primary accent */
+  --t-pencil-soft:   #8B3A3A18; /* pencil at low opacity for backgrounds */
+  --t-assist:        #4A6178;   /* assistant ink — AI-contributed content marker */
+  --t-assist-soft:   #4A617812; /* assist at low opacity for backgrounds */
+
+  /* --- Typography --- */
+  --t-font-display:  'Cormorant', Georgia, serif;
+  --t-font-body:     'Literata', Georgia, serif;
+  --t-font-chrome:   'DM Mono', 'Courier New', monospace;
+
+  /* --- Type Scale --- */
+  --t-text-xs:    0.6875rem;   /* 11px — registration labels */
+  --t-text-sm:    0.8125rem;   /* 13px — annotations, chrome text */
+  --t-text-base:  1rem;        /* 16px — body */
+  --t-text-md:    1.125rem;    /* 18px — writing surface body */
+  --t-text-lg:    1.375rem;    /* 22px — section headers */
+  --t-text-xl:    1.875rem;    /* 30px — chapter titles */
+  --t-text-2xl:   2.5rem;      /* 40px — display, wordmark */
+  --t-text-3xl:   3.5rem;      /* 56px — hero specimen */
+  --t-text-4xl:   5rem;        /* 80px — large specimen */
+
+  /* --- Spacing --- */
+  --t-space-1:  0.25rem;
+  --t-space-2:  0.5rem;
+  --t-space-3:  0.75rem;
+  --t-space-4:  1rem;
+  --t-space-5:  1.5rem;
+  --t-space-6:  2rem;
+  --t-space-8:  3rem;
+  --t-space-10: 4rem;
+  --t-space-12: 5rem;
+  --t-space-16: 8rem;
+
+  /* --- Motion --- */
+  --t-ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --t-ease-in-out:  cubic-bezier(0.65, 0, 0.35, 1);
+  --t-duration-fast:   120ms;
+  --t-duration-base:   250ms;
+  --t-duration-slow:   500ms;
+  --t-duration-reveal: 800ms;
+
+  /* --- Structure --- */
+  --t-radius:      2px;
+  --t-rule:        1px solid var(--t-ink-ghost);
+  --t-page-width:  680px;   /* writing surface — approximately 65-75 characters */
+  --t-guide-width: 960px;   /* this brand guide */
+}
+
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--t-paper);
+  color: var(--t-ink);
+  font-family: var(--t-font-body);
+  font-size: var(--t-text-base);
+  line-height: 1.6;
+}
+
+
+/* ============================================================
+   BRAND GUIDE LAYOUT
+   ============================================================ */
+
+.guide {
+  max-width: var(--t-guide-width);
+  margin: 0 auto;
+  padding: var(--t-space-10) var(--t-space-6);
+}
+
+.guide-header {
+  margin-bottom: var(--t-space-16);
+  padding-bottom: var(--t-space-8);
+  border-bottom: 2px solid var(--t-ink-ghost);
+}
+
+.guide-header-label {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-ink-muted);
+  margin-bottom: var(--t-space-5);
+}
+
+.guide-header-title {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: var(--t-text-4xl);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: var(--t-ink);
+  line-height: 1;
+  margin-bottom: var(--t-space-3);
+}
+
+.guide-header-meta {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  color: var(--t-ink-muted);
+  letter-spacing: 0.04em;
+}
+
+.section {
+  margin-bottom: var(--t-space-16);
+  padding-bottom: var(--t-space-10);
+  border-bottom: var(--t-rule);
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section-number {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-ink-muted);
+  margin-bottom: var(--t-space-5);
+}
+
+.section-title {
+  font-family: var(--t-font-display);
+  font-size: var(--t-text-xl);
+  font-weight: 400;
+  color: var(--t-ink);
+  line-height: 1.2;
+  margin-bottom: var(--t-space-6);
+}
+
+.section-body {
+  font-size: var(--t-text-base);
+  color: var(--t-ink-secondary);
+  line-height: 1.75;
+  max-width: 640px;
+}
+
+.section-body p + p {
+  margin-top: var(--t-space-4);
+}
+
+.section-body em {
+  font-style: italic;
+  color: var(--t-ink);
+}
+
+.section-note {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-sm);
+  color: var(--t-ink-muted);
+  line-height: 1.6;
+  margin-top: var(--t-space-5);
+  padding-left: var(--t-space-4);
+  border-left: 2px solid var(--t-surface-3);
+  max-width: 540px;
+}
+
+
+/* ============================================================
+   THE NAME — WORDMARK
+   ============================================================ */
+
+.wordmark-display {
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-8);
+  margin-bottom: var(--t-space-8);
+}
+
+.wordmark-primary {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: 7rem;
+  font-weight: 300;
+  letter-spacing: -0.03em;
+  color: var(--t-ink);
+  line-height: 1;
+}
+
+.wordmark-tagline {
+  font-family: var(--t-font-body);
+  font-size: var(--t-text-md);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--t-ink-muted);
+  letter-spacing: 0.01em;
+}
+
+.wordmark-variants {
+  display: flex;
+  gap: var(--t-space-8);
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: var(--t-space-6);
+}
+
+.wordmark-variant {
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-2);
+}
+
+.wordmark-variant-label {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  color: var(--t-ink-muted);
+  letter-spacing: 0.06em;
+}
+
+.wordmark-variant-sample {
+  font-family: 'Cormorant', Georgia, serif;
+  font-weight: 300;
+  color: var(--t-ink);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.wordmark-on-dark {
+  background: var(--t-ink);
+  padding: var(--t-space-5) var(--t-space-6);
+  border-radius: var(--t-radius);
+  display: inline-block;
+}
+
+.wordmark-on-dark .wordmark-variant-sample {
+  color: var(--t-paper);
+}
+
+
+/* ============================================================
+   COLOR SYSTEM
+   ============================================================ */
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--t-space-3);
+  margin-bottom: var(--t-space-6);
+}
+
+.palette-group-label {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-ink-muted);
+  margin-bottom: var(--t-space-3);
+  margin-top: var(--t-space-6);
+}
+
+.palette-group-label:first-child {
+  margin-top: 0;
+}
+
+.swatch {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--t-radius);
+  border: 1px solid var(--t-surface-3);
+}
+
+.swatch-color {
+  height: 72px;
+}
+
+.swatch-info {
+  padding: var(--t-space-2) var(--t-space-3);
+  background: var(--t-surface-1);
+}
+
+.swatch-name {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  font-weight: 500;
+  color: var(--t-ink-secondary);
+  display: block;
+}
+
+.swatch-value {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  color: var(--t-ink-muted);
+  display: block;
+  margin-top: 2px;
+}
+
+.swatch-usage {
+  font-family: var(--t-font-chrome);
+  font-size: 0.625rem;
+  color: var(--t-ink-ghost);
+  display: block;
+  margin-top: 2px;
+}
+
+.color-rules {
+  margin-top: var(--t-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-3);
+}
+
+.color-rule {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--t-space-3);
+  font-size: var(--t-text-sm);
+  color: var(--t-ink-secondary);
+  line-height: 1.5;
+}
+
+.color-rule::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--t-ink-muted);
+  flex-shrink: 0;
+  margin-top: 7px;
+}
+
+
+/* ============================================================
+   TYPOGRAPHY OPTIONS
+   ============================================================ */
+
+.type-option {
+  background: var(--t-paper-bright);
+  border: 1px solid var(--t-surface-3);
+  border-radius: var(--t-radius);
+  padding: var(--t-space-8);
+  margin-bottom: var(--t-space-6);
+  position: relative;
+}
+
+.type-option-label {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t-ink-muted);
+  margin-bottom: var(--t-space-2);
+}
+
+.type-option-name {
+  font-size: var(--t-text-lg);
+  font-weight: 400;
+  color: var(--t-ink);
+  line-height: 1.3;
+  margin-bottom: var(--t-space-5);
+}
+
+.type-option-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-5);
+}
+
+.type-role {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--t-space-4);
+  align-items: baseline;
+  padding-bottom: var(--t-space-4);
+  border-bottom: 1px solid var(--t-surface-3);
+}
+
+.type-role:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.type-role-label {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  color: var(--t-ink-muted);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+
+.type-role-specimen {
+  line-height: 1.3;
+}
+
+.type-role-meta {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  color: var(--t-ink-ghost);
+  margin-top: var(--t-space-2);
+}
+
+/* Page mockup for each option */
+.type-page-mockup {
+  margin-top: var(--t-space-6);
+  background: var(--t-paper-bright);
+  border: 1px solid var(--t-surface-3);
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--t-space-8) var(--t-space-8);
+  box-shadow: 0 1px 8px rgba(28, 25, 23, 0.04), 0 0 1px rgba(28, 25, 23, 0.08);
+  position: relative;
+}
+
+.type-page-mockup::before {
+  content: '';
+  position: absolute;
+  left: var(--t-space-6);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--t-pencil-soft);
+  opacity: 0.5;
+}
+
+.mockup-title {
+  font-weight: 400;
+  color: var(--t-ink);
+  line-height: 1.2;
+  margin-bottom: var(--t-space-5);
+}
+
+.mockup-body {
+  color: var(--t-ink-secondary);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.mockup-body p + p {
+  margin-top: var(--t-space-4);
+  text-indent: 1.5em;
+}
+
+.mockup-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--t-pencil);
+  vertical-align: text-bottom;
+  animation: cursorBlink 1s ease infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+
+/* ============================================================
+   VOICE & TONE EXAMPLES
+   ============================================================ */
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--t-space-4);
+}
+
+.voice-card {
+  padding: var(--t-space-5);
+  border-radius: var(--t-radius);
+}
+
+.voice-card.do {
+  background: var(--t-paper-bright);
+  border: 1px solid var(--t-surface-3);
+}
+
+.voice-card.dont {
+  background: var(--t-surface-1);
+  border: 1px solid var(--t-surface-3);
+  opacity: 0.7;
+}
+
+.voice-card-label {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: var(--t-space-3);
+}
+
+.voice-card.do .voice-card-label {
+  color: var(--t-ink-secondary);
+}
+
+.voice-card.dont .voice-card-label {
+  color: var(--t-ink-muted);
+}
+
+.voice-card-text {
+  font-size: var(--t-text-sm);
+  line-height: 1.6;
+  color: var(--t-ink-secondary);
+  font-style: italic;
+}
+
+
+/* ============================================================
+   SPATIAL PRINCIPLES
+   ============================================================ */
+
+.page-anatomy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--t-space-5);
+  margin: var(--t-space-6) 0;
+}
+
+.anatomy-shell {
+  width: 100%;
+  max-width: 720px;
+  background: var(--t-surface-1);
+  border: 1px solid var(--t-surface-3);
+  border-radius: var(--t-radius);
+  padding: var(--t-space-6);
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.anatomy-page {
+  width: var(--t-page-width);
+  max-width: 100%;
+  background: var(--t-paper-bright);
+  border: 1px solid var(--t-surface-3);
+  min-height: 400px;
+  padding: var(--t-space-8) var(--t-space-8);
+  box-shadow: 0 1px 8px rgba(28, 25, 23, 0.04), 0 0 1px rgba(28, 25, 23, 0.08);
+  position: relative;
+}
+
+/* Left margin line */
+.anatomy-page::before {
+  content: '';
+  position: absolute;
+  left: var(--t-space-6);
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--t-pencil);
+  opacity: 0.12;
+}
+
+/* Peripheral indicators */
+.anatomy-peripheral {
+  position: absolute;
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  color: var(--t-ink-ghost);
+  letter-spacing: 0.06em;
+}
+
+.anatomy-peripheral.left {
+  left: -80px;
+  top: var(--t-space-8);
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.anatomy-peripheral.right {
+  right: -80px;
+  top: var(--t-space-8);
+  writing-mode: vertical-rl;
+}
+
+.anatomy-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.anatomy-line {
+  height: 8px;
+  background: var(--t-ink-ghost);
+  border-radius: 1px;
+  opacity: 0.3;
+}
+
+.anatomy-line.title {
+  height: 12px;
+  width: 60%;
+  opacity: 0.5;
+  margin-bottom: var(--t-space-4);
+}
+
+.anatomy-line.short { width: 45%; }
+.anatomy-line.medium { width: 85%; }
+.anatomy-line.full { width: 100%; }
+.anatomy-line.indent { width: 90%; margin-left: 1.5em; }
+
+.anatomy-line.assist {
+  background: var(--t-assist);
+  opacity: 0.15;
+}
+
+.anatomy-gap {
+  height: var(--t-space-5);
+}
+
+
+/* ============================================================
+   INTERACTION MODEL
+   ============================================================ */
+
+.interaction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--t-space-4);
+}
+
+.interaction-card {
+  background: var(--t-paper-bright);
+  border: 1px solid var(--t-surface-3);
+  border-radius: var(--t-radius);
+  padding: var(--t-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-3);
+}
+
+.interaction-card-title {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-ink-muted);
+}
+
+.interaction-card-desc {
+  font-size: var(--t-text-sm);
+  color: var(--t-ink-secondary);
+  line-height: 1.6;
+}
+
+.interaction-card-keys {
+  display: flex;
+  gap: var(--t-space-2);
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.key {
+  font-family: var(--t-font-chrome);
+  font-size: 0.625rem;
+  color: var(--t-ink-muted);
+  background: var(--t-surface-1);
+  border: 1px solid var(--t-surface-3);
+  border-radius: var(--t-radius);
+  padding: 2px 6px;
+  letter-spacing: 0.04em;
+}
+
+
+/* ============================================================
+   MOTION PRINCIPLES
+   ============================================================ */
+
+.motion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--t-space-4);
+}
+
+.motion-card {
+  background: var(--t-paper-bright);
+  border: 1px solid var(--t-surface-3);
+  border-radius: var(--t-radius);
+  padding: var(--t-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-3);
+}
+
+.motion-card-title {
+  font-family: var(--t-font-chrome);
+  font-size: var(--t-text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t-ink-muted);
+}
+
+.motion-card-spec {
+  font-size: var(--t-text-sm);
+  color: var(--t-ink-secondary);
+  line-height: 1.6;
+}
+
+.motion-demo {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Cursor blink demo */
+.demo-cursor {
+  width: 2px;
+  height: 24px;
+  background: var(--t-pencil);
+  animation: cursorBlink 1s ease infinite;
+}
+
+/* Panel slide demo */
+.demo-panel {
+  width: 60px;
+  height: 32px;
+  background: var(--t-surface-2);
+  border: 1px solid var(--t-surface-3);
+  border-radius: var(--t-radius);
+  animation: panelSlide 3s var(--t-ease-out) infinite;
+}
+
+@keyframes panelSlide {
+  0%, 15% { transform: translateX(-80px); opacity: 0; }
+  30%, 70% { transform: translateX(0); opacity: 1; }
+  85%, 100% { transform: translateX(-80px); opacity: 0; }
+}
+
+/* Fade reveal demo */
+.demo-fade-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 120px;
+}
+
+.demo-fade-line {
+  height: 4px;
+  background: var(--t-ink-ghost);
+  border-radius: 1px;
+  animation: fadeIn var(--t-duration-reveal) var(--t-ease-out) both infinite;
+}
+
+.demo-fade-line:nth-child(1) { width: 70%; animation-delay: 0ms; }
+.demo-fade-line:nth-child(2) { width: 100%; animation-delay: 100ms; }
+.demo-fade-line:nth-child(3) { width: 85%; animation-delay: 200ms; }
+.demo-fade-line:nth-child(4) { width: 60%; animation-delay: 300ms; }
+
+@keyframes fadeIn {
+  0%, 10% { opacity: 0; transform: translateY(4px); }
+  25%, 75% { opacity: 0.5; transform: translateY(0); }
+  90%, 100% { opacity: 0; transform: translateY(4px); }
+}
+
+/* AI text appear demo */
+.demo-assist-text {
+  font-family: var(--t-font-body);
+  font-size: var(--t-text-sm);
+  color: var(--t-assist);
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  animation: assistType 4s steps(24) infinite;
+  font-style: italic;
+}
+
+@keyframes assistType {
+  0%, 8% { width: 0; }
+  50%, 80% { width: 180px; }
+  92%, 100% { width: 0; }
+}
+
+
+/* ============================================================
+   WHAT TYPE IS NOT
+   ============================================================ */
+
+.not-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--t-space-3);
+}
+
+.not-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--t-space-3);
+  font-size: var(--t-text-base);
+  color: var(--t-ink-secondary);
+  line-height: 1.5;
+}
+
+.not-item-dash {
+  color: var(--t-ink-ghost);
+  flex-shrink: 0;
+  font-family: var(--t-font-chrome);
+}
+
+.not-item em {
+  color: var(--t-ink);
+  font-style: normal;
+}
+
+
+/* ============================================================
+   PAGE-LEVEL ANIMATION
+   ============================================================ */
+
+.section {
+  animation: sectionReveal var(--t-duration-reveal) var(--t-ease-out) both;
+}
+
+.section:nth-child(1) { animation-delay: 0ms; }
+.section:nth-child(2) { animation-delay: 80ms; }
+.section:nth-child(3) { animation-delay: 160ms; }
+.section:nth-child(4) { animation-delay: 240ms; }
+.section:nth-child(5) { animation-delay: 320ms; }
+.section:nth-child(6) { animation-delay: 400ms; }
+.section:nth-child(7) { animation-delay: 480ms; }
+.section:nth-child(8) { animation-delay: 560ms; }
+.section:nth-child(9) { animation-delay: 640ms; }
+.section:nth-child(10) { animation-delay: 720ms; }
+
+@keyframes sectionReveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+</style>
+</head>
+
+<body>
+<div class="guide">
+
+  <!-- ======== HEADER ======== -->
+  <div class="guide-header" style="animation: sectionReveal 800ms cubic-bezier(0.16, 1, 0.3, 1) both;">
+    <div class="guide-header-label">Brand Identity Guide</div>
+    <h1 class="guide-header-title">Type</h1>
+    <div class="guide-header-meta">v0.1 &mdash; March 2026 &mdash; CustodyZero</div>
+  </div>
+
+
+  <!-- ======== 01. THE NAME ======== -->
+  <div class="section">
+    <div class="section-number">01 &mdash; The Name</div>
+    <div class="section-title">Type</div>
+
+    <div class="section-body">
+      <p>Four letters. A verb: to type, to put words on a page. A noun: a type of thing, a category, a classification. A reference to typography itself &mdash; the art of setting words so they can be read.</p>
+      <p>The name is the act. Not the tool, not the technology behind it. <em>Type</em> is what you do when you sit down to write.</p>
+    </div>
+
+    <div class="wordmark-display" style="margin-top: var(--t-space-8);">
+      <div class="wordmark-primary">Type</div>
+      <div class="wordmark-tagline">A long-form writing instrument</div>
+    </div>
+
+    <div class="wordmark-variants">
+      <div class="wordmark-variant">
+        <div class="wordmark-variant-sample" style="font-size: var(--t-text-3xl);">Type</div>
+        <span class="wordmark-variant-label">56px</span>
+      </div>
+      <div class="wordmark-variant">
+        <div class="wordmark-variant-sample" style="font-size: var(--t-text-2xl);">Type</div>
+        <span class="wordmark-variant-label">40px</span>
+      </div>
+      <div class="wordmark-variant">
+        <div class="wordmark-variant-sample" style="font-size: var(--t-text-xl);">Type</div>
+        <span class="wordmark-variant-label">30px</span>
+      </div>
+      <div class="wordmark-variant">
+        <div class="wordmark-variant-sample" style="font-size: var(--t-text-base);">Type</div>
+        <span class="wordmark-variant-label">16px</span>
+      </div>
+      <div class="wordmark-variant">
+        <div class="wordmark-on-dark">
+          <div class="wordmark-variant-sample" style="font-size: var(--t-text-2xl);">Type</div>
+        </div>
+        <span class="wordmark-variant-label">on dark</span>
+      </div>
+    </div>
+
+    <div class="section-note" style="margin-top: var(--t-space-6);">
+      The wordmark is set in Cormorant, weight 300. Always sentence case. No logomark required &mdash; the word is the mark. Minimum size: 16px. Clear space: equal to the cap-height of the T on all sides.
+    </div>
+  </div>
+
+
+  <!-- ======== 02. POSITIONING ======== -->
+  <div class="section">
+    <div class="section-number">02 &mdash; Positioning</div>
+    <div class="section-title">What Type Is</div>
+
+    <div class="section-body">
+      <p>Type is a writing instrument. Not an AI product. Not a note-taking app. Not a word processor with a chatbot bolted on.</p>
+      <p>It is a page. A good page &mdash; the kind where you forget you're using software and remember you're writing. The LLM is there the way a sharp editor is there: present when needed, invisible when not, never the one holding the pen.</p>
+      <p>Type is local-first. Your words live on your machine. Your projects are yours. The tool is opinionated about how writing should feel, and indifferent to how other people think it should work.</p>
+    </div>
+
+    <div class="section-note">
+      The positioning test: does this feature serve the person writing, or does it serve the technology? If it serves the technology, it doesn't ship.
+    </div>
+  </div>
+
+
+  <!-- ======== 03. VOICE & TONE ======== -->
+  <div class="section">
+    <div class="section-number">03 &mdash; Voice &amp; Tone</div>
+    <div class="section-title">How Type Speaks</div>
+
+    <div class="section-body">
+      <p>Type speaks like a well-made object. Quietly. It doesn't explain itself, promote itself, or congratulate you. It communicates only when communication is necessary, and then with precision.</p>
+    </div>
+
+    <div class="voice-grid" style="margin-top: var(--t-space-6);">
+
+      <div class="voice-card do">
+        <div class="voice-card-label">Empty state</div>
+        <div class="voice-card-text">&ldquo;New page.&rdquo;</div>
+      </div>
+      <div class="voice-card dont">
+        <div class="voice-card-label">Not this</div>
+        <div class="voice-card-text">&ldquo;Welcome! Start writing your masterpiece. Need help? Ask the AI assistant!&rdquo;</div>
+      </div>
+
+      <div class="voice-card do">
+        <div class="voice-card-label">Save confirmation</div>
+        <div class="voice-card-text">&ldquo;Saved.&rdquo;</div>
+      </div>
+      <div class="voice-card dont">
+        <div class="voice-card-label">Not this</div>
+        <div class="voice-card-text">&ldquo;Your document has been saved successfully!&rdquo;</div>
+      </div>
+
+      <div class="voice-card do">
+        <div class="voice-card-label">Export complete</div>
+        <div class="voice-card-text">&ldquo;Exported to ~/Documents/essay.pdf&rdquo;</div>
+      </div>
+      <div class="voice-card dont">
+        <div class="voice-card-label">Not this</div>
+        <div class="voice-card-text">&ldquo;Great news! Your PDF has been generated and is ready to share!&rdquo;</div>
+      </div>
+
+      <div class="voice-card do">
+        <div class="voice-card-label">AI suggestion ready</div>
+        <div class="voice-card-text">No announcement. The text appears in the margin, in assistant ink. You look at it or you don&rsquo;t.</div>
+      </div>
+      <div class="voice-card dont">
+        <div class="voice-card-label">Not this</div>
+        <div class="voice-card-text">&ldquo;I&rsquo;ve generated 3 suggestions for your paragraph! Click to review.&rdquo;</div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ======== 04. COLOR SYSTEM ======== -->
+  <div class="section">
+    <div class="section-number">04 &mdash; Color System</div>
+    <div class="section-title">Ink and Paper</div>
+
+    <div class="section-body" style="margin-bottom: var(--t-space-6);">
+      <p>The palette is paper and ink. Warm, not clinical. Color appears only when it carries meaning: the editor's pencil for focus and attention, assistant ink for AI-contributed content. Everything else is surface and text.</p>
+    </div>
+
+    <div class="palette-group-label">Surfaces</div>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #F5F0E8;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">paper</span>
+          <span class="swatch-value">#F5F0E8</span>
+          <span class="swatch-usage">the ground</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #FAF8F3;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">paper-bright</span>
+          <span class="swatch-value">#FAF8F3</span>
+          <span class="swatch-usage">the page itself</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #EDE8DC;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">surface-1</span>
+          <span class="swatch-value">#EDE8DC</span>
+          <span class="swatch-usage">panels, sidebars</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #E4DDD0;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">surface-2</span>
+          <span class="swatch-value">#E4DDD0</span>
+          <span class="swatch-usage">input wells</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #D8D0C4;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">surface-3</span>
+          <span class="swatch-value">#D8D0C4</span>
+          <span class="swatch-usage">borders, dividers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group-label">Ink</div>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #1C1917;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">ink</span>
+          <span class="swatch-value">#1C1917</span>
+          <span class="swatch-usage">primary text</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4A4540;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">ink-secondary</span>
+          <span class="swatch-value">#4A4540</span>
+          <span class="swatch-usage">body text in chrome</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #8A8070;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">ink-muted</span>
+          <span class="swatch-value">#8A8070</span>
+          <span class="swatch-usage">labels, timestamps</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #B8AFA0;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">ink-ghost</span>
+          <span class="swatch-value">#B8AFA0</span>
+          <span class="swatch-usage">rules, placeholders</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-group-label">Semantic Accents</div>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="swatch-color" style="background: #8B3A3A;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">pencil</span>
+          <span class="swatch-value">#8B3A3A</span>
+          <span class="swatch-usage">focus, active, attention</span>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background: #4A6178;"></div>
+        <div class="swatch-info">
+          <span class="swatch-name">assist</span>
+          <span class="swatch-value">#4A6178</span>
+          <span class="swatch-usage">AI-contributed content</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-rules">
+      <div class="color-rule">Paper is the ground. The page floats on it, slightly brighter.</div>
+      <div class="color-rule">No pure white (#FFFFFF). No pure black (#000000). Warmth everywhere.</div>
+      <div class="color-rule">No gradients. No drop shadows except the page itself (subtle, structural).</div>
+      <div class="color-rule">Pencil is earned &mdash; it marks focus, active cursors, margin lines. Sparingly.</div>
+      <div class="color-rule">Assist is informational, never alarming. AI text is a different ink, not a warning.</div>
+    </div>
+  </div>
+
+
+  <!-- ======== 05. TYPOGRAPHY ======== -->
+  <div class="section">
+    <div class="section-number">05 &mdash; Typography</div>
+    <div class="section-title">The Manuscript</div>
+
+    <div class="section-body" style="margin-bottom: var(--t-space-8);">
+      <p>Three faces, each with a clear role. Cormorant for display and the wordmark &mdash; high contrast, calligraphic warmth. Literata for the writing surface &mdash; designed for sustained reading, optical sizes that adapt. DM Mono for chrome &mdash; quiet, geometric, stays out of the way.</p>
+      <p>These are Type&rsquo;s voice. The user&rsquo;s own writing will use their chosen fonts.</p>
+    </div>
+
+    <!-- Display: Cormorant -->
+    <div class="type-option">
+      <div class="type-option-label">Display &amp; Wordmark</div>
+      <div class="type-option-name" style="font-family: 'Cormorant', Georgia, serif;">Cormorant</div>
+
+      <div class="type-option-stack">
+        <div class="type-role">
+          <div class="type-role-label">Wordmark</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-4xl); font-weight: 300; letter-spacing: -0.03em; color: var(--t-ink); line-height: 1;">Type</div>
+            <div class="type-role-meta">Cormorant 300 &middot; -0.03em tracking &middot; The wordmark weight, always</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">Chapter Title</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-xl); font-weight: 400; letter-spacing: -0.01em; color: var(--t-ink); line-height: 1.2;">On the Nature of Long-Form Work</div>
+            <div class="type-role-meta">Cormorant 400 &middot; 30px &middot; Document and chapter titles</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">Section Head</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-lg); font-weight: 400; color: var(--t-ink); line-height: 1.3;">The Problem of Compaction</div>
+            <div class="type-role-meta">Cormorant 400 &middot; 22px &middot; Section headings within documents</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-note" style="margin-top: var(--t-space-5);">
+        Cormorant is never bold. Weight 300 for the wordmark and large display. Weight 400 for headings. Weight 500 is the absolute ceiling, reserved for rare emphasis. The face loses its character above 500.
+      </div>
+    </div>
+
+    <!-- Body: Literata -->
+    <div class="type-option">
+      <div class="type-option-label">Writing Surface &amp; Body</div>
+      <div class="type-option-name" style="font-family: 'Literata', Georgia, serif;">Literata</div>
+
+      <div class="type-option-stack">
+        <div class="type-role">
+          <div class="type-role-label">Body Text</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Literata', Georgia, serif; font-size: var(--t-text-md); font-weight: 300; line-height: 1.8; color: var(--t-ink-secondary); max-width: 520px;">The difficulty is not in the writing itself but in the remembering. A long essay requires that you hold the arc of an argument across thousands of words, returning to threads laid down pages ago, tightening connections that span sections.</div>
+            <div class="type-role-meta">Literata 300 &middot; 18px / 1.8 line-height &middot; Default writing surface size</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">Body Italic</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Literata', Georgia, serif; font-size: var(--t-text-md); font-weight: 300; font-style: italic; line-height: 1.8; color: var(--t-ink-secondary); max-width: 520px;">Context compaction is lossy by design. The machine does not forget carelessly &mdash; it forgets structurally, compressing what came before into a summary that serves the next token, not the whole arc.</div>
+            <div class="type-role-meta">Literata 300 italic &middot; Used for emphasis, internal voice, block quotes</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">Small Body</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Literata', Georgia, serif; font-size: var(--t-text-base); font-weight: 400; line-height: 1.7; color: var(--t-ink-secondary); max-width: 520px;">Footnotes, captions, and supplementary text. Slightly heavier weight at the smaller size to maintain readability.</div>
+            <div class="type-role-meta">Literata 400 &middot; 16px / 1.7 line-height &middot; Secondary body text</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-note" style="margin-top: var(--t-space-5);">
+        Literata was designed for Google Books &mdash; purpose-built for long reading sessions on screens. It has optical size axes that adapt stroke contrast and spacing to the rendered size. Weight 300 for body, 400 for smaller text and UI body, 500 for inline emphasis where italic won&rsquo;t suffice.
+      </div>
+    </div>
+
+    <!-- Chrome: DM Mono -->
+    <div class="type-option">
+      <div class="type-option-label">Chrome &amp; UI</div>
+      <div class="type-option-name" style="font-family: 'DM Mono', monospace;">DM Mono</div>
+
+      <div class="type-option-stack">
+        <div class="type-role">
+          <div class="type-role-label">Labels</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'DM Mono', monospace; font-size: var(--t-text-xs); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t-ink-muted);">Project &middot; Chapter 3 &middot; 2,847 words &middot; Saved</div>
+            <div class="type-role-meta">DM Mono 400 &middot; 11px &middot; +0.1em tracking &middot; Uppercase &middot; All status, metadata, structural labels</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">Chrome Body</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'DM Mono', monospace; font-size: var(--t-text-sm); font-weight: 400; color: var(--t-ink-secondary); line-height: 1.5;">Search results, sidebar content, command palette items, export settings.</div>
+            <div class="type-role-meta">DM Mono 400 &middot; 13px &middot; Sidebar text, palette items, settings</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">Keyboard Hints</div>
+          <div class="type-role-specimen">
+            <div style="display: flex; gap: var(--t-space-3); align-items: center;">
+              <span class="key">&Cmd;K</span>
+              <span class="key">&Cmd;J</span>
+              <span class="key">&Cmd;.</span>
+              <span class="key">Esc</span>
+            </div>
+            <div class="type-role-meta">DM Mono 400 &middot; 10px &middot; Key caps and shortcut indicators</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-note" style="margin-top: var(--t-space-5);">
+        DM Mono is the voice of the tool, not the writing. It appears in status bars, sidebars, command palettes, labels, and metadata. It is never used on the writing surface. Weight 400 only &mdash; 300 for subtle annotations, 500 for button labels. Never bold.
+      </div>
+    </div>
+
+    <!-- Full type scale reference -->
+    <div class="type-option" style="margin-top: var(--t-space-6);">
+      <div class="type-option-label">Type Scale</div>
+      <div class="type-option-name" style="font-family: 'DM Mono', monospace; font-size: var(--t-text-base);">Complete Reference</div>
+
+      <div class="type-option-stack" style="margin-top: var(--t-space-4);">
+        <div class="type-role">
+          <div class="type-role-label">4xl &middot; 80px<br>Display</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-4xl); font-weight: 300; letter-spacing: -0.03em; color: var(--t-ink); line-height: 1;">Type</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">3xl &middot; 56px<br>Display</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-3xl); font-weight: 300; letter-spacing: -0.02em; color: var(--t-ink); line-height: 1;">Long-Form Writing</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">2xl &middot; 40px<br>Display</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-2xl); font-weight: 300; letter-spacing: -0.02em; color: var(--t-ink); line-height: 1.1;">Document Title</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">xl &middot; 30px<br>Display</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-xl); font-weight: 400; letter-spacing: -0.01em; color: var(--t-ink); line-height: 1.2;">Chapter Heading</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">lg &middot; 22px<br>Display</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-lg); font-weight: 400; color: var(--t-ink); line-height: 1.3;">Section Heading</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">md &middot; 18px<br>Body</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Literata', Georgia, serif; font-size: var(--t-text-md); font-weight: 300; line-height: 1.8; color: var(--t-ink-secondary);">The primary writing surface. Comfortable for sustained reading.</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">base &middot; 16px<br>Body</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'Literata', Georgia, serif; font-size: var(--t-text-base); font-weight: 400; line-height: 1.7; color: var(--t-ink-secondary);">Secondary body. Footnotes, captions, supplementary text.</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">sm &middot; 13px<br>Chrome</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'DM Mono', monospace; font-size: var(--t-text-sm); font-weight: 400; color: var(--t-ink-muted);">Sidebar text, palette items, annotations</div>
+          </div>
+        </div>
+
+        <div class="type-role">
+          <div class="type-role-label">xs &middot; 11px<br>Chrome</div>
+          <div class="type-role-specimen">
+            <div style="font-family: 'DM Mono', monospace; font-size: var(--t-text-xs); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--t-ink-muted);">Status labels &middot; metadata &middot; timestamps</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page mockup -->
+    <div style="margin-top: var(--t-space-8);">
+      <div class="type-option-label" style="margin-bottom: var(--t-space-4);">The Page</div>
+      <div class="type-page-mockup" style="max-width: 580px;">
+        <div class="mockup-title" style="font-family: 'Cormorant', Georgia, serif; font-size: var(--t-text-lg);">On the Nature of Long-Form Work</div>
+        <div class="mockup-body" style="font-family: 'Literata', Georgia, serif; font-size: var(--t-text-md); font-weight: 300;">
+          <p>The difficulty is not in the writing itself but in the remembering. A long essay requires that you hold the arc of an argument across thousands of words, returning to threads laid down pages ago, tightening connections that span sections.</p>
+          <p>This is where the machine fails. Not because it cannot write, but because it cannot remember with fidelity. Context compaction is lossy by design<span class="mockup-cursor"></span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======== 06. SPATIAL PRINCIPLES ======== -->
+  <div class="section">
+    <div class="section-number">06 &mdash; Spatial Principles</div>
+    <div class="section-title">The Page Is the Interface</div>
+
+    <div class="section-body" style="margin-bottom: var(--t-space-6);">
+      <p>The default state of Type is a page. A single column, approximately 65&ndash;75 characters wide, centered on the screen. The background is paper; the page is slightly brighter paper. There is a faint margin line on the left, like a ruled notebook.</p>
+      <p>Everything else &mdash; project navigation, document structure, AI assistance, search, export &mdash; lives at the periphery and appears only when summoned.</p>
+    </div>
+
+    <div class="page-anatomy">
+      <div class="anatomy-shell">
+        <div class="anatomy-peripheral left">sidebar &middot; summoned</div>
+        <div class="anatomy-page">
+          <div class="anatomy-lines">
+            <div class="anatomy-line title"></div>
+            <div class="anatomy-gap"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line medium"></div>
+            <div class="anatomy-gap"></div>
+            <div class="anatomy-line indent"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line short"></div>
+            <div class="anatomy-gap"></div>
+            <div class="anatomy-line full assist"></div>
+            <div class="anatomy-line full assist"></div>
+            <div class="anatomy-line medium assist"></div>
+            <div class="anatomy-gap"></div>
+            <div class="anatomy-line indent"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line full"></div>
+            <div class="anatomy-line medium"></div>
+          </div>
+        </div>
+        <div class="anatomy-peripheral right">margins &middot; annotations</div>
+      </div>
+    </div>
+
+    <div class="section-note">
+      The page width (680px / ~65&ndash;75ch) is a typographic constraint, not a layout decision. It ensures comfortable reading at body text sizes. The periphery exists outside this column.
+    </div>
+  </div>
+
+
+  <!-- ======== 07. INTERACTION MODEL ======== -->
+  <div class="section">
+    <div class="section-number">07 &mdash; Interaction Model</div>
+    <div class="section-title">Keyboard-First, Mouse-Accessible</div>
+
+    <div class="section-body" style="margin-bottom: var(--t-space-6);">
+      <p>Every peripheral layer is reachable by keyboard and by mouse gesture. The writer&rsquo;s hands should not need to leave the keyboard to access any feature. But the mouse can summon the same layers through edge proximity or direct click.</p>
+    </div>
+
+    <div class="interaction-grid">
+      <div class="interaction-card">
+        <div class="interaction-card-title">Command Palette</div>
+        <div class="interaction-card-desc">Global access to every action. Search projects, invoke AI, change export format, navigate structure.</div>
+        <div class="interaction-card-keys">
+          <span class="key">&Cmd;K</span>
+          <span class="key">keyboard</span>
+        </div>
+      </div>
+
+      <div class="interaction-card">
+        <div class="interaction-card-title">Project Sidebar</div>
+        <div class="interaction-card-desc">Document tree, project files, recent work. Slides in from the left edge.</div>
+        <div class="interaction-card-keys">
+          <span class="key">&Cmd;1</span>
+          <span class="key">mouse &rarr; left edge</span>
+        </div>
+      </div>
+
+      <div class="interaction-card">
+        <div class="interaction-card-title">AI Margin</div>
+        <div class="interaction-card-desc">Contextual AI assistance anchored to the current selection or cursor position. Appears in the right margin.</div>
+        <div class="interaction-card-keys">
+          <span class="key">&Cmd;J</span>
+          <span class="key">mouse &rarr; right edge</span>
+        </div>
+      </div>
+
+      <div class="interaction-card">
+        <div class="interaction-card-title">Document Outline</div>
+        <div class="interaction-card-desc">Heading structure of the current document. Navigate by section.</div>
+        <div class="interaction-card-keys">
+          <span class="key">&Cmd;2</span>
+        </div>
+      </div>
+
+      <div class="interaction-card">
+        <div class="interaction-card-title">Semantic Search</div>
+        <div class="interaction-card-desc">Search across all your writing by meaning, not just keywords. Surfaces related passages from other projects.</div>
+        <div class="interaction-card-keys">
+          <span class="key">&Cmd;&Shift;F</span>
+        </div>
+      </div>
+
+      <div class="interaction-card">
+        <div class="interaction-card-title">Focus Mode</div>
+        <div class="interaction-card-desc">Dims everything except the current paragraph. The page narrows. The world contracts to the sentence.</div>
+        <div class="interaction-card-keys">
+          <span class="key">&Cmd;.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======== 08. MOTION ======== -->
+  <div class="section">
+    <div class="section-number">08 &mdash; Motion</div>
+    <div class="section-title">Quiet, Purposeful, Physical</div>
+
+    <div class="section-body" style="margin-bottom: var(--t-space-6);">
+      <p>Motion in Type serves two purposes: it communicates state transitions, and it gives the interface a sense of physical weight. Panels slide, they don&rsquo;t pop. Text fades in, it doesn&rsquo;t appear. The cursor blinks like a heartbeat.</p>
+      <p>Nothing bounces. Nothing overshoots. Nothing calls attention to itself.</p>
+    </div>
+
+    <div class="motion-grid">
+      <div class="motion-card">
+        <div class="motion-card-title">Cursor</div>
+        <div class="motion-card-spec">1s ease, infinite. The only perpetual animation. Pencil red.</div>
+        <div class="motion-demo">
+          <div class="demo-cursor"></div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-card-title">Panel Reveal</div>
+        <div class="motion-card-spec">500ms ease-out. Slides from edge. Content fades in 200ms after panel settles.</div>
+        <div class="motion-demo">
+          <div class="demo-panel"></div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-card-title">Content Stagger</div>
+        <div class="motion-card-spec">800ms per item, 80&ndash;100ms stagger. For lists, search results, outline items.</div>
+        <div class="motion-demo">
+          <div class="demo-fade-lines">
+            <div class="demo-fade-line"></div>
+            <div class="demo-fade-line"></div>
+            <div class="demo-fade-line"></div>
+            <div class="demo-fade-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="motion-card">
+        <div class="motion-card-title">AI Text Arrival</div>
+        <div class="motion-card-spec">Character-by-character in assist ink. Not instant. The machine is writing, visibly.</div>
+        <div class="motion-demo">
+          <div class="demo-assist-text">perhaps consider the inverse&hellip;</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-note" style="margin-top: var(--t-space-6);">
+      Easing: cubic-bezier(0.16, 1, 0.3, 1) for reveals (fast start, gentle settle). cubic-bezier(0.65, 0, 0.35, 1) for state transitions. No linear easing anywhere &mdash; everything has weight.
+    </div>
+  </div>
+
+
+  <!-- ======== 09. WHAT TYPE IS NOT ======== -->
+  <div class="section">
+    <div class="section-number">09 &mdash; What Type Is Not</div>
+    <div class="section-title">Boundaries</div>
+
+    <div class="not-list">
+      <div class="not-item">
+        <span class="not-item-dash">&mdash;</span>
+        <span>Not a chat interface. <em>The page is primary. The LLM is peripheral.</em></span>
+      </div>
+      <div class="not-item">
+        <span class="not-item-dash">&mdash;</span>
+        <span>Not a note-taking app. <em>Type is for long-form writing &mdash; essays, articles, chapters, books.</em></span>
+      </div>
+      <div class="not-item">
+        <span class="not-item-dash">&mdash;</span>
+        <span>Not a word processor. <em>No ribbon bars, no formatting toolbars, no template galleries.</em></span>
+      </div>
+      <div class="not-item">
+        <span class="not-item-dash">&mdash;</span>
+        <span>Not a cloud product. <em>Your words live on your machine. The tool is local-first.</em></span>
+      </div>
+      <div class="not-item">
+        <span class="not-item-dash">&mdash;</span>
+        <span>Not an AI writing tool. <em>You write. The AI assists. The distinction is not cosmetic.</em></span>
+      </div>
+      <div class="not-item">
+        <span class="not-item-dash">&mdash;</span>
+        <span>Not trying to be everything. <em>Thirty features done well. Not three hundred done carelessly.</em></span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======== 10. THE TEST ======== -->
+  <div class="section" style="border-bottom: none;">
+    <div class="section-number">10 &mdash; The Test</div>
+    <div class="section-title">One Question</div>
+
+    <div class="section-body">
+      <p style="font-size: var(--t-text-md); font-style: italic; color: var(--t-ink); max-width: 520px;">Does this feel like sitting down at a good desk with a blank page and a sharp pencil?</p>
+      <p style="margin-top: var(--t-space-4);">If yes, proceed. If it feels like opening an app, reconsider.</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

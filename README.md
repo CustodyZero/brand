@@ -23,6 +23,11 @@ brand/
 │   ├── wordmark/
 │   ├── icon/
 │   └── guidelines/
+├── type/
+│   ├── wordmark/          # Cormorant Light wordmark — light + dark variants
+│   ├── icon/              # Margin-and-line icon mark — SVG, PNG, ICO
+│   ├── guidelines/        # Brand guide (HTML) + usage rules (MD)
+│   └── social/            # Open Graph social preview card
 └── design-system/         # Reference copy of the CustodyZero Design System
 ```
 
@@ -54,6 +59,10 @@ The full permitted and prohibited use policy is in [LICENSE](LICENSE).
 | Archon icon mark | In development |
 | Sentinel wordmark | Planned |
 | Sentinel icon mark | Planned |
+| Type wordmark | Complete |
+| Type icon mark | Complete |
+| Type social card | Complete |
+| Type brand guide | Complete |
 | Design System v1.0 | Complete |
 
 ---

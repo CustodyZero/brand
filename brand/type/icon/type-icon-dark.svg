@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- Type Icon Mark: The Margin and Line -->
+  <!-- Dark variant: paper (#FAF8F3) on transparent, for dark backgrounds -->
+
+  <!-- Margin (vertical) -->
+  <line x1="20" y1="8" x2="20" y2="56" stroke="#FAF8F3" stroke-width="2.5" stroke-linecap="square"/>
+
+  <!-- Text line (horizontal) -->
+  <line x1="20" y1="32" x2="54" y2="32" stroke="#FAF8F3" stroke-width="2" stroke-linecap="square"/>
+</svg>

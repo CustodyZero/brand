@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- Type Icon Mark: The Margin and Line -->
+  <!-- Vertical stroke = the margin rule, positioned at left third -->
+  <!-- Horizontal stroke = the text line, extending rightward from margin -->
+  <!-- Light variant: pencil (#8B3A3A) on transparent, for paper/light backgrounds -->
+
+  <!-- Margin (vertical) -->
+  <line x1="20" y1="8" x2="20" y2="56" stroke="#8B3A3A" stroke-width="2.5" stroke-linecap="square"/>
+
+  <!-- Text line (horizontal) -->
+  <line x1="20" y1="32" x2="54" y2="32" stroke="#8B3A3A" stroke-width="2" stroke-linecap="square"/>
+</svg>
