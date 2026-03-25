@@ -337,11 +337,15 @@ def main() -> None:
     svg_path.write_text(svg, encoding="utf-8")
     print(f"  SVG: {svg_path.relative_to(BASE)}")
 
-    print("Rasterizing to PNG…")
+    # Rasterize at 2x for retina/HiDPI (LinkedIn, Twitter, etc.)
+    SCALE = 2
+    out_w, out_h = W * SCALE, H * SCALE
+
+    print(f"Rasterizing to PNG at {SCALE}x ({out_w}×{out_h})…")
     png_bytes = cairosvg.svg2png(
         bytestring=svg.encode("utf-8"),
-        output_width=W,
-        output_height=H,
+        output_width=out_w,
+        output_height=out_h,
     )
     img = Image.open(io.BytesIO(png_bytes))
 
@@ -350,7 +354,7 @@ def main() -> None:
 
     out_png = OUT_DIR / "factory-social-card.png"
     img.save(str(out_png), format="PNG", optimize=False)
-    print(f"  PNG: {out_png.relative_to(BASE)} ({W}×{H})")
+    print(f"  PNG: {out_png.relative_to(BASE)} ({out_w}×{out_h})")
 
     print("\nDone.")
 
