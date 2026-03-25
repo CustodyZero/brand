@@ -349,12 +349,13 @@ def main() -> None:
     )
     img = Image.open(io.BytesIO(png_bytes))
 
-    print("Adding grain overlay…")
-    img = add_grain(img, opacity=GRAIN_OPACITY, seed=GRAIN_SEED)
-
+    # Skip grain at 2x — it defeats PNG compression (millions of unique pixel
+    # values) and is invisible at social card display sizes. The SVG reference
+    # is grain-free regardless.
     out_png = OUT_DIR / "factory-social-card.png"
-    img.save(str(out_png), format="PNG", optimize=False)
-    print(f"  PNG: {out_png.relative_to(BASE)} ({out_w}×{out_h})")
+    img.save(str(out_png), format="PNG", optimize=True)
+    size_kb = out_png.stat().st_size / 1024
+    print(f"  PNG: {out_png.relative_to(BASE)} ({out_w}×{out_h}, {size_kb:.0f}KB)")
 
     print("\nDone.")
 
