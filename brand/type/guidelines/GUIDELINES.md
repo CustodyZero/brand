@@ -2,7 +2,7 @@
 
 **Parent document:** `type-brand-guide.html` (visual reference)
 **Status:** Assets generated v1.0
-**Version:** 1.0 · March 2026
+**Version:** 2.0 · April 2026
 
 All assets are proprietary. See `../../../LICENSE` for terms.
 **All rights reserved. CustodyZero.**
@@ -93,9 +93,11 @@ The mark is asymmetric by design. The vertical sits at the left third of the can
 
 These are the canonical values from the Type brand guide. All brand assets reference tokens — never raw hex values in code.
 
+Type ships four themes. Section 3 defines the **token vocabulary** and the **Light** palette (the default). Section 3a defines the complete theme system with all four palettes.
+
 ### Surfaces
 
-| Token | Hex | Usage |
+| Token | Light Hex | Usage |
 |---|---|---|
 | `--t-paper` | `#F5F0E8` | The ground — warm, like quality typing paper |
 | `--t-paper-bright` | `#FAF8F3` | The page itself — slightly lifted from the ground |
@@ -103,9 +105,20 @@ These are the canonical values from the Type brand guide. All brand assets refer
 | `--t-surface-2` | `#E4DDD0` | Input wells, deeper recesses |
 | `--t-surface-3` | `#D8D0C4` | Borders, dividers, structural lines |
 
+### Chrome
+
+Chrome tokens are for application UI surfaces that sit outside or around the writing surface. These extend the surface scale for toolbars, title bars, and status bars.
+
+| Token | Light Hex | Usage |
+|---|---|---|
+| `--t-chrome-1` | `#E8E4DD` | Toolbar, sidebar borders |
+| `--t-chrome-2` | `#D4CFC6` | Title bar, status bar background |
+| `--t-chrome-3` | `#B8B3A8` | Deep chrome, header backgrounds |
+| `--t-scrim` | `#00000033` | Modal overlay — 20% warm black |
+
 ### Ink
 
-| Token | Hex | Usage |
+| Token | Light Hex | Usage |
 |---|---|---|
 | `--t-ink` | `#1C1917` | Primary text — warm near-black |
 | `--t-ink-secondary` | `#4A4540` | Secondary text, body in chrome |
@@ -114,7 +127,7 @@ These are the canonical values from the Type brand guide. All brand assets refer
 
 ### Semantic Accents
 
-| Token | Hex | Usage |
+| Token | Light Hex | Usage |
 |---|---|---|
 | `--t-pencil` | `#8B3A3A` | Editor's pencil — focus, active, primary accent |
 | `--t-pencil-soft` | `#8B3A3A18` | Pencil at low opacity for backgrounds |
@@ -124,10 +137,156 @@ These are the canonical values from the Type brand guide. All brand assets refer
 ### Color Rules
 
 - Paper is the ground. The page floats on it, slightly brighter.
-- No pure white (`#FFFFFF`). No pure black (`#000000`). Warmth everywhere.
+- No pure white (`#FFFFFF`). No pure black (`#000000`). Warmth everywhere, in every theme.
 - No gradients. No drop shadows except the page itself (subtle, structural).
 - Pencil is earned — it marks focus, active cursors, margin lines. Sparingly.
 - Assist is informational, never alarming. AI text is a different ink, not a warning.
+
+---
+
+## 3a — Theme System
+
+Type offers four themes. Each expresses a different relationship between the writer and the page.
+
+### Design Principles
+
+1. **Warmth is invariant.** Every theme uses warm tones. No cold greys, no blue-blacks, no clinical whites.
+2. **No pure extremes.** No theme uses `#000000` or `#FFFFFF`.
+3. **Ink-muted is the pivot.** `--t-ink-muted` (`#8A8070`) is the same value in every theme. It anchors the scale.
+4. **Pencil and Assist shift luminance, not hue.** The accent colors adapt to each theme's surface luminance while preserving their hue identity.
+5. **Soft variants use the same alpha.** `--t-pencil-soft` and `--t-assist-soft` always apply the same opacity percentage to their theme's base accent.
+
+### Theme Definitions
+
+#### Light (default)
+
+**Metaphor:** Daylight writing desk.
+
+The canonical Type experience. Warm cream paper, dark ink, clear light.
+
+| Token | Hex |
+|---|---|
+| `--t-paper` | `#F5F0E8` |
+| `--t-paper-bright` | `#FAF8F3` |
+| `--t-surface-1` | `#EDE8DC` |
+| `--t-surface-2` | `#E4DDD0` |
+| `--t-surface-3` | `#D8D0C4` |
+| `--t-chrome-1` | `#E8E4DD` |
+| `--t-chrome-2` | `#D4CFC6` |
+| `--t-chrome-3` | `#B8B3A8` |
+| `--t-scrim` | `#00000033` |
+| `--t-ink` | `#1C1917` |
+| `--t-ink-secondary` | `#4A4540` |
+| `--t-ink-muted` | `#8A8070` |
+| `--t-ink-ghost` | `#B8AFA0` |
+| `--t-pencil` | `#8B3A3A` |
+| `--t-pencil-soft` | `#8B3A3A18` |
+| `--t-assist` | `#4A6178` |
+| `--t-assist-soft` | `#4A617812` |
+
+#### Desk Lamp
+
+**Metaphor:** Typewriter under a tungsten bulb, late evening.
+
+The chrome goes dark — the room around you. The page stays visible but takes on a warm amber cast, as if lit by a single incandescent lamp. Ink softens. Accents are muted. The page is the light source.
+
+This theme has a **dual-surface rule**: the page uses its own ink and accent values (warm brown on yellowed paper), while chrome uses inverted values (cream text on dark surfaces). This is the only theme where page tokens and chrome tokens diverge in polarity.
+
+| Token | Hex | Notes |
+|---|---|---|
+| `--t-paper` | `#2A2520` | Dark warm room |
+| `--t-paper-bright` | `#E8DCCA` | Lamplit page — yellowed, muted |
+| `--t-surface-1` | `#221E1A` | Sidebar recess |
+| `--t-surface-2` | `#1C1915` | Deep recess |
+| `--t-surface-3` | `#3A3530` | Borders on dark chrome |
+| `--t-chrome-1` | `#2E2A24` | Toolbar surface |
+| `--t-chrome-2` | `#1C1915` | Title bar |
+| `--t-chrome-3` | `#161310` | Deep chrome |
+| `--t-scrim` | `#0A080533` | Warm dark overlay |
+| `--t-ink` | `#342C20` | Page ink — warm brown (on lamplit page) |
+| `--t-ink-chrome` | `#E8E0D4` | Chrome ink — cream (on dark surfaces) |
+| `--t-ink-secondary` | `#5A5040` | Page secondary (on page) / `#B0A898` (on chrome) |
+| `--t-ink-muted` | `#8A8070` | Invariant pivot |
+| `--t-ink-ghost` | `#B8AFA0` | Page ghost / `#4A4540` (on chrome) |
+| `--t-pencil` | `#7A3535` | Muted pencil — absorbed by warm light |
+| `--t-pencil-soft` | `#7A353518` | Pencil at low opacity |
+| `--t-assist` | `#506878` | Muted slate — cool tones recede under lamplight |
+| `--t-assist-soft` | `#50687815` | Assist at low opacity |
+
+**Desk Lamp page shadow:** `0 2px 20px rgba(30, 22, 10, 0.45)` — a warm pool of light spilling from the page.
+
+#### Warm Inversion
+
+**Metaphor:** Dark paper, light ink. Writing at night.
+
+Everything inverts, but the warmth is preserved. Dark surfaces are warm brown-blacks. Text becomes warm cream. The paper metaphor shifts — you are writing on dark material with a light instrument.
+
+| Token | Hex |
+|---|---|
+| `--t-paper` | `#1C1915` |
+| `--t-paper-bright` | `#242019` |
+| `--t-surface-1` | `#2E2A24` |
+| `--t-surface-2` | `#383430` |
+| `--t-surface-3` | `#4A4540` |
+| `--t-chrome-1` | `#2E2A24` |
+| `--t-chrome-2` | `#1C1915` |
+| `--t-chrome-3` | `#161310` |
+| `--t-scrim` | `#0A080544` |
+| `--t-ink` | `#E8E0D4` |
+| `--t-ink-secondary` | `#B0A898` |
+| `--t-ink-muted` | `#8A8070` |
+| `--t-ink-ghost` | `#4A4540` |
+| `--t-pencil` | `#A85050` |
+| `--t-pencil-soft` | `#A8505018` |
+| `--t-assist` | `#7A9BB8` |
+| `--t-assist-soft` | `#7A9BB812` |
+
+#### Late Evening
+
+**Metaphor:** Candlelit parchment. Twilight warmth.
+
+A mid-dark theme. Not inverted — dimmed. The entire palette shifts warmer and lower in luminance. The page becomes dark parchment. Everything is readable but restful. More amber than the other dark themes.
+
+| Token | Hex |
+|---|---|
+| `--t-paper` | `#3D362E` |
+| `--t-paper-bright` | `#4A4238` |
+| `--t-surface-1` | `#342E27` |
+| `--t-surface-2` | `#2C2720` |
+| `--t-surface-3` | `#5A5248` |
+| `--t-chrome-1` | `#3D362E` |
+| `--t-chrome-2` | `#2C2720` |
+| `--t-chrome-3` | `#221E1A` |
+| `--t-scrim` | `#0A080540` |
+| `--t-ink` | `#DCD4C8` |
+| `--t-ink-secondary` | `#B0A898` |
+| `--t-ink-muted` | `#8A8070` |
+| `--t-ink-ghost` | `#4A4540` |
+| `--t-pencil` | `#C46060` |
+| `--t-pencil-soft` | `#C4606018` |
+| `--t-assist` | `#9ECAE8` |
+| `--t-assist-soft` | `#9ECAE812` |
+
+### Theme Selection
+
+- **Default mapping:** System light preference → Light. System dark preference → Warm Inversion.
+- **User override:** The user may select any of the four themes explicitly in settings. An explicit choice overrides system preference.
+- **Persistence:** Theme selection is stored as a user preference, not a project setting.
+
+### Contrast Requirements
+
+All text-on-surface combinations must meet **WCAG AA** minimum contrast ratios:
+
+| Context | Minimum Ratio |
+|---|---|
+| Body text (`--t-ink` on `--t-paper-bright`) | 4.5:1 |
+| Secondary text (`--t-ink-secondary` on `--t-paper-bright`) | 4.5:1 |
+| Large text (`--t-ink` on `--t-paper-bright`, ≥ 24px) | 3:1 |
+| Accent on surface (`--t-pencil` on `--t-paper-bright`) | 3:1 |
+| Muted text (`--t-ink-muted`) | Advisory — may fall below 4.5:1 by design |
+| Ghost text (`--t-ink-ghost`) | Decorative — no minimum |
+
+These ratios must hold in **every theme**. If a theme's palette does not meet contrast, the palette must be adjusted — not the requirement.
 
 ---
 
@@ -204,40 +363,67 @@ The icon must not appear in a container smaller than 88 × 88px.
 
 ## 8 — Background Usage
 
-### Light variant (primary)
+### By Theme
 
-Valid backgrounds for the light/pencil variant:
+Each theme defines its own valid background surfaces. Brand assets (wordmark, icon) must use the variant appropriate to the active theme.
 
-- `#FAF8F3` (paper-bright) — **primary**
-- `#F5F0E8` (paper)
-- `#EDE8DC` (surface-1)
-- Any light neutral surface
+| Theme | Wordmark variant | Icon variant | Primary background |
+|---|---|---|---|
+| Light | Light (ink `#1C1917`) | Light (pencil `#8B3A3A`) | `#FAF8F3` (paper-bright) |
+| Desk Lamp | Dark (paper-bright `#FAF8F3`) | Dark (paper-bright `#FAF8F3`) | `#2A2520` (paper) |
+| Warm Inversion | Dark (paper-bright `#FAF8F3`) | Dark (paper-bright `#FAF8F3`) | `#1C1915` (paper) |
+| Late Evening | Dark (paper-bright `#FAF8F3`) | Dark (paper-bright `#FAF8F3`) | `#3D362E` (paper) |
 
-### Dark variant
+### Desk Lamp Exception
 
-Valid backgrounds for the dark variant:
+In Desk Lamp theme, the page surface (`#E8DCCA`) is light. Brand assets on the page surface use the **light variant**. Brand assets on chrome surfaces use the **dark variant**.
 
-- `#1C1917` (ink) — **primary**
-- `#0A0A0A` (CustodyZero house --black)
-- `#111111` (CustodyZero house --dark)
-- Any near-black background
+### Universal Prohibitions
+
+- No brand asset on pure white (`#FFFFFF`) or pure black (`#000000`)
+- No brand asset on blue, purple, or gradient surfaces
+- No brand asset on surfaces from other CustodyZero product palettes (Archon blue, Factory green)
 
 ---
 
 ## 9 — Color on Color
 
+### Light Theme
+
 | Foreground | Background | Status |
 |---|---|---|
 | Ink wordmark (`#1C1917`) | paper-bright (`#FAF8F3`) | **Approved — primary** |
 | Ink wordmark (`#1C1917`) | paper (`#F5F0E8`) | **Approved** |
-| Paper-bright wordmark (`#FAF8F3`) | ink (`#1C1917`) | **Approved** |
-| Paper-bright wordmark (`#FAF8F3`) | CZ house --black (`#0A0A0A`) | **Approved** |
 | Pencil icon (`#8B3A3A`) | paper-bright (`#FAF8F3`) | **Approved — primary** |
 | Pencil icon (`#8B3A3A`) | paper (`#F5F0E8`) | **Approved** |
-| Paper-bright icon (`#FAF8F3`) | ink (`#1C1917`) | **Approved** |
+
+### Dark Themes (Desk Lamp chrome, Warm Inversion, Late Evening)
+
+| Foreground | Background | Status |
+|---|---|---|
+| Paper-bright wordmark (`#FAF8F3`) | Warm Inversion paper (`#1C1915`) | **Approved** |
+| Paper-bright wordmark (`#FAF8F3`) | Late Evening paper (`#3D362E`) | **Approved** |
+| Paper-bright wordmark (`#FAF8F3`) | Desk Lamp chrome (`#1C1915`) | **Approved** |
+| Paper-bright icon (`#FAF8F3`) | Any dark theme surface | **Approved** |
+| Paper-bright wordmark (`#FAF8F3`) | CZ house --black (`#0A0A0A`) | **Approved** |
+
+### Desk Lamp Page Surface
+
+| Foreground | Background | Status |
+|---|---|---|
+| Warm-brown ink (`#342C20`) | Lamplit page (`#E8DCCA`) | **Approved** |
+| Muted pencil (`#7A3535`) | Lamplit page (`#E8DCCA`) | **Approved** |
+| Muted assist (`#506878`) | Lamplit page (`#E8DCCA`) | **Approved** |
+
+### Universal Prohibitions
+
+| Foreground | Background | Status |
+|---|---|---|
 | Any mark | Pure white (`#FFFFFF`) | **Never** |
 | Any mark | Pure black (`#000000`) | **Never** |
 | Any mark | Blue, purple, or gradient surface | **Never** |
+| Light variant mark | Any dark theme surface | **Never** |
+| Dark variant mark | Light theme surface | **Never** |
 
 ---
 
@@ -269,10 +455,13 @@ Examples: `type-wordmark-light.svg`, `type-icon-dark@2x.png`, `type-social-card.
 - Do not use the CustodyZero amber (`#D4880A`) as an accent in Type product contexts. Amber is house-level only.
 - Do not use the Archon blue (`#4FC3F7`) in Type contexts. Type has its own accent system (pencil + assist).
 - Do not place text on the writing surface in DM Mono. Mono is for chrome only.
-- Do not use pure white or pure black anywhere. Type is warm.
+- Do not use pure white or pure black anywhere, in any theme. Type is warm.
 - Do not use purple.
 - Do not use gradients on any surface.
 - Do not add border-radius greater than 2px to any element.
+- Do not mix tokens from different themes in the same view. One theme is active at a time.
+- Do not use cold greys or blue-blacks in dark themes. All dark surfaces must be warm-toned.
+- Do not invent theme-specific tokens outside the defined vocabulary. All themes use the same token names (with the exception of Desk Lamp's `--t-ink-chrome` dual-surface token).
 
 ---
 
