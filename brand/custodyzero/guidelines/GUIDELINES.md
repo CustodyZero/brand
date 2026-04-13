@@ -1,6 +1,6 @@
 # CustodyZero Brand Guidelines
 
-Parent document: `../../design-system/custodyzero-design-system.docx`
+Parent document: `../../design-system/custodyzero-design-system.md`
 Version: 1.0 · February 2026
 
 ---
@@ -88,7 +88,7 @@ These are the canonical values from the design system. All brand assets referenc
 | `--amber-bright` | `#F0A020` | Amber hover state |
 | `--amber-dim` | `#8A5500` | Tags, secondary amber |
 
-Amber is the only accent color in the CustodyZero house palette. It appears sparingly. Product sub-brands (Archon, Sentinel) define their own accent colors — those colors do not appear in house-level contexts.
+Amber is the only accent color in the CustodyZero house palette. It appears sparingly. Product sub-brands (Archon, StationZero) define their own accent colors — those colors do not appear in house-level contexts.
 
 ---
 
@@ -100,7 +100,7 @@ Amber is the only accent color in the CustodyZero house palette. It appears spar
 
 | Segment | Values |
 |---|---|
-| `{brand}` | `custodyzero`, `archon`, `sentinel` |
+| `{brand}` | `custodyzero`, `archon`, `stationzero` |
 | `{asset-type}` | `wordmark`, `icon` |
 | `{variant}` | `dark` (dark background; only defined variant) |
 | `[@scale]` | omit for 1x SVG; `@2x`, `@3x` for raster |
@@ -150,7 +150,7 @@ A light-background / reverse variant is not yet defined. Do not place the wordma
 - Do not add drop shadows, glows, or any treatment to the wordmark.
 - Do not place the wordmark on a light or colored background.
 - Do not reduce letter-spacing or change the typeface.
-- Do not combine the wordmark with a product name (Archon, Sentinel). Product names stand alone with clear visual separation.
+- Do not combine the wordmark with a product name (Archon, StationZero). Product names stand alone with clear visual separation.
 - Do not use the icon mark in amber on any non-dark background.
 - Do not substitute Inter, Roboto, or system-default fonts for Bebas Neue in any brand context.
 - Do not add border-radius to any button or interactive element in CustodyZero contexts. Square edges are required.

@@ -19,7 +19,7 @@ brand/
 │   ├── wordmark/
 │   ├── icon/
 │   └── guidelines/
-├── sentinel/
+├── stationzero/
 │   ├── wordmark/
 │   ├── icon/
 │   └── guidelines/
@@ -57,13 +57,13 @@ The full permitted and prohibited use policy is in [LICENSE](LICENSE).
 | CustodyZero icon mark | In development |
 | Archon wordmark | In development |
 | Archon icon mark | In development |
-| Sentinel wordmark | Planned |
-| Sentinel icon mark | Planned |
+| StationZero wordmark | Planned |
+| StationZero icon mark | Planned |
 | Type wordmark | Complete |
 | Type icon mark | Complete |
 | Type social card | Complete |
 | Type brand guide | Complete |
-| Design System v1.0 | Complete |
+| Design System v1.1 | Complete |
 
 ---
 
