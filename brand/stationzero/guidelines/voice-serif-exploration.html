@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StationZero — Voice Serif Exploration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Bitter:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Vollkorn:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
+  :root {
+    --black: #0A0A0A;
+    --dark: #111111;
+    --mid: #1A1A1A;
+    --border: #242424;
+    --muted: #444444;
+    --text: #C8C8C0;
+    --light: #E8E8E0;
+    --white: #F2F2EC;
+    --signal-red: #C04848;
+    --signal-red-dim: #7A2E2E;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 96px 48px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    line-height: 0.95;
+    margin-bottom: 16px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 64px;
+  }
+
+  section {
+    border-top: 1px solid var(--border);
+    padding: 64px 0;
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--signal-red);
+    margin-bottom: 32px;
+  }
+
+  /* Candidate heading */
+  .candidate-header {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: var(--signal-red);
+    margin-bottom: 8px;
+  }
+
+  .candidate-meta {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 48px;
+  }
+
+  /* Type stack demo */
+  .type-stack {
+    background: var(--dark);
+    padding: 48px;
+    margin-bottom: 48px;
+  }
+
+  .type-stack .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--signal-red);
+    margin-bottom: 16px;
+  }
+
+  .type-stack .heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 0.08em;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+
+  .type-stack .body-zilla {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+
+  .type-stack .body-bitter {
+    font-family: 'Bitter', serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+
+  .type-stack .body-vollkorn {
+    font-family: 'Vollkorn', serif;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text);
+    max-width: 600px;
+    margin-bottom: 24px;
+  }
+
+  .type-stack .ui-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 24px;
+  }
+
+  .type-stack .divider {
+    height: 2px;
+    background: var(--signal-red);
+    margin: 24px 0;
+    max-width: 120px;
+  }
+
+  /* Side by side comparison */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    margin-bottom: 48px;
+  }
+
+  .comparison-col {
+    background: var(--dark);
+    padding: 32px;
+  }
+
+  .comparison-col .col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--signal-red);
+    margin-bottom: 24px;
+  }
+
+  .comparison-col .col-body-zilla {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .comparison-col .col-body-bitter {
+    font-family: 'Bitter', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .comparison-col .col-body-vollkorn {
+    font-family: 'Vollkorn', serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  /* Onboarding simulation */
+  .onboarding-card {
+    background: var(--dark);
+    padding: 48px;
+    margin-bottom: 48px;
+    max-width: 560px;
+  }
+
+  .onboarding-card .step-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    letter-spacing: 0.05em;
+    color: var(--signal-red);
+    line-height: 0.85;
+    margin-bottom: 8px;
+  }
+
+  .onboarding-card .step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .onboarding-card .step-divider {
+    height: 2px;
+    background: var(--signal-red);
+    width: 48px;
+    margin-bottom: 20px;
+  }
+
+  .onboarding-card .step-body-zilla {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .onboarding-card .step-body-bitter {
+    font-family: 'Bitter', serif;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .onboarding-card .step-body-vollkorn {
+    font-family: 'Vollkorn', serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .onboarding-card .step-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* Alert simulation */
+  .alert-card {
+    background: var(--dark);
+    padding: 32px;
+    margin-bottom: 16px;
+    max-width: 480px;
+  }
+
+  .alert-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .alert-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--signal-red);
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .alert-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--signal-red);
+  }
+
+  .alert-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
+  }
+
+  .alert-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 16px;
+  }
+
+  .alert-body-zilla {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .alert-body-bitter {
+    font-family: 'Bitter', serif;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .alert-body-vollkorn {
+    font-family: 'Vollkorn', serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .alert-source {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 12px;
+  }
+
+  /* Italic test */
+  .italic-test {
+    background: var(--dark);
+    padding: 32px;
+    margin-bottom: 48px;
+    max-width: 600px;
+  }
+
+  .italic-test .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .italic-zilla {
+    font-family: 'Zilla Slab', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--light);
+  }
+
+  .italic-bitter {
+    font-family: 'Bitter', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--light);
+  }
+
+  .italic-vollkorn {
+    font-family: 'Vollkorn', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--light);
+  }
+
+  /* Weight specimen */
+  .weight-row {
+    display: flex;
+    gap: 48px;
+    margin-bottom: 16px;
+    align-items: baseline;
+  }
+
+  .weight-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    width: 80px;
+    flex-shrink: 0;
+  }
+
+  .weight-sample {
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+
+  /* Font label */
+  .font-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: right;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 900px) {
+    .comparison-grid { grid-template-columns: 1fr; }
+    .container { padding: 48px 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>STATIONZERO</h1>
+  <div class="subtitle">Voice Serif Exploration · April 2026</div>
+
+  <!-- ============================================ -->
+  <!-- SIDE BY SIDE — Same copy, three typefaces    -->
+  <!-- ============================================ -->
+  <section>
+    <div class="section-label">Same Copy — Three Typefaces</div>
+    <div class="comparison-grid">
+      <div class="comparison-col">
+        <div class="col-label">Zilla Slab · 300</div>
+        <div class="col-body-zilla">
+          StationZero connects your cameras, sensors, and devices into one private system. Everything runs on your hardware. Your footage never leaves your network. You decide what gets recorded, how long it's kept, and who can see it.
+        </div>
+      </div>
+      <div class="comparison-col">
+        <div class="col-label">Bitter · 300</div>
+        <div class="col-body-bitter">
+          StationZero connects your cameras, sensors, and devices into one private system. Everything runs on your hardware. Your footage never leaves your network. You decide what gets recorded, how long it's kept, and who can see it.
+        </div>
+      </div>
+      <div class="comparison-col">
+        <div class="col-label">Vollkorn · 400</div>
+        <div class="col-body-vollkorn">
+          StationZero connects your cameras, sensors, and devices into one private system. Everything runs on your hardware. Your footage never leaves your network. You decide what gets recorded, how long it's kept, and who can see it.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CANDIDATE 1: ZILLA SLAB                     -->
+  <!-- ============================================ -->
+  <section>
+    <div class="candidate-header">01 — ZILLA SLAB</div>
+    <div class="candidate-meta">Mozilla · Slab serif · Weights 300, 400, 500 · Designed for technical communication</div>
+
+    <!-- Full type stack -->
+    <div class="type-stack">
+      <div class="eyebrow">Getting Started</div>
+      <div class="heading">YOUR STATION. YOUR RULES.</div>
+      <div class="divider"></div>
+      <div class="body-zilla">
+        StationZero turns your existing cameras into a unified, private security system. No cloud account. No monthly subscription. No footage leaving your home. Connect any WiFi-enabled camera, point it where you need coverage, and StationZero handles the rest — recording, detection, alerts, and storage — all on hardware you own.
+      </div>
+      <div class="body-zilla" style="color: var(--light); font-weight: 400;">
+        Your footage is stored locally. Detection runs on the edge. Alerts reach you through encrypted channels. Nothing is uploaded, shared, or analyzed by anyone but you.
+      </div>
+      <div class="ui-label">Last updated · 12 Apr 2026 · 14:32</div>
+    </div>
+
+    <!-- Onboarding card -->
+    <div class="section-label" style="margin-top: 32px;">Onboarding</div>
+    <div class="onboarding-card">
+      <div class="step-number">01</div>
+      <div class="step-title">CONNECT YOUR FIRST CAMERA</div>
+      <div class="step-divider"></div>
+      <div class="step-body-zilla">
+        Make sure your camera is on the same WiFi network as your StationZero device. Most WiFi cameras broadcast a discovery signal — StationZero will find it automatically. If your camera doesn't appear within 30 seconds, you can add it manually using its IP address.
+      </div>
+      <div class="step-note">Supports RTSP, ONVIF, and HTTP streams</div>
+    </div>
+
+    <!-- Alert card -->
+    <div class="section-label" style="margin-top: 32px;">Alert Notification</div>
+    <div class="alert-card">
+      <div class="alert-header">
+        <div class="alert-dot"></div>
+        <div class="alert-type">Motion Detected</div>
+        <div class="alert-time">2 min ago</div>
+      </div>
+      <div class="alert-divider"></div>
+      <div class="alert-body-zilla">
+        Movement detected in the front door zone. One person identified, approaching from the street. No match against your known faces list. A 12-second clip has been saved to local storage.
+      </div>
+      <div class="alert-source">Front Door Camera · Zone A</div>
+    </div>
+
+    <!-- Italic -->
+    <div class="section-label" style="margin-top: 32px;">Italic — Pull Quotes &amp; Emphasis</div>
+    <div class="italic-test">
+      <div class="label">Zilla Slab 300 Italic</div>
+      <div class="italic-zilla">Your footage stays on your hardware. That's not a setting you can change. It's how the system works.</div>
+    </div>
+
+    <!-- Weight specimen -->
+    <div class="section-label" style="margin-top: 32px;">Weight Specimen</div>
+    <div class="weight-row">
+      <div class="weight-label">Light 300</div>
+      <div class="weight-sample" style="font-family: 'Zilla Slab', serif; font-weight: 300;">StationZero keeps your footage local.</div>
+    </div>
+    <div class="weight-row">
+      <div class="weight-label">Regular 400</div>
+      <div class="weight-sample" style="font-family: 'Zilla Slab', serif; font-weight: 400;">StationZero keeps your footage local.</div>
+    </div>
+    <div class="weight-row">
+      <div class="weight-label">Medium 500</div>
+      <div class="weight-sample" style="font-family: 'Zilla Slab', serif; font-weight: 500;">StationZero keeps your footage local.</div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CANDIDATE 2: BITTER                          -->
+  <!-- ============================================ -->
+  <section>
+    <div class="candidate-header">02 — BITTER</div>
+    <div class="candidate-meta">eBranding Studio · Screen serif with slab character · Weights 300, 400, 500 · Designed for comfortable screen reading</div>
+
+    <!-- Full type stack -->
+    <div class="type-stack">
+      <div class="eyebrow">Getting Started</div>
+      <div class="heading">YOUR STATION. YOUR RULES.</div>
+      <div class="divider"></div>
+      <div class="body-bitter">
+        StationZero turns your existing cameras into a unified, private security system. No cloud account. No monthly subscription. No footage leaving your home. Connect any WiFi-enabled camera, point it where you need coverage, and StationZero handles the rest — recording, detection, alerts, and storage — all on hardware you own.
+      </div>
+      <div class="body-bitter" style="color: var(--light); font-weight: 400;">
+        Your footage is stored locally. Detection runs on the edge. Alerts reach you through encrypted channels. Nothing is uploaded, shared, or analyzed by anyone but you.
+      </div>
+      <div class="ui-label">Last updated · 12 Apr 2026 · 14:32</div>
+    </div>
+
+    <!-- Onboarding card -->
+    <div class="section-label" style="margin-top: 32px;">Onboarding</div>
+    <div class="onboarding-card">
+      <div class="step-number">01</div>
+      <div class="step-title">CONNECT YOUR FIRST CAMERA</div>
+      <div class="step-divider"></div>
+      <div class="step-body-bitter">
+        Make sure your camera is on the same WiFi network as your StationZero device. Most WiFi cameras broadcast a discovery signal — StationZero will find it automatically. If your camera doesn't appear within 30 seconds, you can add it manually using its IP address.
+      </div>
+      <div class="step-note">Supports RTSP, ONVIF, and HTTP streams</div>
+    </div>
+
+    <!-- Alert card -->
+    <div class="section-label" style="margin-top: 32px;">Alert Notification</div>
+    <div class="alert-card">
+      <div class="alert-header">
+        <div class="alert-dot"></div>
+        <div class="alert-type">Motion Detected</div>
+        <div class="alert-time">2 min ago</div>
+      </div>
+      <div class="alert-divider"></div>
+      <div class="alert-body-bitter">
+        Movement detected in the front door zone. One person identified, approaching from the street. No match against your known faces list. A 12-second clip has been saved to local storage.
+      </div>
+      <div class="alert-source">Front Door Camera · Zone A</div>
+    </div>
+
+    <!-- Italic -->
+    <div class="section-label" style="margin-top: 32px;">Italic — Pull Quotes &amp; Emphasis</div>
+    <div class="italic-test">
+      <div class="label">Bitter 300 Italic</div>
+      <div class="italic-bitter">Your footage stays on your hardware. That's not a setting you can change. It's how the system works.</div>
+    </div>
+
+    <!-- Weight specimen -->
+    <div class="section-label" style="margin-top: 32px;">Weight Specimen</div>
+    <div class="weight-row">
+      <div class="weight-label">Light 300</div>
+      <div class="weight-sample" style="font-family: 'Bitter', serif; font-weight: 300;">StationZero keeps your footage local.</div>
+    </div>
+    <div class="weight-row">
+      <div class="weight-label">Regular 400</div>
+      <div class="weight-sample" style="font-family: 'Bitter', serif; font-weight: 400;">StationZero keeps your footage local.</div>
+    </div>
+    <div class="weight-row">
+      <div class="weight-label">Medium 500</div>
+      <div class="weight-sample" style="font-family: 'Bitter', serif; font-weight: 500;">StationZero keeps your footage local.</div>
+    </div>
+  </section>
+
+  <!-- ============================================ -->
+  <!-- CANDIDATE 3: VOLLKORN                        -->
+  <!-- ============================================ -->
+  <section>
+    <div class="candidate-header">03 — VOLLKORN</div>
+    <div class="candidate-meta">Friedrich Althausen · Text serif · Weights 400, 500, 600 · Designed for long reading</div>
+
+    <!-- Full type stack -->
+    <div class="type-stack">
+      <div class="eyebrow">Getting Started</div>
+      <div class="heading">YOUR STATION. YOUR RULES.</div>
+      <div class="divider"></div>
+      <div class="body-vollkorn">
+        StationZero turns your existing cameras into a unified, private security system. No cloud account. No monthly subscription. No footage leaving your home. Connect any WiFi-enabled camera, point it where you need coverage, and StationZero handles the rest — recording, detection, alerts, and storage — all on hardware you own.
+      </div>
+      <div class="body-vollkorn" style="color: var(--light); font-weight: 500;">
+        Your footage is stored locally. Detection runs on the edge. Alerts reach you through encrypted channels. Nothing is uploaded, shared, or analyzed by anyone but you.
+      </div>
+      <div class="ui-label">Last updated · 12 Apr 2026 · 14:32</div>
+    </div>
+
+    <!-- Onboarding card -->
+    <div class="section-label" style="margin-top: 32px;">Onboarding</div>
+    <div class="onboarding-card">
+      <div class="step-number">01</div>
+      <div class="step-title">CONNECT YOUR FIRST CAMERA</div>
+      <div class="step-divider"></div>
+      <div class="step-body-vollkorn">
+        Make sure your camera is on the same WiFi network as your StationZero device. Most WiFi cameras broadcast a discovery signal — StationZero will find it automatically. If your camera doesn't appear within 30 seconds, you can add it manually using its IP address.
+      </div>
+      <div class="step-note">Supports RTSP, ONVIF, and HTTP streams</div>
+    </div>
+
+    <!-- Alert card -->
+    <div class="section-label" style="margin-top: 32px;">Alert Notification</div>
+    <div class="alert-card">
+      <div class="alert-header">
+        <div class="alert-dot"></div>
+        <div class="alert-type">Motion Detected</div>
+        <div class="alert-time">2 min ago</div>
+      </div>
+      <div class="alert-divider"></div>
+      <div class="alert-body-vollkorn">
+        Movement detected in the front door zone. One person identified, approaching from the street. No match against your known faces list. A 12-second clip has been saved to local storage.
+      </div>
+      <div class="alert-source">Front Door Camera · Zone A</div>
+    </div>
+
+    <!-- Italic -->
+    <div class="section-label" style="margin-top: 32px;">Italic — Pull Quotes &amp; Emphasis</div>
+    <div class="italic-test">
+      <div class="label">Vollkorn 400 Italic</div>
+      <div class="italic-vollkorn">Your footage stays on your hardware. That's not a setting you can change. It's how the system works.</div>
+    </div>
+
+    <!-- Weight specimen -->
+    <div class="section-label" style="margin-top: 32px;">Weight Specimen</div>
+    <div class="weight-row">
+      <div class="weight-label">Regular 400</div>
+      <div class="weight-sample" style="font-family: 'Vollkorn', serif; font-weight: 400;">StationZero keeps your footage local.</div>
+    </div>
+    <div class="weight-row">
+      <div class="weight-label">Medium 500</div>
+      <div class="weight-sample" style="font-family: 'Vollkorn', serif; font-weight: 500;">StationZero keeps your footage local.</div>
+    </div>
+    <div class="weight-row">
+      <div class="weight-label">Semi 600</div>
+      <div class="weight-sample" style="font-family: 'Vollkorn', serif; font-weight: 600;">StationZero keeps your footage local.</div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

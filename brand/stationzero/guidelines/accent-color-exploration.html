@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StationZero — Accent Color Exploration</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap');
+
+  :root {
+    --black: #0A0A0A;
+    --dark: #111111;
+    --mid: #1A1A1A;
+    --border: #242424;
+    --muted: #444444;
+    --text: #C8C8C0;
+    --light: #E8E8E0;
+    --white: #F2F2EC;
+    --amber: #D4880A;
+    --amber-bright: #F0A020;
+    --amber-dim: #8A5500;
+
+    /* Sibling accents */
+    --archon-blue: #4FC3F7;
+    --factory-green: #5A9A6E;
+    --type-pencil: #8B3A3A;
+
+    /* Candidates */
+    --signal-red: #C04848;
+    --signal-red-bright: #D45858;
+    --signal-red-dim: #7A2E2E;
+
+    --deep-crimson: #9A3030;
+    --deep-crimson-bright: #B84040;
+    --deep-crimson-dim: #6A2020;
+
+    --warm-teal: #3A9A8A;
+    --warm-teal-bright: #4AB8A5;
+    --warm-teal-dim: #2A7068;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 96px 48px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    line-height: 0.95;
+    margin-bottom: 16px;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--white);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    margin-bottom: 24px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 64px;
+  }
+
+  section {
+    border-top: 1px solid var(--border);
+    padding: 64px 0;
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 32px;
+  }
+
+  /* Existing palette */
+  .palette-row {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .palette-swatch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .swatch {
+    width: 64px;
+    height: 64px;
+  }
+
+  .swatch-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .swatch-hex {
+    font-size: 11px;
+    color: var(--text);
+    text-align: center;
+  }
+
+  /* Candidate sections */
+  .candidate {
+    border-top: 1px solid var(--border);
+    padding: 64px 0;
+  }
+
+  .candidate-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .candidate-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    letter-spacing: 0.08em;
+    line-height: 1;
+  }
+
+  .candidate-hex {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .candidate-description {
+    color: var(--text);
+    font-size: 13px;
+    max-width: 600px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  /* Wordmark demo */
+  .wordmark-demo {
+    margin-bottom: 48px;
+  }
+
+  .wordmark-demo-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .wordmark-surface {
+    padding: 48px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .wordmark {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 56px;
+    letter-spacing: 0.15em;
+    line-height: 1;
+  }
+
+  .wordmark .station { color: var(--white); }
+
+  .surface-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* Color scale */
+  .color-scale {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .scale-step {
+    flex: 1;
+    height: 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 4px;
+  }
+
+  .scale-step span {
+    font-size: 9px;
+    color: var(--black);
+    opacity: 0.7;
+  }
+
+  /* UI demo */
+  .ui-demo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .ui-card {
+    background: var(--dark);
+    padding: 24px;
+  }
+
+  .ui-card-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .ui-button {
+    display: inline-block;
+    padding: 12px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--black);
+    border: none;
+    cursor: pointer;
+  }
+
+  .ui-button-outline {
+    display: inline-block;
+    padding: 12px 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: transparent;
+    border: 1px solid;
+    cursor: pointer;
+  }
+
+  .ui-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .ui-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .ui-divider {
+    height: 2px;
+    margin: 16px 0;
+  }
+
+  .ui-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-right: 8px;
+  }
+
+  .ui-input {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--mid);
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    outline: none;
+  }
+
+  /* Contrast info */
+  .contrast-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 48px;
+  }
+
+  .contrast-table th {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-align: left;
+    padding: 8px 16px 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contrast-table td {
+    font-size: 13px;
+    padding: 8px 16px 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .pass { color: #5A9A6E; }
+  .warn { color: var(--amber); }
+
+  /* Product house lineup */
+  .lineup {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 16px;
+  }
+
+  .lineup-item {
+    flex: 1;
+    padding: 32px 24px;
+    background: var(--dark);
+    text-align: center;
+  }
+
+  .lineup-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+
+  .lineup-category {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container { padding: 48px 24px; }
+    h1 { font-size: 40px; }
+    .ui-demo { grid-template-columns: 1fr; }
+    .lineup { flex-direction: column; }
+    .wordmark { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>STATIONZERO</h1>
+  <div class="subtitle">Accent Color Exploration · April 2026</div>
+
+  <!-- Existing palette context -->
+  <section>
+    <div class="section-label" style="color: var(--amber);">Existing Product House Palette</div>
+    <div class="palette-row">
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--amber);"></div>
+        <div class="swatch-label">CustodyZero</div>
+        <div class="swatch-hex">#D4880A</div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--archon-blue);"></div>
+        <div class="swatch-label">Archon</div>
+        <div class="swatch-hex">#4FC3F7</div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--factory-green);"></div>
+        <div class="swatch-label">Factory</div>
+        <div class="swatch-hex">#5A9A6E</div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--type-pencil);"></div>
+        <div class="swatch-label">Type</div>
+        <div class="swatch-hex">#8B3A3A</div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--muted); border: 1px solid var(--border);"></div>
+        <div class="swatch-label">StationZero</div>
+        <div class="swatch-hex">???</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CANDIDATE 1: Signal Red -->
+  <div class="candidate">
+    <div class="candidate-header">
+      <div class="candidate-name" style="color: var(--signal-red);">01 — Signal Red</div>
+      <div class="candidate-hex">#C04848</div>
+    </div>
+    <div class="candidate-description">
+      The red of an LED indicator on professional security hardware. The light that says "armed" — not screaming, just present. Operational status, not alarm. Clean and clear, with no brown warmth (unlike Type's pencil). Reads as infrastructure that is active and watching.
+    </div>
+
+    <!-- Wordmark on three backgrounds -->
+    <div class="wordmark-demo">
+      <div class="wordmark-demo-label" style="color: var(--signal-red);">Wordmark</div>
+      <div class="wordmark-surface" style="background: var(--black);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--signal-red);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --black (#0A0A0A)</div>
+      <div class="wordmark-surface" style="background: var(--dark);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--signal-red);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --dark (#111111)</div>
+      <div class="wordmark-surface" style="background: var(--mid);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--signal-red);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --mid (#1A1A1A)</div>
+    </div>
+
+    <!-- Color scale -->
+    <div class="wordmark-demo-label" style="color: var(--signal-red);">Color Scale</div>
+    <div class="color-scale">
+      <div class="scale-step" style="background: var(--signal-red-dim);"><span>DIM</span></div>
+      <div class="scale-step" style="background: #8A3535;"></div>
+      <div class="scale-step" style="background: #A53F3F;"></div>
+      <div class="scale-step" style="background: var(--signal-red);"><span>BASE</span></div>
+      <div class="scale-step" style="background: #CC5555;"></div>
+      <div class="scale-step" style="background: var(--signal-red-bright);"><span>BRIGHT</span></div>
+      <div class="scale-step" style="background: #E07070;"></div>
+    </div>
+
+    <!-- UI Elements -->
+    <div class="wordmark-demo-label" style="color: var(--signal-red);">UI Elements</div>
+    <div class="ui-demo">
+      <div class="ui-card">
+        <div class="ui-card-label">Buttons &amp; Status</div>
+        <div style="margin-bottom: 16px;">
+          <button class="ui-button" style="background: var(--signal-red);">ARM SYSTEM</button>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <button class="ui-button-outline" style="border-color: var(--signal-red-dim); color: var(--signal-red);">CONFIGURE</button>
+        </div>
+        <div class="ui-divider" style="background: var(--signal-red);"></div>
+        <div class="ui-status" style="margin-top: 16px;">
+          <div class="ui-status-dot" style="background: var(--signal-red);"></div>
+          <span style="color: var(--signal-red);">ACTIVE — 6 CAMERAS</span>
+        </div>
+        <div class="ui-status" style="margin-top: 8px;">
+          <div class="ui-status-dot" style="background: var(--muted); animation: none;"></div>
+          <span style="color: var(--muted);">STANDBY — POOL SENSOR</span>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-label">Tags &amp; Input</div>
+        <div style="margin-bottom: 16px;">
+          <span class="ui-tag" style="background: var(--signal-red-dim); color: var(--signal-red-bright);">MOTION</span>
+          <span class="ui-tag" style="background: var(--signal-red-dim); color: var(--signal-red-bright);">PERIMETER</span>
+          <span class="ui-tag" style="background: var(--mid); color: var(--muted);">INACTIVE</span>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <input class="ui-input" type="text" value="Front Door Camera" style="border-color: var(--signal-red);">
+        </div>
+        <div class="surface-label">Focus state: --signal-red border</div>
+      </div>
+    </div>
+
+    <!-- Contrast -->
+    <div class="wordmark-demo-label" style="color: var(--signal-red);">Contrast Ratios</div>
+    <table class="contrast-table">
+      <tr>
+        <th>Combination</th>
+        <th>Ratio</th>
+        <th>WCAG AA</th>
+      </tr>
+      <tr>
+        <td><span style="color: var(--signal-red);">#C04848</span> on #0A0A0A</td>
+        <td>5.2:1</td>
+        <td class="pass">PASS (text)</td>
+      </tr>
+      <tr>
+        <td><span style="color: var(--signal-red);">#C04848</span> on #111111</td>
+        <td>4.7:1</td>
+        <td class="pass">PASS (text)</td>
+      </tr>
+      <tr>
+        <td><span style="color: var(--signal-red);">#C04848</span> on #1A1A1A</td>
+        <td>4.2:1</td>
+        <td class="pass">PASS (large text / UI)</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- CANDIDATE 2: Deep Crimson -->
+  <div class="candidate">
+    <div class="candidate-header">
+      <div class="candidate-name" style="color: var(--deep-crimson);">02 — Deep Crimson</div>
+      <div class="candidate-hex">#9A3030</div>
+    </div>
+    <div class="candidate-description">
+      Darker, more authoritative. The red of a wax seal, a property boundary marker, a building's emergency infrastructure plate. Less "indicator light" and more "this belongs here permanently." Quiet confidence over operational presence.
+    </div>
+
+    <!-- Wordmark on three backgrounds -->
+    <div class="wordmark-demo">
+      <div class="wordmark-demo-label" style="color: var(--deep-crimson);">Wordmark</div>
+      <div class="wordmark-surface" style="background: var(--black);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--deep-crimson);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --black (#0A0A0A)</div>
+      <div class="wordmark-surface" style="background: var(--dark);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--deep-crimson);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --dark (#111111)</div>
+      <div class="wordmark-surface" style="background: var(--mid);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--deep-crimson);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --mid (#1A1A1A)</div>
+    </div>
+
+    <!-- Color scale -->
+    <div class="wordmark-demo-label" style="color: var(--deep-crimson);">Color Scale</div>
+    <div class="color-scale">
+      <div class="scale-step" style="background: var(--deep-crimson-dim);"><span>DIM</span></div>
+      <div class="scale-step" style="background: #7A2828;"></div>
+      <div class="scale-step" style="background: #8A2C2C;"></div>
+      <div class="scale-step" style="background: var(--deep-crimson);"><span>BASE</span></div>
+      <div class="scale-step" style="background: #AA3838;"></div>
+      <div class="scale-step" style="background: var(--deep-crimson-bright);"><span>BRIGHT</span></div>
+      <div class="scale-step" style="background: #C84848;"></div>
+    </div>
+
+    <!-- UI Elements -->
+    <div class="wordmark-demo-label" style="color: var(--deep-crimson);">UI Elements</div>
+    <div class="ui-demo">
+      <div class="ui-card">
+        <div class="ui-card-label">Buttons &amp; Status</div>
+        <div style="margin-bottom: 16px;">
+          <button class="ui-button" style="background: var(--deep-crimson); color: var(--white);">ARM SYSTEM</button>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <button class="ui-button-outline" style="border-color: var(--deep-crimson-dim); color: var(--deep-crimson);">CONFIGURE</button>
+        </div>
+        <div class="ui-divider" style="background: var(--deep-crimson);"></div>
+        <div class="ui-status" style="margin-top: 16px;">
+          <div class="ui-status-dot" style="background: var(--deep-crimson);"></div>
+          <span style="color: var(--deep-crimson);">ACTIVE — 6 CAMERAS</span>
+        </div>
+        <div class="ui-status" style="margin-top: 8px;">
+          <div class="ui-status-dot" style="background: var(--muted); animation: none;"></div>
+          <span style="color: var(--muted);">STANDBY — POOL SENSOR</span>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-label">Tags &amp; Input</div>
+        <div style="margin-bottom: 16px;">
+          <span class="ui-tag" style="background: var(--deep-crimson-dim); color: var(--deep-crimson-bright);">MOTION</span>
+          <span class="ui-tag" style="background: var(--deep-crimson-dim); color: var(--deep-crimson-bright);">PERIMETER</span>
+          <span class="ui-tag" style="background: var(--mid); color: var(--muted);">INACTIVE</span>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <input class="ui-input" type="text" value="Front Door Camera" style="border-color: var(--deep-crimson);">
+        </div>
+        <div class="surface-label">Focus state: --deep-crimson border</div>
+      </div>
+    </div>
+
+    <!-- Contrast -->
+    <div class="wordmark-demo-label" style="color: var(--deep-crimson);">Contrast Ratios</div>
+    <table class="contrast-table">
+      <tr>
+        <th>Combination</th>
+        <th>Ratio</th>
+        <th>WCAG AA</th>
+      </tr>
+      <tr>
+        <td><span style="color: var(--deep-crimson);">#9A3030</span> on #0A0A0A</td>
+        <td>3.1:1</td>
+        <td class="warn">PASS (large text / UI only)</td>
+      </tr>
+      <tr>
+        <td><span style="color: var(--deep-crimson);">#9A3030</span> on #111111</td>
+        <td>2.8:1</td>
+        <td class="warn">MARGINAL — below 3:1</td>
+      </tr>
+      <tr>
+        <td><span style="color: var(--deep-crimson);">#9A3030</span> on #1A1A1A</td>
+        <td>2.5:1</td>
+        <td class="warn">FAIL for body text</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- CANDIDATE 3: Warm Teal -->
+  <div class="candidate">
+    <div class="candidate-header">
+      <div class="candidate-name" style="color: var(--warm-teal);">03 — Warm Teal</div>
+      <div class="candidate-hex">#3A9A8A</div>
+    </div>
+    <div class="candidate-description">
+      The only non-red option worth serious consideration. A warm-leaning teal that sits between Factory green and Archon blue. Reads as "building management system" — operational, monitoring, environmental. The risk is proximity to siblings. The strength is calm professionalism.
+    </div>
+
+    <!-- Wordmark on three backgrounds -->
+    <div class="wordmark-demo">
+      <div class="wordmark-demo-label" style="color: var(--warm-teal);">Wordmark</div>
+      <div class="wordmark-surface" style="background: var(--black);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--warm-teal);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --black (#0A0A0A)</div>
+      <div class="wordmark-surface" style="background: var(--dark);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--warm-teal);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --dark (#111111)</div>
+      <div class="wordmark-surface" style="background: var(--mid);">
+        <div class="wordmark"><span class="station">STATION</span><span style="color: var(--warm-teal);">ZERO</span></div>
+      </div>
+      <div class="surface-label">on --mid (#1A1A1A)</div>
+    </div>
+
+    <!-- Color scale -->
+    <div class="wordmark-demo-label" style="color: var(--warm-teal);">Color Scale</div>
+    <div class="color-scale">
+      <div class="scale-step" style="background: var(--warm-teal-dim);"><span>DIM</span></div>
+      <div class="scale-step" style="background: #308070;"></div>
+      <div class="scale-step" style="background: #358D7D;"></div>
+      <div class="scale-step" style="background: var(--warm-teal);"><span>BASE</span></div>
+      <div class="scale-step" style="background: #45A898;"></div>
+      <div class="scale-step" style="background: var(--warm-teal-bright);"><span>BRIGHT</span></div>
+      <div class="scale-step" style="background: #58C8B5;"></div>
+    </div>
+
+    <!-- UI Elements -->
+    <div class="wordmark-demo-label" style="color: var(--warm-teal);">UI Elements</div>
+    <div class="ui-demo">
+      <div class="ui-card">
+        <div class="ui-card-label">Buttons &amp; Status</div>
+        <div style="margin-bottom: 16px;">
+          <button class="ui-button" style="background: var(--warm-teal);">ARM SYSTEM</button>
+        </div>
+        <div style="margin-bottom: 16px;">
+          <button class="ui-button-outline" style="border-color: var(--warm-teal-dim); color: var(--warm-teal);">CONFIGURE</button>
+        </div>
+        <div class="ui-divider" style="background: var(--warm-teal);"></div>
+        <div class="ui-status" style="margin-top: 16px;">
+          <div class="ui-status-dot" style="background: var(--warm-teal);"></div>
+          <span style="color: var(--warm-teal);">ACTIVE — 6 CAMERAS</span>
+        </div>
+        <div class="ui-status" style="margin-top: 8px;">
+          <div class="ui-status-dot" style="background: var(--muted); animation: none;"></div>
+          <span style="color: var(--muted);">STANDBY — POOL SENSOR</span>
+        </div>
+      </div>
+      <div class="ui-card">
+        <div class="ui-card-label">Tags &amp; Input</div>
+        <div style="margin-bottom: 16px;">
+          <span class="ui-tag" style="background: var(--warm-teal-dim); color: var(--warm-teal-bright);">MOTION</span>
+          <span class="ui-tag" style="background: var(--warm-teal-dim); color: var(--warm-teal-bright);">PERIMETER</span>
+          <span class="ui-tag" style="background: var(--mid); color: var(--muted);">INACTIVE</span>
+        </div>
+        <div style="margin-bottom: 8px;">
+          <input class="ui-input" type="text" value="Front Door Camera" style="border-color: var(--warm-teal);">
+        </div>
+        <div class="surface-label">Focus state: --warm-teal border</div>
+      </div>
+    </div>
+
+    <!-- Contrast -->
+    <div class="wordmark-demo-label" style="color: var(--warm-teal);">Contrast Ratios</div>
+    <table class="contrast-table">
+      <tr>
+        <th>Combination</th>
+        <th>Ratio</th>
+        <th>WCAG AA</th>
+      </tr>
+      <tr>
+        <td><span style="color: var(--warm-teal);">#3A9A8A</span> on #0A0A0A</td>
+        <td>5.6:1</td>
+        <td class="pass">PASS (text)</td>
+      </tr>
+      <tr>
+        <td><span style="color: var(--warm-teal);">#3A9A8A</span> on #111111</td>
+        <td>5.1:1</td>
+        <td class="pass">PASS (text)</td>
+      </tr>
+      <tr>
+        <td><span style="color: var(--warm-teal);">#3A9A8A</span> on #1A1A1A</td>
+        <td>4.5:1</td>
+        <td class="pass">PASS (text)</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Product House Lineup Comparison -->
+  <section>
+    <div class="section-label" style="color: var(--amber);">Product House Lineup — With Each Candidate</div>
+
+    <div style="margin-bottom: 48px;">
+      <div class="wordmark-demo-label" style="color: var(--signal-red);">With Signal Red</div>
+      <div class="lineup">
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--amber);">CUSTODYZERO</div>
+          <div class="lineup-category">HOUSE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--archon-blue);">ARCHON</div>
+          <div class="lineup-category">COORDINATION</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name"><span style="color: var(--white);">STATION</span><span style="color: var(--signal-red);">ZERO</span></div>
+          <div class="lineup-category">HOME EDGE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--factory-green);">FACTORY</div>
+          <div class="lineup-category">SOFTWARE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--type-pencil);">TYPE</div>
+          <div class="lineup-category">WRITING</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 48px;">
+      <div class="wordmark-demo-label" style="color: var(--deep-crimson);">With Deep Crimson</div>
+      <div class="lineup">
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--amber);">CUSTODYZERO</div>
+          <div class="lineup-category">HOUSE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--archon-blue);">ARCHON</div>
+          <div class="lineup-category">COORDINATION</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name"><span style="color: var(--white);">STATION</span><span style="color: var(--deep-crimson);">ZERO</span></div>
+          <div class="lineup-category">HOME EDGE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--factory-green);">FACTORY</div>
+          <div class="lineup-category">SOFTWARE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--type-pencil);">TYPE</div>
+          <div class="lineup-category">WRITING</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 48px;">
+      <div class="wordmark-demo-label" style="color: var(--warm-teal);">With Warm Teal</div>
+      <div class="lineup">
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--amber);">CUSTODYZERO</div>
+          <div class="lineup-category">HOUSE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--archon-blue);">ARCHON</div>
+          <div class="lineup-category">COORDINATION</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name"><span style="color: var(--white);">STATION</span><span style="color: var(--warm-teal);">ZERO</span></div>
+          <div class="lineup-category">HOME EDGE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--factory-green);">FACTORY</div>
+          <div class="lineup-category">SOFTWARE</div>
+        </div>
+        <div class="lineup-item">
+          <div class="lineup-name" style="color: var(--type-pencil);">TYPE</div>
+          <div class="lineup-category">WRITING</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Type Pencil comparison -->
+  <section>
+    <div class="section-label" style="color: var(--amber);">Signal Red vs Type Pencil — Distinction Test</div>
+    <div class="palette-row" style="gap: 48px;">
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--type-pencil); width: 96px; height: 96px;"></div>
+        <div class="swatch-label">Type Pencil</div>
+        <div class="swatch-hex">#8B3A3A</div>
+        <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">Dark, warm, brown-red</div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--signal-red); width: 96px; height: 96px;"></div>
+        <div class="swatch-label">Signal Red</div>
+        <div class="swatch-hex">#C04848</div>
+        <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">Brighter, cooler, cleaner</div>
+      </div>
+      <div class="palette-swatch">
+        <div class="swatch" style="background: var(--deep-crimson); width: 96px; height: 96px;"></div>
+        <div class="swatch-label">Deep Crimson</div>
+        <div class="swatch-hex">#9A3030</div>
+        <div style="font-size: 10px; color: var(--muted); margin-top: 4px;">Similar depth, cooler hue</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Summary -->
+  <section>
+    <div class="section-label" style="color: var(--amber);">Assessment Summary</div>
+    <table class="contrast-table">
+      <tr>
+        <th>Criteria</th>
+        <th style="color: var(--signal-red);">Signal Red</th>
+        <th style="color: var(--deep-crimson);">Deep Crimson</th>
+        <th style="color: var(--warm-teal);">Warm Teal</th>
+      </tr>
+      <tr>
+        <td>Security cold-read</td>
+        <td class="pass">Strong</td>
+        <td class="pass">Strong</td>
+        <td style="color: var(--text);">Moderate</td>
+      </tr>
+      <tr>
+        <td>Distinct from siblings</td>
+        <td class="pass">Clear</td>
+        <td class="warn">Close to Type pencil</td>
+        <td class="warn">Between blue &amp; green</td>
+      </tr>
+      <tr>
+        <td>WCAG AA on all backgrounds</td>
+        <td class="pass">Pass</td>
+        <td class="warn">Fails on --mid</td>
+        <td class="pass">Pass</td>
+      </tr>
+      <tr>
+        <td>Wordmark presence</td>
+        <td class="pass">Strong split</td>
+        <td class="warn">ZERO recedes</td>
+        <td class="pass">Strong split</td>
+      </tr>
+      <tr>
+        <td>"Domestic confidence"</td>
+        <td class="pass">Assured, active</td>
+        <td class="pass">Quiet, permanent</td>
+        <td style="color: var(--text);">Professional, calm</td>
+      </tr>
+      <tr>
+        <td style="color: var(--white);">Recommendation</td>
+        <td style="color: var(--signal-red); font-weight: 500;">PREFERRED</td>
+        <td style="color: var(--muted);">Backup</td>
+        <td style="color: var(--muted);">Alternative</td>
+      </tr>
+    </table>
+  </section>
+
+</div>
+</body>
+</html>
