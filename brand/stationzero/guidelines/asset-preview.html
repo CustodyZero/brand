@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>StationZero Asset Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: #0A0A0A;
+    color: #F2F2EC;
+    padding: 48px;
+    line-height: 1.6;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap');
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.15em;
+    color: #C04848;
+    margin-bottom: 8px;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+  .subtitle {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 48px;
+  }
+
+  .section {
+    margin-bottom: 64px;
+  }
+  .section-label {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+
+  .preview-row {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+
+  .preview-card {
+    padding: 32px;
+    position: relative;
+  }
+  .preview-card .bg-label {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 9px;
+    color: #444;
+    letter-spacing: 0.1em;
+  }
+
+  .bg-0a { background: #0A0A0A; }
+  .bg-11 { background: #111111; }
+  .bg-1a { background: #1A1A1A; }
+  .bg-white { background: #F2F2EC; }
+
+  .wordmark-img {
+    height: 80px;
+    width: auto;
+    display: block;
+  }
+
+  .icon-row {
+    display: flex;
+    gap: 48px;
+    align-items: flex-end;
+  }
+  .icon-item {
+    text-align: center;
+  }
+  .icon-item img {
+    display: block;
+    margin-bottom: 8px;
+  }
+  .icon-item .size-label {
+    font-size: 9px;
+    color: #555;
+  }
+
+  .lineup {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .lineup-item {
+    text-align: center;
+  }
+  .lineup-item .product-name {
+    font-size: 10px;
+    color: #555;
+    margin-top: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .notes {
+    font-size: 11px;
+    color: #666;
+    max-width: 600px;
+    line-height: 1.8;
+  }
+  .notes li {
+    margin-bottom: 4px;
+    list-style: none;
+    padding-left: 16px;
+    position: relative;
+  }
+  .notes li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 4px;
+    height: 4px;
+    background: #C04848;
+    border-radius: 0;
+  }
+
+  .color-swatch {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+</style>
+</head>
+<body>
+
+<h1>STATIONZERO</h1>
+<div class="subtitle">Asset Preview &mdash; Wordmark + Icon Mark</div>
+
+<!-- Wordmark: Dark variant on all three backgrounds -->
+<div class="section">
+  <div class="section-label">Wordmark &mdash; Dark Variant (STATION white / ZERO Signal Red)</div>
+  <div class="preview-row">
+    <div class="preview-card bg-0a">
+      <span class="bg-label">#0A0A0A</span>
+      <img class="wordmark-img" src="../wordmark/stationzero-wordmark-dark.svg" alt="StationZero wordmark on #0A0A0A">
+    </div>
+    <div class="preview-card bg-11">
+      <span class="bg-label">#111111</span>
+      <img class="wordmark-img" src="../wordmark/stationzero-wordmark-dark.svg" alt="StationZero wordmark on #111111">
+    </div>
+    <div class="preview-card bg-1a">
+      <span class="bg-label">#1A1A1A</span>
+      <img class="wordmark-img" src="../wordmark/stationzero-wordmark-dark.svg" alt="StationZero wordmark on #1A1A1A">
+    </div>
+  </div>
+</div>
+
+<!-- Wordmark: Red variant -->
+<div class="section">
+  <div class="section-label">Wordmark &mdash; Red Variant (Single-color Signal Red)</div>
+  <div class="preview-row">
+    <div class="preview-card bg-0a">
+      <span class="bg-label">#0A0A0A</span>
+      <img class="wordmark-img" src="../wordmark/stationzero-wordmark-red.svg" alt="StationZero red wordmark on #0A0A0A">
+    </div>
+    <div class="preview-card bg-white">
+      <span class="bg-label">#F2F2EC</span>
+      <img class="wordmark-img" src="../wordmark/stationzero-wordmark-red.svg" alt="StationZero red wordmark on white">
+    </div>
+  </div>
+</div>
+
+<!-- Wordmark: PNG rasters -->
+<div class="section">
+  <div class="section-label">Wordmark &mdash; PNG Rasters (@2x, @3x)</div>
+  <div class="preview-row">
+    <div class="preview-card bg-11">
+      <span class="bg-label">@2x (940x160)</span>
+      <img style="height: 80px; width: auto;" src="../wordmark/stationzero-wordmark-dark@2x.png" alt="StationZero @2x">
+    </div>
+    <div class="preview-card bg-11">
+      <span class="bg-label">@3x (1410x240)</span>
+      <img style="height: 80px; width: auto;" src="../wordmark/stationzero-wordmark-dark@3x.png" alt="StationZero @3x">
+    </div>
+  </div>
+</div>
+
+<!-- Icon mark -->
+<div class="section">
+  <div class="section-label">Icon Mark &mdash; SVG Source</div>
+  <div class="preview-row">
+    <div class="preview-card bg-0a">
+      <span class="bg-label">#0A0A0A &mdash; 64px</span>
+      <img src="../icon/stationzero-icon-dark.svg" width="64" height="64" alt="StationZero icon 64px">
+    </div>
+    <div class="preview-card bg-11">
+      <span class="bg-label">#111111 &mdash; 128px</span>
+      <img src="../icon/stationzero-icon-dark.svg" width="128" height="128" alt="StationZero icon 128px">
+    </div>
+    <div class="preview-card bg-1a">
+      <span class="bg-label">#1A1A1A &mdash; 192px</span>
+      <img src="../icon/stationzero-icon-dark.svg" width="192" height="192" alt="StationZero icon 192px">
+    </div>
+  </div>
+</div>
+
+<!-- Icon mark: size legibility -->
+<div class="section">
+  <div class="section-label">Icon Mark &mdash; Size Legibility Test</div>
+  <div class="preview-card bg-11" style="padding: 48px;">
+    <div class="icon-row">
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark.svg" width="16" height="16" alt="16px">
+        <div class="size-label">16px (favicon)</div>
+      </div>
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark.svg" width="24" height="24" alt="24px">
+        <div class="size-label">24px (tab)</div>
+      </div>
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark.svg" width="32" height="32" alt="32px">
+        <div class="size-label">32px (toolbar)</div>
+      </div>
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark.svg" width="48" height="48" alt="48px">
+        <div class="size-label">48px (dock)</div>
+      </div>
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark.svg" width="64" height="64" alt="64px">
+        <div class="size-label">64px (1:1)</div>
+      </div>
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark.svg" width="128" height="128" alt="128px">
+        <div class="size-label">128px (2x)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Icon mark: PNG rasters -->
+<div class="section">
+  <div class="section-label">Icon Mark &mdash; PNG Rasters</div>
+  <div class="preview-card bg-11" style="padding: 48px;">
+    <div class="icon-row">
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark@2x.png" width="64" height="64" alt="@2x PNG rendered at 64px">
+        <div class="size-label">@2x PNG (128px native, shown 64px)</div>
+      </div>
+      <div class="icon-item">
+        <img src="../icon/stationzero-icon-dark@3x.png" width="64" height="64" alt="@3x PNG rendered at 64px">
+        <div class="size-label">@3x PNG (192px native, shown 64px)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Design notes -->
+<div class="section">
+  <div class="section-label">Design Notes</div>
+  <ul class="notes">
+    <li>Wordmark follows CustodyZero clipPath technique: two identical text elements clipped at the split boundary</li>
+    <li>Canvas: 470 x 80px (matches CustodyZero house standard)</li>
+    <li>Split point: STATION (298.81px) measured from glyph advance widths via fontTools</li>
+    <li>Font: Bebas Neue @ 83.7px, letter-spacing 0.15em</li>
+    <li><span class="color-swatch" style="background:#F2F2EC;"></span> STATION in --white (#F2F2EC)</li>
+    <li><span class="color-swatch" style="background:#C04848;"></span> ZERO in Signal Red (#C04848)</li>
+    <li>Icon mark: square perimeter (48px within 64px canvas) with gap at bottom-right corner + center node (r=3)</li>
+    <li>Gap represents active monitoring of the boundary; center dot is the local processing station</li>
+  </ul>
+</div>
+
+</body>
+</html>

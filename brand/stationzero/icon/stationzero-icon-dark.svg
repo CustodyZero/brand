@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- StationZero icon: squared slashed zero -->
+  <!-- Frame: the zero glyph, squared off -->
+  <rect x="12" y="6" width="40" height="52"
+        fill="none" stroke="#C04848" stroke-width="5"/>
+  <!-- Slash: 80% of corner diagonal, centered, same angle -->
+  <line x1="18.0" y1="50.8" x2="46.0" y2="13.2"
+        stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+</svg>

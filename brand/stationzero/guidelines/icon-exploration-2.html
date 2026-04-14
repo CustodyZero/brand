@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>StationZero Icon Mark Exploration — Round 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: #0A0A0A;
+    color: #F2F2EC;
+    padding: 48px 48px 96px;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.15em;
+    color: #C04848;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 48px;
+  }
+
+  .direction-note {
+    background: #111111;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+    max-width: 720px;
+    font-size: 11px;
+    color: #777;
+    line-height: 1.8;
+  }
+  .direction-note strong { color: #F2F2EC; }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+
+  .concept-card {
+    background: #111111;
+    padding: 32px;
+  }
+  .concept-card .label {
+    font-size: 10px;
+    color: #C04848;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+  .concept-card .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  .icon-display {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding: 24px;
+    background: #0A0A0A;
+  }
+  .icon-size {
+    text-align: center;
+  }
+  .icon-size svg {
+    display: block;
+    margin: 0 auto 6px;
+  }
+  .icon-size .sz {
+    font-size: 8px;
+    color: #444;
+  }
+
+  .concept-desc {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .concept-rationale {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .section-label {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+
+  .comparison-row {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding: 32px;
+    background: #111111;
+  }
+  .comparison-item {
+    text-align: center;
+  }
+  .comparison-item svg {
+    display: block;
+    margin: 0 auto 8px;
+  }
+  .comparison-item .cname {
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<h1>ICON MARK EXPLORATION — ROUND 2</h1>
+<div class="subtitle">Beyond geometric frames</div>
+
+<div class="direction-note">
+  <strong>Why we're moving away from frames:</strong> Round 1 explored square perimeters with interior details (dots, crosshairs, gaps). The honest problem: at favicon size (16px), every variation collapsed to "red square." The differentiating detail vanished. The frame was the least interesting part of every mark and the only thing that survived. We need marks with distinctive <strong>silhouettes</strong> that hold at every size.
+</div>
+
+<div class="concept-grid">
+
+  <!-- G: Squared Zero -->
+  <div class="concept-card">
+    <div class="label">Concept G</div>
+    <div class="name">SQUARED ZERO</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- A geometric zero: squared-off, thick stroke, not a circle -->
+          <!-- Outer rect forms the zero shape -->
+          <rect x="12" y="6" width="40" height="52" rx="0" fill="none" stroke="#C04848" stroke-width="5"/>
+          <!-- Diagonal bar through center — distinguishes 0 from O -->
+          <line x1="20" y1="44" x2="44" y2="20" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="12" y="6" width="40" height="52" rx="0" fill="none" stroke="#C04848" stroke-width="5"/>
+          <line x1="20" y1="44" x2="44" y2="20" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="12" y="6" width="40" height="52" rx="0" fill="none" stroke="#C04848" stroke-width="5"/>
+          <line x1="20" y1="44" x2="44" y2="20" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      A squared-off typographic zero with slashed center. No curves — pure CustodyZero geometry.
+    </div>
+    <div class="concept-rationale">
+      The zero is the shared identity across the product house. The slash distinguishes it from the letter O and from a generic rectangle. The squared form (no border-radius) is a CustodyZero house constraint applied to the letterform itself. Reads as a specific character at every size — the slash survives 16px. Direct, typographic, zero ambiguity about what it represents.
+    </div>
+  </div>
+
+  <!-- H: Slashed zero — rounder proportions -->
+  <div class="concept-card">
+    <div class="label">Concept H</div>
+    <div class="name">SLASHED ZERO — TALL</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Taller, narrower zero — more like Bebas Neue proportions -->
+          <rect x="14" y="4" width="36" height="56" rx="0" fill="none" stroke="#C04848" stroke-width="4.5"/>
+          <!-- Dot in center instead of slash — more station-like -->
+          <circle cx="32" cy="32" r="4" fill="#C04848"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="14" y="4" width="36" height="56" rx="0" fill="none" stroke="#C04848" stroke-width="4.5"/>
+          <circle cx="32" cy="32" r="4" fill="#C04848"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="14" y="4" width="36" height="56" rx="0" fill="none" stroke="#C04848" stroke-width="4.5"/>
+          <circle cx="32" cy="32" r="4" fill="#C04848"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Taller, narrower zero (Bebas Neue proportions) with a center dot instead of a slash.
+    </div>
+    <div class="concept-rationale">
+      Proportions echo the display typeface. The center dot replaces the slash — reads as "zero with a station inside it" rather than "slashed zero." More metaphorical. But the dot has the same 16px survival problem from Round 1 — at favicon size this becomes a plain rectangle.
+    </div>
+  </div>
+
+  <!-- I: Hub / Convergence -->
+  <div class="concept-card">
+    <div class="label">Concept I</div>
+    <div class="name">CONVERGENCE</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Four lines converging toward center, stopping short -->
+          <!-- Creates a plus/cross negative space at center -->
+          <line x1="8" y1="8" x2="27" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="37" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="27" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="56" y1="56" x2="37" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <!-- Center node -->
+          <rect x="28" y="28" width="8" height="8" fill="#C04848"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <line x1="8" y1="8" x2="27" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="37" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="27" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="56" y1="56" x2="37" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <rect x="28" y="28" width="8" height="8" fill="#C04848"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <line x1="8" y1="8" x2="27" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="37" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="27" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <line x1="56" y1="56" x2="37" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+          <rect x="28" y="28" width="8" height="8" fill="#C04848"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Four diagonal lines converging from corners toward a center square node.
+    </div>
+    <div class="concept-rationale">
+      Everything reports to a central point — the station. The lines are inbound, not outbound (convergence, not broadcast). The gap between lines and center creates breathing room. Distinctive silhouette: at any size, the X-like shape with a center block is recognizable. Risk: might read as a generic "connect" or "network" icon.
+    </div>
+  </div>
+
+  <!-- J: Filled zero with knockout -->
+  <div class="concept-card">
+    <div class="label">Concept J</div>
+    <div class="name">ZERO BLOCK</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Solid filled zero shape with interior knocked out -->
+          <path d="M14,4 L50,4 L50,60 L14,60 Z M22,14 L22,50 L42,50 L42,14 Z" fill="#C04848" fill-rule="evenodd"/>
+          <!-- Diagonal slash through the void -->
+          <line x1="24" y1="46" x2="40" y2="18" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <path d="M14,4 L50,4 L50,60 L14,60 Z M22,14 L22,50 L42,50 L42,14 Z" fill="#C04848" fill-rule="evenodd"/>
+          <line x1="24" y1="46" x2="40" y2="18" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <path d="M14,4 L50,4 L50,60 L14,60 Z M22,14 L22,50 L42,50 L42,14 Z" fill="#C04848" fill-rule="evenodd"/>
+          <line x1="24" y1="46" x2="40" y2="18" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Filled zero glyph — heavy stroke weight, slashed, solid presence.
+    </div>
+    <div class="concept-rationale">
+      The heaviest typographic approach. This is the zero treated as architecture — thick walls, defined interior void, diagonal brace. Impossible to misread at any size. The slash and thick frame both survive 16px. Boldest mark in the set. Reads unmistakably as "zero." Risk: may feel too heavy or too close to a literal font glyph rather than a designed mark.
+    </div>
+  </div>
+
+  <!-- K: Monogram SZ -->
+  <div class="concept-card">
+    <div class="label">Concept K</div>
+    <div class="name">SZ MONOGRAM</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- S: simplified geometric S -->
+          <line x1="8" y1="10" x2="28" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="10" x2="8" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="28" y1="32" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="54" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <!-- Z: geometric Z -->
+          <line x1="36" y1="10" x2="56" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="56" y1="10" x2="36" y2="54" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+          <line x1="36" y1="54" x2="56" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <line x1="8" y1="10" x2="28" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="10" x2="8" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="28" y1="32" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="54" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="36" y1="10" x2="56" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="56" y1="10" x2="36" y2="54" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+          <line x1="36" y1="54" x2="56" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <line x1="8" y1="10" x2="28" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="10" x2="8" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="28" y1="32" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="8" y1="54" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="36" y1="10" x2="56" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+          <line x1="56" y1="10" x2="36" y2="54" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+          <line x1="36" y1="54" x2="56" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      StationZero initials as a geometric monogram. S and Z side by side.
+    </div>
+    <div class="concept-rationale">
+      Directly spells the product abbreviation. The geometric construction (all straight lines, square caps) fits the house style. The S and Z have complementary shapes — S steps down-right, Z diagonals down-left, creating visual counterpoint. Risk: too much detail for 16px — the S especially will become illegible. Monograms also feel corporate rather than infrastructural.
+    </div>
+  </div>
+
+  <!-- L: Grounded node -->
+  <div class="concept-card">
+    <div class="label">Concept L</div>
+    <div class="name">GROUNDED NODE</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Central filled square — the station -->
+          <rect x="22" y="22" width="20" height="20" fill="#C04848"/>
+          <!-- Ground lines beneath — electrical ground symbol -->
+          <line x1="32" y1="42" x2="32" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="22" y1="50" x2="42" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="25" y1="54" x2="39" y2="54" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="28" y1="58" x2="36" y2="58" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <!-- Antenna / signal line above -->
+          <line x1="32" y1="10" x2="32" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="22" y="22" width="20" height="20" fill="#C04848"/>
+          <line x1="32" y1="42" x2="32" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="22" y1="50" x2="42" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="25" y1="54" x2="39" y2="54" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="28" y1="58" x2="36" y2="58" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="32" y1="10" x2="32" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="22" y="22" width="20" height="20" fill="#C04848"/>
+          <line x1="32" y1="42" x2="32" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="22" y1="50" x2="42" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="25" y1="54" x2="39" y2="54" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="28" y1="58" x2="36" y2="58" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="32" y1="10" x2="32" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Solid square node with ground symbol below and antenna line above.
+    </div>
+    <div class="concept-rationale">
+      The electrical ground symbol is literal: this system is grounded, local, physically connected to your infrastructure. The antenna line says "receiving." Together: a grounded receiver. Reads as infrastructure schematic — not decorative, functional. The vertical axis is distinctive. Risk: the ground lines may be too fine at 16px. Also reads more "electrical engineering" than "home automation."
+    </div>
+  </div>
+
+</div>
+
+<!-- Side-by-side at 32px -->
+<div class="section-label">Side-by-Side at 32px</div>
+<div class="comparison-row">
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="12" y="6" width="40" height="52" rx="0" fill="none" stroke="#C04848" stroke-width="5"/>
+      <line x1="20" y1="44" x2="44" y2="20" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">G: Squared Zero</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="14" y="4" width="36" height="56" rx="0" fill="none" stroke="#C04848" stroke-width="4.5"/>
+      <circle cx="32" cy="32" r="4" fill="#C04848"/>
+    </svg>
+    <div class="cname">H: Tall Zero + Dot</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <line x1="8" y1="8" x2="27" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <line x1="56" y1="8" x2="37" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <line x1="8" y1="56" x2="27" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <line x1="56" y1="56" x2="37" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <rect x="28" y="28" width="8" height="8" fill="#C04848"/>
+    </svg>
+    <div class="cname">I: Convergence</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <path d="M14,4 L50,4 L50,60 L14,60 Z M22,14 L22,50 L42,50 L42,14 Z" fill="#C04848" fill-rule="evenodd"/>
+      <line x1="24" y1="46" x2="40" y2="18" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">J: Zero Block</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <line x1="8" y1="10" x2="28" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="8" y1="10" x2="8" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="8" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="28" y1="32" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="8" y1="54" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="36" y1="10" x2="56" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="56" y1="10" x2="36" y2="54" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+      <line x1="36" y1="54" x2="56" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">K: SZ Monogram</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="22" y="22" width="20" height="20" fill="#C04848"/>
+      <line x1="32" y1="42" x2="32" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="22" y1="50" x2="42" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="25" y1="54" x2="39" y2="54" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="28" y1="58" x2="36" y2="58" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="32" y1="10" x2="32" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">L: Grounded Node</div>
+  </div>
+</div>
+
+<!-- Favicon test at 16px -->
+<div class="section-label">Favicon Test (16px)</div>
+<div class="comparison-row">
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="12" y="6" width="40" height="52" rx="0" fill="none" stroke="#C04848" stroke-width="5"/>
+      <line x1="20" y1="44" x2="44" y2="20" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">G</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="14" y="4" width="36" height="56" rx="0" fill="none" stroke="#C04848" stroke-width="4.5"/>
+      <circle cx="32" cy="32" r="4" fill="#C04848"/>
+    </svg>
+    <div class="cname">H</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <line x1="8" y1="8" x2="27" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <line x1="56" y1="8" x2="37" y2="27" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <line x1="8" y1="56" x2="27" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <line x1="56" y1="56" x2="37" y2="37" stroke="#C04848" stroke-width="3" stroke-linecap="square"/>
+      <rect x="28" y="28" width="8" height="8" fill="#C04848"/>
+    </svg>
+    <div class="cname">I</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <path d="M14,4 L50,4 L50,60 L14,60 Z M22,14 L22,50 L42,50 L42,14 Z" fill="#C04848" fill-rule="evenodd"/>
+      <line x1="24" y1="46" x2="40" y2="18" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">J</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <line x1="8" y1="10" x2="28" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="8" y1="10" x2="8" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="8" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="28" y1="32" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="8" y1="54" x2="28" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="36" y1="10" x2="56" y2="10" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+      <line x1="56" y1="10" x2="36" y2="54" stroke="#C04848" stroke-width="3.5" stroke-linecap="square"/>
+      <line x1="36" y1="54" x2="56" y2="54" stroke="#C04848" stroke-width="4" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">K</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="22" y="22" width="20" height="20" fill="#C04848"/>
+      <line x1="32" y1="42" x2="32" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="22" y1="50" x2="42" y2="50" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="25" y1="54" x2="39" y2="54" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="28" y1="58" x2="36" y2="58" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="32" y1="10" x2="32" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">L</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>StationZero Icon Mark Exploration</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Mono', monospace;
+    background: #0A0A0A;
+    color: #F2F2EC;
+    padding: 48px 48px 96px;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.15em;
+    color: #C04848;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 48px;
+  }
+
+  .constraint-box {
+    background: #111111;
+    padding: 20px 24px;
+    margin-bottom: 48px;
+    max-width: 720px;
+  }
+  .constraint-box h3 {
+    font-size: 10px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .constraint-box ul {
+    list-style: none;
+    padding: 0;
+  }
+  .constraint-box li {
+    font-size: 11px;
+    color: #888;
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .constraint-box li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 4px;
+    height: 4px;
+    background: #C04848;
+  }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+    margin-bottom: 64px;
+  }
+
+  .concept-card {
+    background: #111111;
+    padding: 32px;
+  }
+  .concept-card .label {
+    font-size: 10px;
+    color: #C04848;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+  .concept-card .name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+
+  .icon-display {
+    display: flex;
+    gap: 24px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    padding: 24px;
+    background: #0A0A0A;
+  }
+  .icon-size {
+    text-align: center;
+  }
+  .icon-size svg {
+    display: block;
+    margin: 0 auto 6px;
+  }
+  .icon-size .sz {
+    font-size: 8px;
+    color: #444;
+  }
+
+  .concept-desc {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+  .concept-rationale {
+    font-size: 10px;
+    color: #555;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  .section-label {
+    font-size: 10px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+
+  .comparison-row {
+    display: flex;
+    gap: 48px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    padding: 32px;
+    background: #111111;
+  }
+  .comparison-item {
+    text-align: center;
+  }
+  .comparison-item svg {
+    display: block;
+    margin: 0 auto 8px;
+  }
+  .comparison-item .cname {
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<h1>ICON MARK EXPLORATION</h1>
+<div class="subtitle">StationZero &mdash; 64x64 canvas, Signal Red #C04848</div>
+
+<div class="constraint-box">
+  <h3>Design Constraints</h3>
+  <ul>
+    <li>64x64 canvas, must be legible at 16px (favicon)</li>
+    <li>No surveillance cameras, eyes, lenses, or shields</li>
+    <li>Must imply: local custody, defined boundary, active monitoring</li>
+    <li>Signal Red (#C04848) only — monochrome</li>
+    <li>Architectural, not illustrative</li>
+    <li>Must read as "infrastructure" not "security company"</li>
+  </ul>
+</div>
+
+<div class="concept-grid">
+
+  <!-- A: Current — Perimeter with gap + center node -->
+  <div class="concept-card">
+    <div class="label">Concept A</div>
+    <div class="name">PERIMETER + NODE</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <line x1="8" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="56" y2="46" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="46" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="8" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <circle cx="32" cy="32" r="3" fill="#C04848"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <line x1="8" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="56" y2="46" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="46" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="8" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <circle cx="32" cy="32" r="3" fill="#C04848"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <line x1="8" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="56" y2="46" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="46" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="8" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <circle cx="32" cy="32" r="3" fill="#C04848"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Square perimeter with gap at bottom-right corner. Center filled circle.
+    </div>
+    <div class="concept-rationale">
+      Perimeter = defined boundary. Gap = actively monitored opening. Center dot = local processing station. Clean and geometric. But may read as "incomplete square" rather than intentional gap at small sizes.
+    </div>
+  </div>
+
+  <!-- B: Crosshair / Registration mark -->
+  <div class="concept-card">
+    <div class="label">Concept B</div>
+    <div class="name">REGISTRATION MARK</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Outer square frame -->
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <!-- Center crosshair — short arms, not touching edges -->
+          <line x1="32" y1="22" x2="32" y2="28" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="32" y1="36" x2="32" y2="42" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="22" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="36" y1="32" x2="42" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <line x1="32" y1="22" x2="32" y2="28" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="32" y1="36" x2="32" y2="42" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="22" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="36" y1="32" x2="42" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <line x1="32" y1="22" x2="32" y2="28" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="32" y1="36" x2="32" y2="42" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="22" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+          <line x1="36" y1="32" x2="42" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Complete square frame with interior crosshair (short arms, gap at center).
+    </div>
+    <div class="concept-rationale">
+      Reads as a registration mark / alignment target — precision infrastructure. The crosshair implies calibration and focus without being a literal camera reticle. Square frame = boundary. Crosshair = the system is locked on, paying attention. Strong at all sizes.
+    </div>
+  </div>
+
+  <!-- C: Nested squares -->
+  <div class="concept-card">
+    <div class="label">Concept C</div>
+    <div class="name">NESTED BOUNDARY</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Outer square -->
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <!-- Inner square -->
+          <rect x="22" y="22" width="20" height="20" fill="none" stroke="#C04848" stroke-width="2"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <rect x="22" y="22" width="20" height="20" fill="none" stroke="#C04848" stroke-width="2"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <rect x="22" y="22" width="20" height="20" fill="none" stroke="#C04848" stroke-width="2"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Two concentric squares. Outer boundary, inner core.
+    </div>
+    <div class="concept-rationale">
+      Layers of containment — the outer perimeter is the property line, the inner square is the station itself. Reads as "system within a system." Minimal, architectural. Risk: might read as generic "frame" or UI element rather than an intentional mark. At 16px the inner square may lose distinction.
+    </div>
+  </div>
+
+  <!-- D: Corner brackets + center dot -->
+  <div class="concept-card">
+    <div class="label">Concept D</div>
+    <div class="name">CORNER BRACKETS</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Top-left corner -->
+          <line x1="8" y1="8" x2="22" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="8" x2="8" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <!-- Top-right corner -->
+          <line x1="42" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="56" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <!-- Bottom-left corner -->
+          <line x1="8" y1="42" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="22" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <!-- Bottom-right corner -->
+          <line x1="42" y1="56" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="42" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <!-- Center dot -->
+          <circle cx="32" cy="32" r="3.5" fill="#C04848"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <line x1="8" y1="8" x2="22" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="8" x2="8" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="42" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="56" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="42" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="22" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="42" y1="56" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="42" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <circle cx="32" cy="32" r="3.5" fill="#C04848"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <line x1="8" y1="8" x2="22" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="8" x2="8" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="42" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="8" x2="56" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="42" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="8" y1="56" x2="22" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="42" y1="56" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <line x1="56" y1="42" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+          <circle cx="32" cy="32" r="3.5" fill="#C04848"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Four corner brackets defining a zone, with a center dot.
+    </div>
+    <div class="concept-rationale">
+      The brackets define a zone without enclosing it — the boundary is implied, not drawn. Reads as a viewfinder or registration zone. The center dot is the station. Strong associations with precision, targeting, focus area. Risk: could read as a camera viewfinder (too close to surveillance imagery?). But also reads as architectural markup / crop marks.
+    </div>
+  </div>
+
+  <!-- E: Filled square with inset void -->
+  <div class="concept-card">
+    <div class="label">Concept E</div>
+    <div class="name">ANCHOR BLOCK</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Filled outer block -->
+          <rect x="8" y="8" width="48" height="48" fill="#C04848"/>
+          <!-- Inset void — the station -->
+          <rect x="24" y="24" width="16" height="16" fill="#0A0A0A"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="8" y="8" width="48" height="48" fill="#C04848"/>
+          <rect x="24" y="24" width="16" height="16" fill="#0A0A0A"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="8" y="8" width="48" height="48" fill="#C04848"/>
+          <rect x="24" y="24" width="16" height="16" fill="#0A0A0A"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Solid red square with a dark square void cut from the center.
+    </div>
+    <div class="concept-rationale">
+      Inverts the typical approach — the red IS the boundary (solid, present, covering). The void at the center is the station: the protected interior space. Reads as solid infrastructure with a defined interior. Very high contrast. Boldest mark in the set. Risk: large color footprint — Signal Red dominates.
+    </div>
+  </div>
+
+  <!-- F: Perimeter with offset node -->
+  <div class="concept-card">
+    <div class="label">Concept F</div>
+    <div class="name">OFFSET STATION</div>
+    <div class="icon-display">
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+          <!-- Complete square perimeter -->
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <!-- Offset node — bottom-left quadrant -->
+          <circle cx="22" cy="42" r="4" fill="#C04848"/>
+        </svg>
+        <div class="sz">64px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <circle cx="22" cy="42" r="4" fill="#C04848"/>
+        </svg>
+        <div class="sz">32px</div>
+      </div>
+      <div class="icon-size">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+          <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+          <circle cx="22" cy="42" r="4" fill="#C04848"/>
+        </svg>
+        <div class="sz">16px</div>
+      </div>
+    </div>
+    <div class="concept-desc">
+      Complete square perimeter. Single node positioned off-center.
+    </div>
+    <div class="concept-rationale">
+      The off-center node breaks symmetry intentionally — it's a specific location within a defined area. Reads as "something is here, being tracked, within this boundary." Like a pin on a floorplan. The asymmetry creates visual tension and makes the mark more memorable. Risk: might feel unbalanced or arbitrary at small sizes.
+    </div>
+  </div>
+
+</div>
+
+<!-- Side-by-side comparison at 32px (most common real-world size) -->
+<div class="section-label">Side-by-Side at 32px (Toolbar / Tab Size)</div>
+<div class="comparison-row">
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <line x1="8" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="56" y1="8" x2="56" y2="46" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="56" x2="46" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="8" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <circle cx="32" cy="32" r="3" fill="#C04848"/>
+    </svg>
+    <div class="cname">A: Perimeter + Node</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+      <line x1="32" y1="22" x2="32" y2="28" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+      <line x1="32" y1="36" x2="32" y2="42" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+      <line x1="22" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+      <line x1="36" y1="32" x2="42" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">B: Registration Mark</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+      <rect x="22" y="22" width="20" height="20" fill="none" stroke="#C04848" stroke-width="2"/>
+    </svg>
+    <div class="cname">C: Nested Boundary</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <line x1="8" y1="8" x2="22" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="8" x2="8" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="42" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="56" y1="8" x2="56" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="42" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="56" x2="22" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="42" y1="56" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="56" y1="42" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <circle cx="32" cy="32" r="3.5" fill="#C04848"/>
+    </svg>
+    <div class="cname">D: Corner Brackets</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="8" y="8" width="48" height="48" fill="#C04848"/>
+      <rect x="24" y="24" width="16" height="16" fill="#0A0A0A"/>
+    </svg>
+    <div class="cname">E: Anchor Block</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32">
+      <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+      <circle cx="22" cy="42" r="4" fill="#C04848"/>
+    </svg>
+    <div class="cname">F: Offset Station</div>
+  </div>
+</div>
+
+<!-- Favicon comparison at 16px -->
+<div class="section-label">Favicon Test (16px)</div>
+<div class="comparison-row">
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <line x1="8" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="56" y1="8" x2="56" y2="46" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="56" x2="46" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="8" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <circle cx="32" cy="32" r="3" fill="#C04848"/>
+    </svg>
+    <div class="cname">A</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+      <line x1="32" y1="22" x2="32" y2="28" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+      <line x1="32" y1="36" x2="32" y2="42" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+      <line x1="22" y1="32" x2="28" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+      <line x1="36" y1="32" x2="42" y2="32" stroke="#C04848" stroke-width="2" stroke-linecap="square"/>
+    </svg>
+    <div class="cname">B</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+      <rect x="22" y="22" width="20" height="20" fill="none" stroke="#C04848" stroke-width="2"/>
+    </svg>
+    <div class="cname">C</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <line x1="8" y1="8" x2="22" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="8" x2="8" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="42" y1="8" x2="56" y2="8" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="56" y1="8" x2="56" y2="22" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="42" x2="8" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="8" y1="56" x2="22" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="42" y1="56" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <line x1="56" y1="42" x2="56" y2="56" stroke="#C04848" stroke-width="2.5" stroke-linecap="square"/>
+      <circle cx="32" cy="32" r="3.5" fill="#C04848"/>
+    </svg>
+    <div class="cname">D</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="8" y="8" width="48" height="48" fill="#C04848"/>
+      <rect x="24" y="24" width="16" height="16" fill="#0A0A0A"/>
+    </svg>
+    <div class="cname">E</div>
+  </div>
+  <div class="comparison-item">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="16" height="16">
+      <rect x="8" y="8" width="48" height="48" fill="none" stroke="#C04848" stroke-width="2.5"/>
+      <circle cx="22" cy="42" r="4" fill="#C04848"/>
+    </svg>
+    <div class="cname">F</div>
+  </div>
+</div>
+
+<!-- Assessment -->
+<div class="section-label">Assessment</div>
+<div class="constraint-box" style="max-width: 860px;">
+  <h3>Concept Summary</h3>
+  <ul>
+    <li><strong style="color:#F2F2EC">A — Perimeter + Node:</strong> Boundary with monitored gap. Distinctive shape, but gap may read as broken/unfinished at small sizes.</li>
+    <li><strong style="color:#F2F2EC">B — Registration Mark:</strong> Square frame + interior crosshair. Precision infrastructure. Strong at all sizes. Risk: crosshair has targeting/weapon connotations.</li>
+    <li><strong style="color:#F2F2EC">C — Nested Boundary:</strong> Two concentric squares. Layers of containment. Minimal, architectural. Risk: too generic — could be any UI element.</li>
+    <li><strong style="color:#F2F2EC">D — Corner Brackets:</strong> Implied boundary zone + center node. Crop marks / viewfinder feel. Strong recognition, holds well at small sizes. Risk: viewfinder → camera association.</li>
+    <li><strong style="color:#F2F2EC">E — Anchor Block:</strong> Bold inverted form — solid red with dark void. Highest contrast, most distinctive silhouette. Risk: heavy Signal Red presence.</li>
+    <li><strong style="color:#F2F2EC">F — Offset Station:</strong> Complete boundary + asymmetric node. Memorable asymmetry, reads as "located point within defined area." Risk: dot may disappear at 16px.</li>
+  </ul>
+</div>
+
+</body>
+</html>
