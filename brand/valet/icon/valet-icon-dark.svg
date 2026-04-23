@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Valet icon: The Binding — three horizontal marks, thickened center -->
+  <!-- Center bar is heavier (stroke 3.5) — the gather emphasis -->
+  <!-- Top bar: head band -->
+  <line x1="22" y1="20" x2="42" y2="20"
+        stroke="#9D7E49" stroke-width="2.5" stroke-linecap="square"/>
+  <!-- Center bar: gather, thickened -->
+  <line x1="14" y1="32" x2="50" y2="32"
+        stroke="#9D7E49" stroke-width="3.5" stroke-linecap="square"/>
+  <!-- Bottom bar: tail band -->
+  <line x1="22" y1="44" x2="42" y2="44"
+        stroke="#9D7E49" stroke-width="2.5" stroke-linecap="square"/>
+</svg>

@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valet · Icon Exploration · Round 02 · Finalists</title>
+  <meta name="description" content="CustodyZero Valet · Steward — icon finalists: I·01 The Post, I·02 The Binding, I·06 The Ledger. Geometric variants, wordmark pairing, surface context.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------------- Reset ---------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+    /* ---------------- Tokens ---------------- */
+    :root {
+      --stack-black: oklch(0.10 0.002 60);
+      --stack-dark:  oklch(0.14 0.002 60);
+      --stack-mid:   oklch(0.19 0.003 60);
+      --stack-rule:  oklch(0.26 0.004 60);
+      --white:       oklch(0.96 0.005 80);
+      --muted:       oklch(0.68 0.006 80);
+      --dim:         oklch(0.48 0.006 80);
+      --dimmer:      oklch(0.36 0.005 80);
+
+      --accent:      oklch(0.54 0.075 82);   /* #9D7E49 · B·04 */
+      --accent-dim:  oklch(0.34 0.050 82);   /* #5C4A2D */
+
+      --t-meta: 0.6875rem;
+      --t-label: 0.75rem;
+      --t-body: 0.9375rem;
+      --t-lead: 1.0625rem;
+      --d-heading: clamp(2.25rem, 5vw, 4rem);
+      --d-title:   clamp(3.5rem, 8vw, 7rem);
+
+      --s-1: 0.25rem;
+      --s-2: 0.5rem;
+      --s-3: 0.75rem;
+      --s-4: 1rem;
+      --s-5: 1.5rem;
+      --s-6: 2rem;
+      --s-7: 3rem;
+      --s-8: 4rem;
+      --s-9: 6rem;
+      --s-10: 9rem;
+    }
+
+    body {
+      font-family: 'DM Mono', ui-monospace, monospace;
+      font-size: var(--t-body);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--white);
+      background: var(--stack-black);
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1760px;
+      margin: 0 auto;
+      padding-inline: clamp(var(--s-6), 6vw, var(--s-10));
+    }
+
+    /* ---------------- Meta bar ---------------- */
+    .meta-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--s-5);
+      padding-block: var(--s-6);
+      border-bottom: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+      font-size: var(--t-meta);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-bar > :nth-child(2) { color: var(--dim); }
+    .meta-bar > :nth-child(3) { text-align: right; }
+
+    /* ---------------- Title ---------------- */
+    header.title {
+      padding-block: clamp(var(--s-8), 10vw, var(--s-10)) var(--s-8);
+      display: grid;
+      gap: var(--s-6);
+      max-width: 78ch;
+    }
+    .title-caption {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .title-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-title);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+    .title-sub {
+      font-size: var(--t-label);
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .title-lede {
+      max-width: 66ch;
+      font-size: var(--t-lead);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .title-lede em { font-style: normal; color: var(--muted); }
+    .title-lede strong { color: var(--white); font-weight: 400; }
+
+    /* ---------------- Plate ---------------- */
+    .plate {
+      padding-block: var(--s-10);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .plate-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--s-6);
+      align-items: baseline;
+      margin-bottom: var(--s-7);
+    }
+    .plate-index {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(2.75rem, 5vw, 4rem);
+      letter-spacing: 0.06em;
+      color: var(--dim);
+      line-height: 0.85;
+    }
+    .plate-name {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-heading);
+      letter-spacing: 0.03em;
+      line-height: 0.85;
+      color: var(--white);
+      justify-self: start;
+    }
+    .plate-register {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      padding-top: 0.5em;
+    }
+
+    /* ---------------- Hero: anchor variant at full display ---------------- */
+    .hero {
+      background: var(--stack-dark);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      margin-bottom: var(--s-7);
+    }
+    .hero-pane {
+      background: var(--stack-dark);
+      aspect-ratio: 4 / 3;
+      display: grid;
+      place-items: center;
+      padding: var(--s-7);
+      position: relative;
+    }
+    .hero-pane.alt { background: var(--stack-mid); }
+    .hero-pane::before {
+      content: attr(data-surface);
+      position: absolute;
+      top: var(--s-4);
+      left: var(--s-4);
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--dimmer);
+    }
+    .hero-pane svg {
+      width: min(55%, 200px);
+      height: auto;
+      color: var(--accent);
+    }
+
+    /* ---------------- Subsection ---------------- */
+    .sub-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--s-5);
+      align-items: baseline;
+      margin-top: var(--s-8);
+      margin-bottom: var(--s-5);
+    }
+    .sub-num {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--dim);
+      line-height: 0.95;
+    }
+    .sub-title {
+      font-size: var(--t-label);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--white);
+    }
+    .sub-lede {
+      font-size: var(--t-body);
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: var(--s-5);
+      max-width: 62ch;
+    }
+    .sub-lede em { font-style: normal; color: var(--white); }
+
+    /* ---------------- Variant row ---------------- */
+    .variant-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-1);
+    }
+    @media (max-width: 720px) { .variant-row { grid-template-columns: 1fr; } }
+
+    .variant-tile {
+      background: var(--stack-dark);
+      padding: var(--s-6) var(--s-5) var(--s-5);
+      display: grid;
+      gap: var(--s-4);
+      position: relative;
+    }
+    .variant-tile[data-anchor="true"] {
+      outline: 1px solid color-mix(in oklch, var(--accent) 50%, transparent);
+      outline-offset: -1px;
+    }
+    .variant-tile-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: baseline;
+      gap: var(--s-3);
+    }
+    .variant-code {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .variant-tile[data-anchor="true"] .variant-code { color: var(--accent); }
+    .variant-role {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--dim);
+      text-align: right;
+    }
+    .variant-tile[data-anchor="true"] .variant-role {
+      color: color-mix(in oklch, var(--accent) 80%, var(--white));
+    }
+    .variant-canvas {
+      background: var(--stack-black);
+      padding: var(--s-5) 0;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+    }
+    .variant-canvas svg { width: 96px; height: 96px; }
+    .variant-note {
+      font-size: 0.6875rem;
+      letter-spacing: 0.08em;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+    .variant-note strong { color: var(--white); font-weight: 500; display: block; margin-bottom: var(--s-1); }
+
+    /* ---------------- Wordmark pairing ---------------- */
+    .pairing {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-1);
+    }
+    .pair-row {
+      display: grid;
+      grid-template-columns: 10rem 1fr auto;
+      gap: var(--s-5);
+      align-items: center;
+      padding: var(--s-5) var(--s-6);
+      background: var(--stack-dark);
+    }
+    .pair-label {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .pair-layout {
+      display: flex;
+      align-items: center;
+      gap: var(--s-4);
+      color: var(--accent);
+    }
+    .pair-layout.stack { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
+    .pair-layout svg.icon-24 { width: 24px; height: 24px; }
+    .pair-layout svg.icon-32 { width: 32px; height: 32px; }
+    .pair-layout svg.icon-48 { width: 48px; height: 48px; }
+    .pair-layout svg.icon-72 { width: 72px; height: 72px; }
+    .pair-wordmark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      line-height: 0.95;
+    }
+    .pair-wordmark.wm-24 { font-size: 24px; }
+    .pair-wordmark.wm-32 { font-size: 32px; }
+    .pair-wordmark.wm-48 { font-size: 48px; }
+    .pair-wordmark.wm-72 { font-size: 72px; }
+    .pair-usage {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: right;
+      line-height: 1.5;
+      max-width: 16ch;
+    }
+
+    /* ---------------- Surface contexts ---------------- */
+    .surfaces {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--s-1);
+    }
+    @media (max-width: 720px) { .surfaces { grid-template-columns: repeat(2, 1fr); } }
+
+    .surface-tile {
+      padding: var(--s-6) var(--s-4);
+      display: grid;
+      gap: var(--s-4);
+      justify-items: center;
+      min-height: 12rem;
+    }
+    .surface-tile.on-black { background: var(--stack-black); outline: 1px solid color-mix(in oklch, var(--stack-rule) 40%, transparent); outline-offset: -1px; }
+    .surface-tile.on-dark  { background: var(--stack-dark); }
+    .surface-tile.on-mid   { background: var(--stack-mid); }
+    .surface-tile.on-accent { background: var(--accent); }
+    .surface-tile svg { width: 48px; height: 48px; }
+    .surface-tile.on-black svg,
+    .surface-tile.on-dark svg,
+    .surface-tile.on-mid svg { color: var(--accent); }
+    .surface-tile.on-accent svg { color: var(--stack-black); }
+
+    .surface-label {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--dimmer);
+    }
+    .surface-tile.on-accent .surface-label {
+      color: color-mix(in oklch, var(--stack-black) 70%, var(--accent));
+    }
+
+    /* ---------------- Rationale prose ---------------- */
+    .rationale {
+      margin-top: var(--s-8);
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: var(--s-7);
+    }
+    @media (max-width: 900px) { .rationale { grid-template-columns: 1fr; gap: var(--s-5); } }
+
+    .rationale-prose {
+      font-size: var(--t-body);
+      line-height: 1.65;
+      max-width: 54ch;
+    }
+    .rationale-prose p + p { margin-top: var(--s-3); }
+    .rationale-prose em { font-style: normal; color: var(--muted); }
+    .rationale-prose strong { color: var(--white); font-weight: 500; }
+
+    .rationale-meta {
+      background: var(--stack-dark);
+      padding: var(--s-5);
+      display: grid;
+      gap: var(--s-4);
+      font-size: var(--t-meta);
+      letter-spacing: 0.1em;
+      line-height: 1.6;
+      color: var(--muted);
+      max-height: fit-content;
+    }
+    .rationale-meta-head {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .rationale-meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-2);
+      padding-top: var(--s-3);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 40%, transparent);
+    }
+    .rationale-meta-row:first-of-type { border-top: 0; padding-top: 0; }
+    .rationale-meta dt {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .rationale-meta dd {
+      font-size: var(--t-meta);
+      color: var(--white);
+      letter-spacing: 0.05em;
+      text-align: right;
+    }
+
+    /* ---------------- Head-to-head favicon strip ---------------- */
+    .h2h {
+      padding-block: var(--s-10);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .h2h-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--s-6);
+      align-items: baseline;
+      margin-bottom: var(--s-7);
+    }
+    .h2h-num {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2.25rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+    }
+    .h2h-title {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-heading);
+      letter-spacing: 0.03em;
+      color: var(--white);
+      line-height: 0.9;
+    }
+    .h2h-meta {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      padding-top: 0.5em;
+    }
+    .h2h-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--s-1);
+    }
+    @media (max-width: 720px) { .h2h-grid { grid-template-columns: 1fr; } }
+    .h2h-tile {
+      background: var(--stack-dark);
+      padding: var(--s-6);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--s-6);
+      align-items: center;
+    }
+    .h2h-tile-icons {
+      display: grid;
+      gap: var(--s-5);
+      justify-items: start;
+    }
+    .h2h-tile-icon-row {
+      display: flex;
+      align-items: center;
+      gap: var(--s-5);
+      color: var(--accent);
+    }
+    .h2h-tile-icon-row span {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .h2h-tile svg.h2h-16 { width: 16px; height: 16px; }
+    .h2h-tile svg.h2h-24 { width: 24px; height: 24px; }
+    .h2h-tile svg.h2h-48 { width: 48px; height: 48px; }
+    .h2h-tile-label {
+      display: grid;
+      gap: var(--s-1);
+      text-align: right;
+    }
+    .h2h-tile-code {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      color: var(--white);
+    }
+    .h2h-tile-desc {
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+
+    /* ---------------- Register assessment ---------------- */
+    .assess {
+      padding-block: var(--s-10);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .assess-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--s-1);
+    }
+    @media (max-width: 900px) { .assess-grid { grid-template-columns: 1fr; } }
+    .assess-tile {
+      background: var(--stack-dark);
+      padding: var(--s-6);
+      display: grid;
+      gap: var(--s-4);
+    }
+    .assess-tile-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--s-4);
+      align-items: baseline;
+    }
+    .assess-code {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      line-height: 0.9;
+    }
+    .assess-name {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 0.95;
+    }
+    .assess-serves {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .assess-body {
+      font-size: var(--t-body);
+      line-height: 1.6;
+      color: var(--white);
+    }
+    .assess-body em { font-style: normal; color: var(--muted); }
+    .assess-body strong { font-weight: 500; }
+    .assess-tradeoff {
+      margin-top: var(--s-3);
+      padding-top: var(--s-3);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 40%, transparent);
+      font-size: var(--t-meta);
+      letter-spacing: 0.08em;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .assess-tradeoff strong { color: var(--white); font-weight: 500; display: block; margin-bottom: var(--s-1); font-size: 0.625rem; letter-spacing: 0.22em; text-transform: uppercase; }
+
+    /* ---------------- Closing ---------------- */
+    footer.closing {
+      padding-block: var(--s-9) var(--s-7);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--s-6);
+      align-items: end;
+    }
+    .closing-body {
+      max-width: 64ch;
+      font-size: var(--t-body);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .closing-body strong { color: var(--white); font-weight: 400; }
+    .closing-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+
+    <div class="meta-bar">
+      <span>CustodyZero · Brand</span>
+      <span>Valet · Steward · Icon · Round 02</span>
+      <span>Finalists · Post · Binding · Ledger</span>
+    </div>
+
+    <header class="title">
+      <span class="title-caption">Icon exploration · Round 02</span>
+      <h1 class="title-mark">THREE FORMS</h1>
+      <span class="title-sub">I·01 · I·02 · I·06 · Deeper examination of each</span>
+
+      <p class="title-lede">
+        Three finalists from Round 01. Each is a distinct architectural grammar — <strong>The Post</strong> (a pair of verticals), <strong>The Binding</strong> (a stack of horizontals), <strong>The Ledger</strong> (a line carrying an entry). This round examines each along three axes: <em>geometric variants</em> within the candidate's form, <em>wordmark pairing</em> at common layout sizes, and <em>surface context</em> across the house dark stack and the accent surface itself.
+      </p>
+
+      <p class="title-lede">
+        Each plate carries a highlighted <em>anchor variant</em> — the current best expression of that direction — plus two alternatives that show the refinement space. Pick a plate. Then pick a variant within it. Or request a Round 03 with tighter iteration on one direction.
+      </p>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- I·01 · THE POST                                               -->
+    <!-- ============================================================ -->
+    <section class="plate">
+      <div class="plate-head">
+        <span class="plate-index">I·01</span>
+        <span class="plate-name">THE POST</span>
+        <span class="plate-register">Principal &amp; Attendant</span>
+      </div>
+
+      <!-- Hero: anchor on two surfaces -->
+      <div class="hero">
+        <div class="hero-pane" data-surface="On #0A0A0A">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+        </div>
+        <div class="hero-pane alt" data-surface="On #1A1A1A">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Variants -->
+      <div class="sub-head">
+        <span class="sub-num">a</span>
+        <span class="sub-title">Geometric variants · axis · attendant height &amp; offset</span>
+      </div>
+      <p class="sub-lede">
+        The Post's character is defined by <em>how the attendant stands relative to the principal</em>. Taller attendant reads as peer; shorter reads as deferential. Closer reads as companion; further reads as staff.
+      </p>
+
+      <div class="variant-row">
+        <div class="variant-tile">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·01</span>
+            <span class="variant-role">Close companion</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="24" y1="12" x2="24" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="36" y1="22" x2="36" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Gap 12 · Attendant 30 px (75% of principal)</strong>
+            Closer pair, more equal heights — reads as companion, still clearly secondary. The tightest relationship.
+          </div>
+        </div>
+
+        <div class="variant-tile" data-anchor="true">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·02</span>
+            <span class="variant-role">Anchor · deferential</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Gap 18 · Attendant 26 px (65% of principal)</strong>
+            The Round 01 anchor. Balanced distance and height — <em>at post, at hand</em>. Classical servant-to-principal proportion.
+          </div>
+        </div>
+
+        <div class="variant-tile">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·03</span>
+            <span class="variant-role">Formal distance</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="20" y1="12" x2="20" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="44" y1="30" x2="44" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Gap 24 · Attendant 22 px (55% of principal)</strong>
+            Further, shorter — reads as <em>staff-at-a-discreet-distance</em>. Most formal proportion in the set. Risks reading as two disconnected marks.
+          </div>
+        </div>
+      </div>
+
+      <!-- Wordmark pairing -->
+      <div class="sub-head">
+        <span class="sub-num">b</span>
+        <span class="sub-title">Wordmark pairing · icon + wordmark at common layouts</span>
+      </div>
+      <p class="sub-lede">
+        Icon and wordmark rarely appear together in production — the icon is for favicon and app-icon use, the wordmark for headers and titles. But they must coexist on login screens, social preview cards, and attribution surfaces. Four typical layouts below.
+      </p>
+
+      <div class="pairing">
+        <div class="pair-row">
+          <span class="pair-label">Chrome · 24 px</span>
+          <div class="pair-layout">
+            <svg class="icon-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-24">VALET</span>
+          </div>
+          <span class="pair-usage">Browser tab · nav bar</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Inline · 32 px</span>
+          <div class="pair-layout">
+            <svg class="icon-32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-32">STEWARD</span>
+          </div>
+          <span class="pair-usage">App header · attribution</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Page ID · 48 px</span>
+          <div class="pair-layout">
+            <svg class="icon-48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-48">VALET</span>
+          </div>
+          <span class="pair-usage">Login · settings header</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Hero · 72 px</span>
+          <div class="pair-layout">
+            <svg class="icon-72" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-72">STEWARD</span>
+          </div>
+          <span class="pair-usage">Splash · OG card</span>
+        </div>
+      </div>
+
+      <!-- Surface contexts -->
+      <div class="sub-head">
+        <span class="sub-num">c</span>
+        <span class="sub-title">Surface context · on the house dark stack &amp; accent</span>
+      </div>
+      <p class="sub-lede">
+        The icon must survive across the full dark-stack layering and the accent surface itself. The fourth tile renders the icon in <em>near-black on the accent</em> — the inverse reading needed for accent-background use.
+      </p>
+
+      <div class="surfaces">
+        <div class="surface-tile on-black">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">#0A0A0A</span>
+        </div>
+        <div class="surface-tile on-dark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">#111111</span>
+        </div>
+        <div class="surface-tile on-mid">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">#1A1A1A</span>
+        </div>
+        <div class="surface-tile on-accent">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">On accent</span>
+        </div>
+      </div>
+
+      <!-- Rationale -->
+      <div class="rationale">
+        <div class="rationale-prose">
+          <p>
+            The Post reads as what the Valet paradigm <em>is</em> — a principal and an attendant, present together. No threshold to cross, no frame to fill, no record to accrete. Just the pair, at post.
+          </p>
+          <p>
+            Across the three variants, <strong>a·02 (the anchor)</strong> holds the classical proportion most faithfully. <strong>a·01</strong> softens the hierarchy — the attendant reads as peer, which is contemporary and warmer but less register-true. <strong>a·03</strong> formalizes the distance but risks the two marks reading as <em>unrelated</em> rather than <em>in relationship</em>.
+          </p>
+          <p>
+            <strong>Strongest at:</strong> paradigm match — the mark literally is the product's thesis. <strong>Weakest at:</strong> memorability outside the register — without the Valet framing, the two verticals are minimal to the point of asking viewers to read intent into them.
+          </p>
+        </div>
+        <dl class="rationale-meta">
+          <div class="rationale-meta-head">Technical profile</div>
+          <div class="rationale-meta-row"><dt>Element count</dt><dd>2 lines</dd></div>
+          <div class="rationale-meta-row"><dt>Fill used</dt><dd>None</dd></div>
+          <div class="rationale-meta-row"><dt>Stroke</dt><dd>2.5 · square</dd></div>
+          <div class="rationale-meta-row"><dt>Symmetry</dt><dd>Asymmetric</dd></div>
+          <div class="rationale-meta-row"><dt>Legibility @ 16px</dt><dd>Excellent</dd></div>
+          <div class="rationale-meta-row"><dt>Sibling clearance</dt><dd>Clean</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- I·02 · THE BINDING                                            -->
+    <!-- ============================================================ -->
+    <section class="plate">
+      <div class="plate-head">
+        <span class="plate-index">I·02</span>
+        <span class="plate-name">THE BINDING</span>
+        <span class="plate-register">Bookbound · Record · Continuity</span>
+      </div>
+
+      <div class="hero">
+        <div class="hero-pane" data-surface="On #0A0A0A">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+        </div>
+        <div class="hero-pane alt" data-surface="On #1A1A1A">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-num">a</span>
+        <span class="sub-title">Geometric variants · axis · bar width distribution</span>
+      </div>
+      <p class="sub-lede">
+        The Binding's character is defined by <em>how the three bars relate in width</em>. Equal widths read as ledger or hamburger menu; varied widths read as bookbinding marks or a monogram. The anchor uses narrow-wide-narrow.
+      </p>
+
+      <div class="variant-row">
+        <div class="variant-tile" data-anchor="true">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·01</span>
+            <span class="variant-role">Anchor · bound</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Widths 20 · 32 · 20</strong>
+            The Round 01 anchor. Narrow-wide-narrow reads as bookbinding on a spine — the widest bar is the center gather, the shorter outers are head and tail bands.
+          </div>
+        </div>
+
+        <div class="variant-tile">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·02</span>
+            <span class="variant-role">Cascade</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="14" y1="20" x2="50" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="18" y1="32" x2="46" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Widths 36 · 28 · 20</strong>
+            Wide to narrow top-to-bottom — reads as a compositional <em>foot</em>, like a block of text with a tapered bottom. More dynamic, less symmetric.
+          </div>
+        </div>
+
+        <div class="variant-tile">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·03</span>
+            <span class="variant-role">Accent bar</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="14" y1="32" x2="50" y2="32" stroke="currentColor" stroke-width="3.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Widths 20 · 36 · 20 · center stroke 3.5</strong>
+            Thicker center bar emphasizes the <em>gather</em>. More weight, more register-specific (bookbinding marks often have a heavier center band).
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-num">b</span>
+        <span class="sub-title">Wordmark pairing · icon + wordmark at common layouts</span>
+      </div>
+      <p class="sub-lede">
+        The horizontal composition pairs naturally beside a wordmark — the icon's horizontal axis echoes the wordmark's baseline.
+      </p>
+
+      <div class="pairing">
+        <div class="pair-row">
+          <span class="pair-label">Chrome · 24 px</span>
+          <div class="pair-layout">
+            <svg class="icon-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-24">VALET</span>
+          </div>
+          <span class="pair-usage">Browser tab · nav bar</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Inline · 32 px</span>
+          <div class="pair-layout">
+            <svg class="icon-32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-32">STEWARD</span>
+          </div>
+          <span class="pair-usage">App header · attribution</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Page ID · 48 px</span>
+          <div class="pair-layout">
+            <svg class="icon-48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-48">VALET</span>
+          </div>
+          <span class="pair-usage">Login · settings header</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Hero · 72 px</span>
+          <div class="pair-layout">
+            <svg class="icon-72" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            </svg>
+            <span class="pair-wordmark wm-72">STEWARD</span>
+          </div>
+          <span class="pair-usage">Splash · OG card</span>
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-num">c</span>
+        <span class="sub-title">Surface context</span>
+      </div>
+
+      <div class="surfaces">
+        <div class="surface-tile on-black">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">#0A0A0A</span>
+        </div>
+        <div class="surface-tile on-dark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">#111111</span>
+        </div>
+        <div class="surface-tile on-mid">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">#1A1A1A</span>
+        </div>
+        <div class="surface-tile on-accent">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+          </svg>
+          <span class="surface-label">On accent</span>
+        </div>
+      </div>
+
+      <div class="rationale">
+        <div class="rationale-prose">
+          <p>
+            The Binding reads as <em>a thing that has been kept</em> — the material evidence of pages gathered and bound. For a product whose central promise is continuous memory, the form is almost too literal: it is the physical object that a ledger of one's life would be.
+          </p>
+          <p>
+            Among the variants, <strong>a·01 (the anchor)</strong> is the cleanest bookbinding reference. <strong>a·02</strong> introduces typographic dynamism but tilts the register from <em>bound</em> toward <em>composed</em>. <strong>a·03</strong> amplifies the anchor by thickening the center band — register-accurate to actual book spine gathers, but risks the icon reading as <em>heavy</em> at favicon scale.
+          </p>
+          <p>
+            <strong>Strongest at:</strong> material register — nothing in the house has this form, and the bookbinding association is available without being pointed out. <strong>Weakest at:</strong> the 16 × 16 reading can collapse into a three-bar hamburger-menu silhouette if the viewer doesn't register the width variation.
+          </p>
+        </div>
+        <dl class="rationale-meta">
+          <div class="rationale-meta-head">Technical profile</div>
+          <div class="rationale-meta-row"><dt>Element count</dt><dd>3 lines</dd></div>
+          <div class="rationale-meta-row"><dt>Fill used</dt><dd>None</dd></div>
+          <div class="rationale-meta-row"><dt>Stroke</dt><dd>2.5 · square</dd></div>
+          <div class="rationale-meta-row"><dt>Symmetry</dt><dd>Horizontal mirror</dd></div>
+          <div class="rationale-meta-row"><dt>Legibility @ 16px</dt><dd>Good · verify anti-hamburger</dd></div>
+          <div class="rationale-meta-row"><dt>Sibling clearance</dt><dd>Clean</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- I·06 · THE LEDGER                                             -->
+    <!-- ============================================================ -->
+    <section class="plate">
+      <div class="plate-head">
+        <span class="plate-index">I·06</span>
+        <span class="plate-name">THE LEDGER</span>
+        <span class="plate-register">Entry on a Line · Temporal Record</span>
+      </div>
+
+      <div class="hero">
+        <div class="hero-pane" data-surface="On #0A0A0A">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="hero-pane alt" data-surface="On #1A1A1A">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-num">a</span>
+        <span class="sub-title">Geometric variants · axis · entry position &amp; count</span>
+      </div>
+      <p class="sub-lede">
+        The Ledger's character is defined by <em>the relationship between the line and the mark</em>. A single offset entry reads as a moment of attendance; two entries read as a sequence; a centered entry balances formally but loses the temporal asymmetry.
+      </p>
+
+      <div class="variant-row">
+        <div class="variant-tile">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·01</span>
+            <span class="variant-role">Centered entry</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="27.5" y="28" width="9" height="9" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Line 48 px · block 9 × 9 · centered</strong>
+            Balanced, formal — the mark on the middle of the line. Reads as <em>present</em> rather than <em>recorded over time</em>. Loses the temporal narrative of the offset variant.
+          </div>
+        </div>
+
+        <div class="variant-tile" data-anchor="true">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·02</span>
+            <span class="variant-role">Anchor · offset entry</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Line 48 px · block 9 × 9 · offset right (x=36)</strong>
+            The Round 01 anchor. Reads as <em>an entry made recently on a long line</em> — temporal, accretive, continuous. The asymmetry does the narrative work.
+          </div>
+        </div>
+
+        <div class="variant-tile">
+          <div class="variant-tile-head">
+            <span class="variant-code">a·03</span>
+            <span class="variant-role">Two entries</span>
+          </div>
+          <div class="variant-canvas">
+            <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="18" y="28" width="7" height="7" fill="currentColor"/>
+              <rect x="40" y="28" width="7" height="7" fill="currentColor"/>
+            </svg>
+          </div>
+          <div class="variant-note">
+            <strong>Line 48 px · two blocks 7 × 7 · offsets x=18, x=40</strong>
+            Two marks read as a <em>sequence</em>. Stronger temporal register — explicitly multiple moments — but the smaller blocks may fail at 16 px. Most explicit paradigm match.
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-num">b</span>
+        <span class="sub-title">Wordmark pairing · icon + wordmark at common layouts</span>
+      </div>
+      <p class="sub-lede">
+        The Ledger's strong horizontal axis sits naturally below or beside a wordmark — the mark on the line echoes the baseline of the type.
+      </p>
+
+      <div class="pairing">
+        <div class="pair-row">
+          <span class="pair-label">Chrome · 24 px</span>
+          <div class="pair-layout">
+            <svg class="icon-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+            </svg>
+            <span class="pair-wordmark wm-24">VALET</span>
+          </div>
+          <span class="pair-usage">Browser tab · nav bar</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Inline · 32 px</span>
+          <div class="pair-layout">
+            <svg class="icon-32" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+            </svg>
+            <span class="pair-wordmark wm-32">STEWARD</span>
+          </div>
+          <span class="pair-usage">App header · attribution</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Page ID · 48 px</span>
+          <div class="pair-layout">
+            <svg class="icon-48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+            </svg>
+            <span class="pair-wordmark wm-48">VALET</span>
+          </div>
+          <span class="pair-usage">Login · settings header</span>
+        </div>
+        <div class="pair-row">
+          <span class="pair-label">Hero · 72 px</span>
+          <div class="pair-layout">
+            <svg class="icon-72" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+              <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+              <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+            </svg>
+            <span class="pair-wordmark wm-72">STEWARD</span>
+          </div>
+          <span class="pair-usage">Splash · OG card</span>
+        </div>
+      </div>
+
+      <div class="sub-head">
+        <span class="sub-num">c</span>
+        <span class="sub-title">Surface context</span>
+      </div>
+
+      <div class="surfaces">
+        <div class="surface-tile on-black">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+          </svg>
+          <span class="surface-label">#0A0A0A</span>
+        </div>
+        <div class="surface-tile on-dark">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+          </svg>
+          <span class="surface-label">#111111</span>
+        </div>
+        <div class="surface-tile on-mid">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+          </svg>
+          <span class="surface-label">#1A1A1A</span>
+        </div>
+        <div class="surface-tile on-accent">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/>
+            <rect x="36" y="28" width="9" height="9" fill="currentColor"/>
+          </svg>
+          <span class="surface-label">On accent</span>
+        </div>
+      </div>
+
+      <div class="rationale">
+        <div class="rationale-prose">
+          <p>
+            The Ledger reads as <em>a line of time with a mark on it</em> — continuity + presence. It is the candidate most closely aligned with the product's explicit differentiator: <strong>continuous personalization with temporal awareness</strong>. The offset block says <em>something happened here; the line says this has been going on a while</em>.
+          </p>
+          <p>
+            <strong>a·01 (centered)</strong> is formally balanced but collapses the narrative — the mark on the middle of the line is <em>present</em> without suggesting <em>continuing</em>. <strong>a·02 (the anchor)</strong> carries the temporal reading through asymmetry. <strong>a·03 (two entries)</strong> makes the sequence explicit — strongest paradigm match, weakest favicon legibility.
+          </p>
+          <p>
+            <strong>Strongest at:</strong> paradigm differentiation — this is the only candidate that explicitly encodes time. Also the only candidate combining stroke + fill, giving it a distinctive textural reading among the sibling icons. <strong>Weakest at:</strong> 16 × 16 — the filled block may compress to 2 × 2 pixels, approaching the visible threshold.
+          </p>
+        </div>
+        <dl class="rationale-meta">
+          <div class="rationale-meta-head">Technical profile</div>
+          <div class="rationale-meta-row"><dt>Element count</dt><dd>1 line · 1 rect</dd></div>
+          <div class="rationale-meta-row"><dt>Fill used</dt><dd>Yes · on block</dd></div>
+          <div class="rationale-meta-row"><dt>Stroke</dt><dd>2.5 · square</dd></div>
+          <div class="rationale-meta-row"><dt>Symmetry</dt><dd>Asymmetric · offset right</dd></div>
+          <div class="rationale-meta-row"><dt>Legibility @ 16px</dt><dd>Good · block near min</dd></div>
+          <div class="rationale-meta-row"><dt>Sibling clearance</dt><dd>Clean · only stroke+fill</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Head-to-head favicon strip                                    -->
+    <!-- ============================================================ -->
+    <section class="h2h">
+      <div class="h2h-head">
+        <span class="h2h-num">04</span>
+        <h2 class="h2h-title">HEAD TO HEAD</h2>
+        <span class="h2h-meta">All three anchors · three scales</span>
+      </div>
+
+      <div class="h2h-grid">
+        <div class="h2h-tile">
+          <div class="h2h-tile-icons">
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></svg>
+              <span>48</span>
+            </div>
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></svg>
+              <span>24</span>
+            </div>
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="12" x2="22" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="40" y1="26" x2="40" y2="52" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></svg>
+              <span>16</span>
+            </div>
+          </div>
+          <div class="h2h-tile-label">
+            <span class="h2h-tile-code">I·01</span>
+            <span class="h2h-tile-desc">The Post</span>
+          </div>
+        </div>
+
+        <div class="h2h-tile">
+          <div class="h2h-tile-icons">
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></svg>
+              <span>48</span>
+            </div>
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></svg>
+              <span>24</span>
+            </div>
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="22" y1="20" x2="42" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="16" y1="32" x2="48" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><line x1="22" y1="44" x2="42" y2="44" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/></svg>
+              <span>16</span>
+            </div>
+          </div>
+          <div class="h2h-tile-label">
+            <span class="h2h-tile-code">I·02</span>
+            <span class="h2h-tile-desc">The Binding</span>
+          </div>
+        </div>
+
+        <div class="h2h-tile">
+          <div class="h2h-tile-icons">
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-48" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><rect x="36" y="28" width="9" height="9" fill="currentColor"/></svg>
+              <span>48</span>
+            </div>
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-24" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><rect x="36" y="28" width="9" height="9" fill="currentColor"/></svg>
+              <span>24</span>
+            </div>
+            <div class="h2h-tile-icon-row">
+              <svg class="h2h-16" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><line x1="8" y1="32" x2="56" y2="32" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"/><rect x="36" y="28" width="9" height="9" fill="currentColor"/></svg>
+              <span>16</span>
+            </div>
+          </div>
+          <div class="h2h-tile-label">
+            <span class="h2h-tile-code">I·06</span>
+            <span class="h2h-tile-desc">The Ledger</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Register assessment                                           -->
+    <!-- ============================================================ -->
+    <section class="assess">
+      <div class="h2h-head">
+        <span class="h2h-num">05</span>
+        <h2 class="h2h-title">WHAT EACH SERVES</h2>
+        <span class="h2h-meta">Paradigm fit summarized</span>
+      </div>
+
+      <div class="assess-grid">
+        <div class="assess-tile">
+          <div class="assess-tile-head">
+            <span class="assess-code">I·01</span>
+            <span class="assess-name">The Post</span>
+          </div>
+          <span class="assess-serves">Serves · Relationship</span>
+          <div class="assess-body">
+            Literal rendering of the Valet paradigm: <em>a principal, an attendant, steady at hand</em>. The mark <strong>is</strong> the product's thesis. Strongest register match.
+          </div>
+          <div class="assess-tradeoff">
+            <strong>Trade</strong>
+            Simplest element count. Memorable only if the viewer supplies the register — two verticals are minimal enough that the relationship must be inferred. The brief does the work.
+          </div>
+        </div>
+
+        <div class="assess-tile">
+          <div class="assess-tile-head">
+            <span class="assess-code">I·02</span>
+            <span class="assess-name">The Binding</span>
+          </div>
+          <span class="assess-serves">Serves · Continuity</span>
+          <div class="assess-body">
+            Material rendering of <em>a thing that has been kept</em>. Bookbinding is available as a reading without being pointed out. The strongest <strong>material-register</strong> match to the brief.
+          </div>
+          <div class="assess-tradeoff">
+            <strong>Trade</strong>
+            Three horizontal bars risk reading as hamburger menu at favicon scale if the width variation isn't preserved through rasterization. Must verify 16 × 16.
+          </div>
+        </div>
+
+        <div class="assess-tile">
+          <div class="assess-tile-head">
+            <span class="assess-code">I·06</span>
+            <span class="assess-name">The Ledger</span>
+          </div>
+          <span class="assess-serves">Serves · Temporal awareness</span>
+          <div class="assess-body">
+            Explicit encoding of <em>time as substrate</em>. The line is a day; the mark is an entry made. Only candidate that carries <strong>temporal awareness</strong> — the actual product differentiator.
+          </div>
+          <div class="assess-tradeoff">
+            <strong>Trade</strong>
+            Only candidate using stroke + fill — distinctive, but the block may fail favicon scale at 9 × 9 scaled to 16 × 16 canvas. May need to be lifted to 10 × 10 or 11 × 11.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Closing                                                       -->
+    <!-- ============================================================ -->
+    <footer class="closing">
+      <div class="closing-body">
+        <strong>Decision format:</strong> name the preferred plate + variant (e.g. <em>I·01 a·02</em>, <em>I·06 a·02</em>, <em>I·02 a·03</em>). Or request Round 03 to iterate further on one direction — for example, if I·06 reads but the block needs sizing refinement, I'll produce four versions at 9/10/11/12 px block sizes for favicon-specific evaluation.
+      </div>
+      <span class="closing-mark">CZ · I·02</span>
+    </footer>
+
+  </div>
+</body>
+</html>

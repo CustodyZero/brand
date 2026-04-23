@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valet · Accent Color Refinement · Bronze B·03 or B·04</title>
+  <meta name="description" content="CustodyZero Valet · Steward — final precision round: B·03 at oklch(0.48 0.07 80) vs B·04 at oklch(0.54 0.075 82).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------------- Reset ---------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+    /* ---------------- Tokens ---------------- */
+    :root {
+      --stack-black: oklch(0.10 0.002 60);
+      --stack-dark:  oklch(0.14 0.002 60);
+      --stack-mid:   oklch(0.19 0.003 60);
+      --stack-rule:  oklch(0.26 0.004 60);
+      --white:       oklch(0.96 0.005 80);
+      --muted:       oklch(0.68 0.006 80);
+      --dim:         oklch(0.48 0.006 80);
+      --dimmer:      oklch(0.36 0.005 80);
+
+      /* House amber — for proximity check */
+      --house-amber: #D4880A;
+
+      /* The two candidates */
+      --b3:       oklch(0.48 0.075 80);    /* #8A6B3D */
+      --b3-dim:   oklch(0.30 0.045 80);    /* companion */
+
+      --b4:       oklch(0.54 0.075 82);    /* #9D7E49 */
+      --b4-dim:   oklch(0.34 0.050 82);    /* companion */
+
+      /* Tonal family reference (from round 02) */
+      --bronze-1: oklch(0.38 0.060 78);
+      --bronze-2: oklch(0.43 0.065 79);
+      --bronze-5: oklch(0.60 0.080 84);
+
+      /* Scale */
+      --t-meta: 0.6875rem;
+      --t-label: 0.75rem;
+      --t-body: 0.9375rem;
+      --t-lead: 1.0625rem;
+      --d-heading: clamp(2rem, 4.5vw, 3.5rem);
+      --d-title:   clamp(3.5rem, 8vw, 7rem);
+
+      /* Spacing 4pt */
+      --s-1: 0.25rem;
+      --s-2: 0.5rem;
+      --s-3: 0.75rem;
+      --s-4: 1rem;
+      --s-5: 1.5rem;
+      --s-6: 2rem;
+      --s-7: 3rem;
+      --s-8: 4rem;
+      --s-9: 6rem;
+      --s-10: 9rem;
+    }
+
+    body {
+      font-family: 'DM Mono', ui-monospace, monospace;
+      font-size: var(--t-body);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--white);
+      background: var(--stack-black);
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1760px;
+      margin: 0 auto;
+      padding-inline: clamp(var(--s-6), 6vw, var(--s-10));
+    }
+
+    /* ---------------- Meta bar ---------------- */
+    .meta-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--s-5);
+      padding-block: var(--s-6);
+      border-bottom: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+      font-size: var(--t-meta);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-bar > :nth-child(2) { color: var(--dim); }
+    .meta-bar > :nth-child(3) { text-align: right; }
+
+    /* ---------------- Title ---------------- */
+    header.title {
+      padding-block: clamp(var(--s-8), 10vw, var(--s-10)) var(--s-8);
+      display: grid;
+      gap: var(--s-6);
+      max-width: 78ch;
+    }
+    .title-caption {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .title-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-title);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+    .title-sub {
+      font-size: var(--t-label);
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .title-lede {
+      max-width: 64ch;
+      font-size: var(--t-lead);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .title-lede em { font-style: normal; color: var(--muted); }
+    .title-lede strong { color: var(--white); font-weight: 400; }
+
+    /* ---------------- Hero comparison — the first and most load-bearing view */
+    .hero {
+      padding-block: var(--s-9);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+    }
+    @media (max-width: 820px) { .hero-grid { grid-template-columns: 1fr; } }
+
+    .hero-plate {
+      padding: var(--s-6) var(--s-6) var(--s-7);
+      background: var(--tone);
+      display: grid;
+      gap: var(--s-5);
+      min-height: 40vh;
+    }
+    .hero-plate-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--s-4);
+      align-items: baseline;
+      color: color-mix(in oklch, black 55%, var(--tone));
+    }
+    .hero-plate-label {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 3rem;
+      line-height: 0.9;
+      letter-spacing: 0.04em;
+    }
+    .hero-plate-code {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .hero-plate-hex {
+      font-size: var(--t-meta);
+      letter-spacing: 0.18em;
+      font-weight: 500;
+      text-align: right;
+    }
+    .hero-plate-extent { flex: 1 1 auto; min-height: 12vh; }
+
+    .hero-wordmarks {
+      display: grid;
+      gap: var(--s-2);
+      padding-top: var(--s-5);
+      border-top: 1px solid color-mix(in oklch, black 25%, transparent);
+    }
+    .hero-wordmarks-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: var(--s-4);
+      padding-block: var(--s-2);
+    }
+    .hero-wordmark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+      letter-spacing: 0.12em;
+      color: var(--stack-black);
+      line-height: 0.95;
+    }
+    .hero-wordmark-on-dark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(2.5rem, 4.2vw, 3.75rem);
+      letter-spacing: 0.12em;
+      color: var(--tone);
+      line-height: 0.95;
+      padding: var(--s-4) var(--s-5);
+      background: var(--stack-black);
+    }
+    .hero-surface-label {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: color-mix(in oklch, black 50%, var(--tone));
+      text-align: right;
+    }
+
+    /* ---------------- Section structure ---------------- */
+    .section {
+      padding-block: var(--s-9);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--s-6);
+      align-items: baseline;
+      margin-bottom: var(--s-7);
+    }
+    .section-num {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2.25rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      line-height: 0.9;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-heading);
+      letter-spacing: 0.03em;
+      line-height: 0.9;
+      color: var(--white);
+    }
+    .section-meta {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      padding-top: 0.5em;
+    }
+    .section-lede {
+      max-width: 68ch;
+      font-size: var(--t-lead);
+      line-height: 1.55;
+      color: var(--white);
+      font-weight: 300;
+      margin-bottom: var(--s-7);
+    }
+    .section-lede em { font-style: normal; color: var(--muted); }
+    .section-lede strong { color: var(--white); font-weight: 400; }
+
+    /* ---------------- Tonal axis strip ---------------- */
+    .axis {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--s-1);
+      position: relative;
+    }
+    .axis-step {
+      height: 5rem;
+      background: var(--tone);
+      display: grid;
+      align-content: end;
+      padding: var(--s-2);
+    }
+    .axis-step-label {
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: color-mix(in oklch, black 55%, var(--tone));
+    }
+    .axis-step[data-pick="true"] {
+      outline: 2px solid var(--white);
+      outline-offset: 3px;
+    }
+    .axis-legend {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--s-1);
+      margin-top: var(--s-5);
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .axis-legend > span {
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .axis-legend > span[data-pick="true"] {
+      color: var(--white);
+    }
+
+    /* ---------------- Register — two-column prose ---------------- */
+    .register {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: clamp(var(--s-6), 4vw, var(--s-8));
+    }
+    @media (max-width: 820px) {
+      .register { grid-template-columns: 1fr; }
+      .register-spine { display: none; }
+    }
+    .register-spine { background: color-mix(in oklch, var(--stack-rule) 40%, transparent); }
+    .register-col { min-width: 0; display: grid; gap: var(--s-4); }
+    .register-col h3 {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.03em;
+      line-height: 0.95;
+      color: var(--tone);
+    }
+    .register-col .register-tag {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .register-col p {
+      max-width: 48ch;
+      font-size: var(--t-body);
+      line-height: 1.65;
+      color: var(--white);
+    }
+    .register-col p + p { margin-top: var(--s-2); }
+    .register-col em { font-style: normal; color: var(--muted); }
+
+    /* ---------------- Contrast table ---------------- */
+    .contrast-table {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 45%, transparent);
+    }
+    .contrast-table > * {
+      padding: var(--s-3) var(--s-4);
+      border-bottom: 1px solid color-mix(in oklch, var(--stack-rule) 35%, transparent);
+      font-size: var(--t-meta);
+      letter-spacing: 0.14em;
+    }
+    .contrast-table .header {
+      font-weight: 500;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.625rem;
+    }
+    .contrast-table .label {
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contrast-table .ratio {
+      font-weight: 500;
+      color: var(--white);
+      font-variant-numeric: tabular-nums;
+      font-size: var(--t-label);
+      letter-spacing: 0.06em;
+    }
+    .contrast-table .verdict {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .v-aa-normal { color: oklch(0.82 0.12 150); }
+    .v-aa-large  { color: oklch(0.75 0.09 95); }
+    .v-fail      { color: oklch(0.70 0.12 25); }
+
+    .contrast-key {
+      margin-top: var(--s-5);
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--s-5);
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .contrast-key span { display: flex; align-items: center; gap: var(--s-2); }
+    .contrast-key i {
+      display: inline-block;
+      width: 1rem;
+      height: 1px;
+      background: currentColor;
+      font-style: normal;
+    }
+
+    /* ---------------- Dim pair ---------------- */
+    .dimgrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+    }
+    .dim-tile {
+      background: var(--stack-dark);
+      padding: var(--s-5);
+      display: grid;
+      gap: var(--s-3);
+    }
+    .dim-tile-head {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: var(--s-2);
+    }
+    .dim-name {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .dim-code {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .dim-pair-swatches {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: var(--s-1);
+    }
+    .dim-sw {
+      height: 3.5rem;
+      display: grid;
+      align-content: end;
+      padding: var(--s-2);
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .dim-sw.anchor {
+      background: var(--tone);
+      color: color-mix(in oklch, black 55%, var(--tone));
+    }
+    .dim-sw.dim {
+      background: var(--tone-dim);
+      color: color-mix(in oklch, white 60%, var(--tone-dim));
+    }
+    .dim-rationale {
+      font-size: var(--t-meta);
+      line-height: 1.6;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      max-width: 40ch;
+    }
+    .dim-rationale strong { color: var(--white); font-weight: 500; }
+
+    /* ---------------- Scale comparison ---------------- */
+    .scale-compare {
+      display: grid;
+      grid-template-columns: 6rem 1fr 1fr;
+      gap: var(--s-3);
+      align-items: center;
+      padding: var(--s-4) var(--s-5);
+      background: var(--stack-dark);
+    }
+    .scale-compare + .scale-compare { margin-top: var(--s-1); }
+    .scale-size {
+      font-size: var(--t-meta);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .scale-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      letter-spacing: 0.12em;
+      line-height: 1;
+    }
+    .scale-24 { font-size: 24px; }
+    .scale-36 { font-size: 36px; }
+    .scale-56 { font-size: 56px; }
+    .scale-96 { font-size: 96px; letter-spacing: 0.1em; }
+
+    /* ---------------- UI sampler side-by-side ---------------- */
+    .sampler-head {
+      display: grid;
+      grid-template-columns: 6rem 1fr 1fr;
+      gap: var(--s-3);
+      padding: var(--s-3) var(--s-5);
+      margin-bottom: var(--s-2);
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .sampler-row {
+      display: grid;
+      grid-template-columns: 6rem 1fr 1fr;
+      gap: var(--s-3);
+      align-items: center;
+      padding: var(--s-4) var(--s-5);
+      background: var(--stack-dark);
+    }
+    .sampler-row + .sampler-row { margin-top: var(--s-1); }
+    .sampler-row-label {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .sampler-row-cell { display: flex; align-items: center; gap: var(--s-4); }
+
+    .s-btn-primary {
+      display: inline-block;
+      padding: var(--s-3) var(--s-5);
+      font-family: 'DM Mono', monospace;
+      font-size: var(--t-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--stack-black);
+      background: var(--tone);
+    }
+    .s-btn-ghost {
+      display: inline-block;
+      padding: var(--s-3) var(--s-5);
+      font-family: 'DM Mono', monospace;
+      font-size: var(--t-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tone);
+      background: transparent;
+      border: 1px solid var(--tone);
+    }
+    .s-link { font-size: var(--t-body); color: var(--muted); }
+    .s-link a {
+      color: var(--tone);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in oklch, var(--tone) 50%, transparent);
+    }
+    .s-tag {
+      display: inline-block;
+      padding: var(--s-1) var(--s-3);
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--tone);
+      background: color-mix(in oklch, var(--tone) 14%, transparent);
+    }
+    .s-focus {
+      padding: var(--s-3) var(--s-4);
+      font-family: 'DM Mono', monospace;
+      font-size: var(--t-label);
+      letter-spacing: 0.14em;
+      color: var(--white);
+      background: var(--stack-mid);
+      outline: 2px solid var(--tone);
+      outline-offset: 2px;
+    }
+    .s-status {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-3);
+      font-size: var(--t-label);
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    .s-status::before {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: var(--tone);
+    }
+
+    /* ---------------- Amber proximity check ---------------- */
+    .amber-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--s-1);
+    }
+    .amber-tile {
+      padding: var(--s-6) var(--s-5);
+      background: var(--tone);
+      display: grid;
+      gap: var(--s-3);
+      min-height: 16vh;
+    }
+    .amber-tile-label {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      line-height: 0.95;
+      color: color-mix(in oklch, black 55%, var(--tone));
+    }
+    .amber-tile-hex {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: color-mix(in oklch, black 45%, var(--tone));
+      font-weight: 500;
+      margin-top: auto;
+    }
+    .amber-note {
+      margin-top: var(--s-4);
+      padding: var(--s-4);
+      background: var(--stack-dark);
+      font-size: var(--t-meta);
+      letter-spacing: 0.1em;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+    .amber-note strong { color: var(--white); font-weight: 500; }
+
+    /* ---------------- Decision narrative ---------------- */
+    .decision {
+      padding-block: var(--s-9);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .decision-body {
+      max-width: 80ch;
+      font-size: var(--t-lead);
+      line-height: 1.65;
+      color: var(--white);
+      font-weight: 300;
+      display: grid;
+      gap: var(--s-4);
+    }
+    .decision-body em { font-style: normal; color: var(--muted); }
+    .decision-body strong { color: var(--white); font-weight: 400; }
+    .decision-verdict {
+      margin-top: var(--s-6);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+    }
+    @media (max-width: 820px) { .decision-verdict { grid-template-columns: 1fr; } }
+    .verdict-card {
+      padding: var(--s-6);
+      background: var(--stack-dark);
+      display: grid;
+      gap: var(--s-3);
+    }
+    .verdict-card-head {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: var(--s-3);
+      align-items: baseline;
+    }
+    .verdict-pick {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.04em;
+      color: var(--tone);
+      line-height: 0.9;
+    }
+    .verdict-because {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .verdict-lines {
+      display: grid;
+      gap: var(--s-2);
+      font-size: var(--t-body);
+      line-height: 1.6;
+      color: var(--white);
+    }
+    .verdict-lines span {
+      padding-left: var(--s-4);
+      position: relative;
+    }
+    .verdict-lines span::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.6em;
+      width: 0.625rem; height: 1px;
+      background: var(--tone);
+    }
+
+    /* ---------------- Closing ---------------- */
+    footer.closing {
+      padding-block: var(--s-9) var(--s-7);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--s-6);
+      align-items: end;
+    }
+    .closing-body {
+      max-width: 64ch;
+      font-size: var(--t-body);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .closing-body strong { color: var(--white); font-weight: 400; }
+    .closing-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+
+    <div class="meta-bar">
+      <span>CustodyZero · Brand</span>
+      <span>Valet · Steward · Accent · Refinement</span>
+      <span>Bronze · B·03 or B·04</span>
+    </div>
+
+    <header class="title">
+      <span class="title-caption">Accent color refinement · final round</span>
+      <h1 class="title-mark">B·03 · B·04</h1>
+      <span class="title-sub">Two anchors. One decision. Same family.</span>
+
+      <p class="title-lede">
+        The family is Bronze. The remaining question is <strong>exactly which bronze</strong>. B·03 sits at <em>oklch(0.48&nbsp;0.075&nbsp;80)</em> — the deeper, more patinated anchor. B·04 sits at <em>oklch(0.54&nbsp;0.075&nbsp;82)</em> — the lifted, more present variant. The difference is six percentage points of lightness and two degrees of hue. It decides whether the brand reads as <em>a plate that has hung for decades</em> or <em>a plate freshly installed</em>.
+      </p>
+
+      <p class="title-lede">
+        Three things separate them: <strong>accessibility</strong>, <strong>register</strong>, and <strong>amber proximity</strong>. This round shows all three honestly so the pick is informed rather than aesthetic.
+      </p>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- Hero — direct side-by-side comparison                         -->
+    <!-- ============================================================ -->
+    <section class="hero">
+      <div class="hero-grid">
+
+        <div class="hero-plate" style="--tone: var(--b3);">
+          <div class="hero-plate-header">
+            <span class="hero-plate-label">B·03</span>
+            <span class="hero-plate-code">Deeper · Patinated</span>
+            <span class="hero-plate-hex">#8A6B3D</span>
+          </div>
+          <div class="hero-plate-extent"></div>
+          <div class="hero-wordmarks">
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark">VALET</span>
+              <span class="hero-surface-label">On accent</span>
+            </div>
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark-on-dark">VALET</span>
+              <span class="hero-surface-label">On black</span>
+            </div>
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark">STEWARD</span>
+              <span class="hero-surface-label">On accent</span>
+            </div>
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark-on-dark">STEWARD</span>
+              <span class="hero-surface-label">On black</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-plate" style="--tone: var(--b4);">
+          <div class="hero-plate-header">
+            <span class="hero-plate-label">B·04</span>
+            <span class="hero-plate-code">Lifted · Present</span>
+            <span class="hero-plate-hex">#9D7E49</span>
+          </div>
+          <div class="hero-plate-extent"></div>
+          <div class="hero-wordmarks">
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark">VALET</span>
+              <span class="hero-surface-label">On accent</span>
+            </div>
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark-on-dark">VALET</span>
+              <span class="hero-surface-label">On black</span>
+            </div>
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark">STEWARD</span>
+              <span class="hero-surface-label">On accent</span>
+            </div>
+            <div class="hero-wordmarks-row">
+              <span class="hero-wordmark-on-dark">STEWARD</span>
+              <span class="hero-surface-label">On black</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 01 · Family position                                          -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-title">Position in family</h2>
+        <span class="section-meta">Context across the five-step bronze axis</span>
+      </div>
+
+      <p class="section-lede">
+        B·03 and B·04 are <em>adjacent</em> on the Bronze tonal axis — the step between them is the smallest meaningful move in the family. Both are surrounded by context on either side.
+      </p>
+
+      <div class="axis">
+        <div class="axis-step" style="--tone: var(--bronze-1);">
+          <span class="axis-step-label">B·01</span>
+        </div>
+        <div class="axis-step" style="--tone: var(--bronze-2);">
+          <span class="axis-step-label">B·02</span>
+        </div>
+        <div class="axis-step" data-pick="true" style="--tone: var(--b3);">
+          <span class="axis-step-label">B·03</span>
+        </div>
+        <div class="axis-step" data-pick="true" style="--tone: var(--b4);">
+          <span class="axis-step-label">B·04</span>
+        </div>
+        <div class="axis-step" style="--tone: var(--bronze-5);">
+          <span class="axis-step-label">B·05</span>
+        </div>
+      </div>
+      <div class="axis-legend">
+        <span>Deeper</span>
+        <span>Deep</span>
+        <span data-pick="true">Patinated</span>
+        <span data-pick="true">Present</span>
+        <span>Polished</span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 02 · Register nuance                                          -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Register nuance</h2>
+        <span class="section-meta">What each actually evokes</span>
+      </div>
+
+      <div class="register">
+        <div class="register-col" style="--tone: var(--b3);">
+          <span class="register-tag">B·03 evokes</span>
+          <h3>The brass that has hung</h3>
+          <p>
+            The deeper anchor reads as <em>time in service</em>. The brass plate on a door that has been opened every day for thirty years. The patina is not decoration — it is evidence.
+          </p>
+          <p>
+            B·03 asks the product to earn its place slowly. It suggests continuity has already happened, before you arrive. The emotional register is <em>reassurance</em>: this has been here. It will remain.
+          </p>
+          <p>
+            The risk is recession — the color is deep enough that at small scales it can lose against the dark stack without the icon geometry carrying it.
+          </p>
+        </div>
+
+        <div class="register-spine"></div>
+
+        <div class="register-col" style="--tone: var(--b4);">
+          <span class="register-tag">B·04 evokes</span>
+          <h3>The brass that has been set</h3>
+          <p>
+            The lifted anchor reads as <em>in current service</em>. The seal freshly struck. The plate that has been polished this morning. Still classical, still tactile — but active.
+          </p>
+          <p>
+            B·04 asks the product to carry its presence forward. Continuity is in progress. The emotional register is <em>readiness</em>: this is here now, attentively, and will continue.
+          </p>
+          <p>
+            The risk is amber-adjacency — the higher lightness brings B·04 closer to the house amber in perceived weight, even though hue keeps them distinct.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 03 · Accessibility                                            -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Accessibility</h2>
+        <span class="section-meta">WCAG · contrast against the house dark stack</span>
+      </div>
+
+      <p class="section-lede">
+        A six-point lightness gap translates to a meaningful contrast-ratio gap. Where B·03 holds the <em>3:1</em> UI-component threshold on every house background, B·04 reaches <em>4.5:1</em> on two of the three — usable for normal body text, not just wordmarks and chrome.
+      </p>
+
+      <div class="contrast-table">
+        <div class="header">Anchor · Background</div>
+        <div class="header">Ratio</div>
+        <div class="header">UI (3:1)</div>
+        <div class="header">Large (3:1)</div>
+        <div class="header">Body (4.5:1)</div>
+
+        <div class="label">B·03 on #0A0A0A</div>
+        <div class="ratio">3.94 : 1</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-fail">Fail</div>
+
+        <div class="label">B·03 on #111111</div>
+        <div class="ratio">3.65 : 1</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-fail">Fail</div>
+
+        <div class="label">B·03 on #1A1A1A</div>
+        <div class="ratio">3.31 : 1</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-fail">Fail</div>
+
+        <div class="label">B·04 on #0A0A0A</div>
+        <div class="ratio">5.20 : 1</div>
+        <div class="verdict v-aa-normal">Pass</div>
+        <div class="verdict v-aa-normal">Pass</div>
+        <div class="verdict v-aa-normal">Pass</div>
+
+        <div class="label">B·04 on #111111</div>
+        <div class="ratio">4.81 : 1</div>
+        <div class="verdict v-aa-normal">Pass</div>
+        <div class="verdict v-aa-normal">Pass</div>
+        <div class="verdict v-aa-normal">Pass</div>
+
+        <div class="label">B·04 on #1A1A1A</div>
+        <div class="ratio">4.36 : 1</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-aa-large">Pass</div>
+        <div class="verdict v-fail">Fail</div>
+      </div>
+
+      <div class="contrast-key">
+        <span><i class="v-aa-normal"></i> AA Normal · 4.5:1</span>
+        <span><i class="v-aa-large"></i> AA Large · 3:1</span>
+        <span><i class="v-fail"></i> Below threshold</span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 04 · Dim companion                                            -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Dim companion</h2>
+        <span class="section-meta">Paired reduced-emphasis tone</span>
+      </div>
+
+      <p class="section-lede">
+        Each anchor deserves its own dim. The dim is not the anchor faded — it is an <em>intentional second tone</em>, proportioned to the anchor's lightness. Both pairs shown below.
+      </p>
+
+      <div class="dimgrid">
+        <div class="dim-tile" style="--tone: var(--b3); --tone-dim: var(--b3-dim);">
+          <div class="dim-tile-head">
+            <span class="dim-name">B·03 PAIR</span>
+            <span class="dim-code">#8A6B3D · #4F3F24</span>
+          </div>
+          <div class="dim-pair-swatches">
+            <div class="dim-sw anchor">Anchor</div>
+            <div class="dim-sw dim">Dim</div>
+          </div>
+          <div class="dim-rationale">
+            <strong>Dim · oklch(0.30 0.045 80)</strong>
+            The dim recedes further into the stack; it reads as a muted shadow of the anchor. Works for tags, quiet borders, inactive state, subtle hover backgrounds.
+          </div>
+        </div>
+
+        <div class="dim-tile" style="--tone: var(--b4); --tone-dim: var(--b4-dim);">
+          <div class="dim-tile-head">
+            <span class="dim-name">B·04 PAIR</span>
+            <span class="dim-code">#9D7E49 · #5C4A2D</span>
+          </div>
+          <div class="dim-pair-swatches">
+            <div class="dim-sw anchor">Anchor</div>
+            <div class="dim-sw dim">Dim</div>
+          </div>
+          <div class="dim-rationale">
+            <strong>Dim · oklch(0.34 0.050 82)</strong>
+            The dim keeps pace with the lifted anchor — slightly brighter, slightly more present. Still reads as reduced emphasis; still legible at small sizes.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 05 · At scale                                                 -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2 class="section-title">At scale</h2>
+        <span class="section-meta">Wordmark across production sizes</span>
+      </div>
+
+      <div class="sampler-head">
+        <span>Size</span>
+        <span>B·03 · #8A6B3D</span>
+        <span>B·04 · #9D7E49</span>
+      </div>
+
+      <div class="scale-compare">
+        <span class="scale-size">24 px</span>
+        <span class="scale-mark scale-24" style="color: var(--b3);">VALET</span>
+        <span class="scale-mark scale-24" style="color: var(--b4);">VALET</span>
+      </div>
+      <div class="scale-compare">
+        <span class="scale-size">36 px</span>
+        <span class="scale-mark scale-36" style="color: var(--b3);">VALET</span>
+        <span class="scale-mark scale-36" style="color: var(--b4);">VALET</span>
+      </div>
+      <div class="scale-compare">
+        <span class="scale-size">56 px</span>
+        <span class="scale-mark scale-56" style="color: var(--b3);">VALET</span>
+        <span class="scale-mark scale-56" style="color: var(--b4);">VALET</span>
+      </div>
+      <div class="scale-compare">
+        <span class="scale-size">96 px</span>
+        <span class="scale-mark scale-96" style="color: var(--b3);">VALET</span>
+        <span class="scale-mark scale-96" style="color: var(--b4);">VALET</span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 06 · In context                                               -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2 class="section-title">In context</h2>
+        <span class="section-meta">Functional chrome behavior</span>
+      </div>
+
+      <div class="sampler-head">
+        <span>Element</span>
+        <span>B·03</span>
+        <span>B·04</span>
+      </div>
+
+      <div class="sampler-row">
+        <span class="sampler-row-label">Primary</span>
+        <div class="sampler-row-cell" style="--tone: var(--b3);">
+          <button class="s-btn-primary">Continue</button>
+        </div>
+        <div class="sampler-row-cell" style="--tone: var(--b4);">
+          <button class="s-btn-primary">Continue</button>
+        </div>
+      </div>
+      <div class="sampler-row">
+        <span class="sampler-row-label">Ghost</span>
+        <div class="sampler-row-cell" style="--tone: var(--b3);">
+          <button class="s-btn-ghost">Review</button>
+        </div>
+        <div class="sampler-row-cell" style="--tone: var(--b4);">
+          <button class="s-btn-ghost">Review</button>
+        </div>
+      </div>
+      <div class="sampler-row">
+        <span class="sampler-row-label">Link</span>
+        <div class="sampler-row-cell" style="--tone: var(--b3);">
+          <p class="s-link">Settings live <a href="#">on your device</a>, not in the cloud.</p>
+        </div>
+        <div class="sampler-row-cell" style="--tone: var(--b4);">
+          <p class="s-link">Settings live <a href="#">on your device</a>, not in the cloud.</p>
+        </div>
+      </div>
+      <div class="sampler-row">
+        <span class="sampler-row-label">Focus</span>
+        <div class="sampler-row-cell" style="--tone: var(--b3);">
+          <span class="s-focus">NAME</span>
+        </div>
+        <div class="sampler-row-cell" style="--tone: var(--b4);">
+          <span class="s-focus">NAME</span>
+        </div>
+      </div>
+      <div class="sampler-row">
+        <span class="sampler-row-label">Tag</span>
+        <div class="sampler-row-cell" style="--tone: var(--b3);">
+          <span class="s-tag">Resident</span>
+        </div>
+        <div class="sampler-row-cell" style="--tone: var(--b4);">
+          <span class="s-tag">Resident</span>
+        </div>
+      </div>
+      <div class="sampler-row">
+        <span class="sampler-row-label">Status</span>
+        <div class="sampler-row-cell" style="--tone: var(--b3);">
+          <span class="s-status">Connected · local</span>
+        </div>
+        <div class="sampler-row-cell" style="--tone: var(--b4);">
+          <span class="s-status">Connected · local</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 07 · Amber proximity                                          -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Amber proximity</h2>
+        <span class="section-meta">Clearance from the house accent</span>
+      </div>
+
+      <p class="section-lede">
+        House amber <code style="color: var(--muted); background: transparent;">#D4880A</code> is the closest sibling to any bronze candidate. Both anchors placed alongside amber to confirm Bronze reads as a <em>family member</em>, not a variant of the parent.
+      </p>
+
+      <div class="amber-row">
+        <div class="amber-tile" style="--tone: var(--b3);">
+          <span class="amber-tile-label">B·03</span>
+          <span class="amber-tile-hex">#8A6B3D · oklch L 0.48</span>
+        </div>
+        <div class="amber-tile" style="--tone: var(--house-amber);">
+          <span class="amber-tile-label" style="color: color-mix(in oklch, black 70%, var(--house-amber));">AMBER</span>
+          <span class="amber-tile-hex" style="color: color-mix(in oklch, black 60%, var(--house-amber));">#D4880A · House</span>
+        </div>
+        <div class="amber-tile" style="--tone: var(--b4);">
+          <span class="amber-tile-label">B·04</span>
+          <span class="amber-tile-hex">#9D7E49 · oklch L 0.54</span>
+        </div>
+      </div>
+
+      <div class="amber-note">
+        <strong>Reading the strip:</strong> both bronzes clear amber on hue (bronze sits at 80–82°, amber at 60°) and on chroma (bronze chroma 0.075, amber chroma 0.14 — nearly double). B·03 is further from amber in lightness; B·04 closer. Neither will be confused with amber in direct comparison, but <strong>B·04 in isolation may read as a muted amber to someone not viewing both.</strong> B·03 has no such risk.
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Decision                                                      -->
+    <!-- ============================================================ -->
+    <section class="decision">
+      <div class="section-head">
+        <span class="section-num">∙</span>
+        <h2 class="section-title">The decision</h2>
+        <span class="section-meta">What tips the choice</span>
+      </div>
+
+      <div class="decision-body">
+        <p>
+          Both anchors work. Neither is wrong. The choice is a <em>values question</em>, not a technical one — and the values are clearly legible in the trade.
+        </p>
+        <p>
+          <strong>B·03</strong> holds the classical register most faithfully. It is the color of <em>lived-in service</em> — the brief's material register rendered without compromise. The cost is accessibility: it holds UI-component contrast but not body-text contrast; its usable surface is wordmark, icon, chrome. The downstream UI resolves with the accent kept <em>ceremonial</em> rather than <em>everyday</em>.
+        </p>
+        <p>
+          <strong>B·04</strong> holds the register slightly less tightly — it is a brass still in current service rather than one that has weathered — but in exchange it earns broad functional usability: body-text contrast on the darkest surface, UI-component contrast everywhere, greater presence at small scales. The downstream UI can use the accent <em>anywhere the user needs to see it</em>, without a secondary lifted tone.
+        </p>
+        <p>
+          The question for selection: <em>is the brand willing to constrain where the accent appears in exchange for the deepest register, or does the brand want the accent to be broadly usable with a small softening of register?</em>
+        </p>
+      </div>
+
+      <div class="decision-verdict">
+        <div class="verdict-card" style="--tone: var(--b3);">
+          <div class="verdict-card-head">
+            <span class="verdict-pick">PICK B·03</span>
+            <span class="verdict-because">If values tip toward register</span>
+          </div>
+          <div class="verdict-lines">
+            <span>The classical material register without compromise</span>
+            <span>Accessibility held to wordmark, icon, and chrome only</span>
+            <span>Accent used sparingly — kept ceremonial, not everyday</span>
+            <span>Cleanest separation from house amber</span>
+            <span>Requires discipline downstream — where the accent appears, and where it does not</span>
+          </div>
+        </div>
+
+        <div class="verdict-card" style="--tone: var(--b4);">
+          <div class="verdict-card-head">
+            <span class="verdict-pick">PICK B·04</span>
+            <span class="verdict-because">If values tip toward reach</span>
+          </div>
+          <div class="verdict-lines">
+            <span>Broadly usable — body text, links, UI, chrome, wordmark</span>
+            <span>AA Normal (4.5:1) on two of three house backgrounds</span>
+            <span>Register softens slightly — polished rather than patinated</span>
+            <span>Marginally closer to amber in isolation, still distinct in hue/chroma</span>
+            <span>Simpler downstream — one anchor token covers all contexts</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Closing                                                       -->
+    <!-- ============================================================ -->
+    <footer class="closing">
+      <div class="closing-body">
+        <strong>Decision format:</strong> <em>B·03</em> or <em>B·04</em>. Once locked, the wordmark generator, the icon exploration, and the GUIDELINES.md for both Valet and Steward will be committed with the selected value.
+      </div>
+      <span class="closing-mark">CZ · 03</span>
+    </footer>
+
+  </div>
+</body>
+</html>

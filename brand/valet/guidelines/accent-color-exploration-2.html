@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valet · Accent Color Exploration · Round 02 · Finalists</title>
+  <meta name="description" content="CustodyZero Valet · Steward — finalist accent deep-dive: tonal variants, contrast reality, in-context rendering, downstream consequence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------------- Reset ---------------- */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+    /* ---------------- Tokens ---------------- */
+    :root {
+      --stack-black: oklch(0.10 0.002 60);
+      --stack-dark:  oklch(0.14 0.002 60);
+      --stack-mid:   oklch(0.19 0.003 60);
+      --stack-rule:  oklch(0.26 0.004 60);
+      --white:       oklch(0.96 0.005 80);
+      --muted:       oklch(0.68 0.006 80);
+      --dim:         oklch(0.48 0.006 80);
+      --dimmer:      oklch(0.36 0.005 80);
+
+      /* Sibling accents for the clearance strip */
+      --house-amber: #D4880A;
+      --archon-blue: #4FC3F7;
+      --type-pencil: #8B3A3A;
+      --factory-grn: #5A9A6E;
+      --sz-signal:   #C04848;
+
+      /* Bronze family — tonal axis */
+      --bronze-1: oklch(0.38 0.060 78);   /* deepest    */
+      --bronze-2: oklch(0.43 0.065 79);   /* deeper     */
+      --bronze-3: oklch(0.48 0.070 80);   /* anchor     */
+      --bronze-4: oklch(0.54 0.075 82);   /* lifted     */
+      --bronze-5: oklch(0.60 0.080 84);   /* brightest  */
+      --bronze-dim: oklch(0.30 0.045 80); /* companion  */
+
+      /* Slate family — tonal axis */
+      --slate-1: oklch(0.30 0.035 240);   /* deepest    */
+      --slate-2: oklch(0.34 0.038 240);   /* deeper     */
+      --slate-3: oklch(0.37 0.040 240);   /* anchor     */
+      --slate-4: oklch(0.46 0.048 238);   /* lifted     */
+      --slate-5: oklch(0.55 0.054 236);   /* brightest — needed for AA */
+      --slate-dim: oklch(0.22 0.025 240); /* companion  */
+
+      /* Type scale — fixed rem for document chrome, fluid for display */
+      --t-meta: 0.6875rem;
+      --t-label: 0.75rem;
+      --t-body: 0.9375rem;
+      --t-lead: 1.0625rem;
+      --d-heading: clamp(2.25rem, 5vw, 4rem);
+      --d-title:   clamp(3.5rem, 8vw, 7rem);
+      --d-wordmark-xl: clamp(3rem, 5.5vw, 5rem);
+
+      /* Spacing 4pt scale */
+      --s-1: 0.25rem;
+      --s-2: 0.5rem;
+      --s-3: 0.75rem;
+      --s-4: 1rem;
+      --s-5: 1.5rem;
+      --s-6: 2rem;
+      --s-7: 3rem;
+      --s-8: 4rem;
+      --s-9: 6rem;
+      --s-10: 9rem;
+    }
+
+    body {
+      font-family: 'DM Mono', ui-monospace, monospace;
+      font-size: var(--t-body);
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--white);
+      background: var(--stack-black);
+    }
+
+    .sheet {
+      width: 100%;
+      max-width: 1760px;
+      margin: 0 auto;
+      padding-inline: clamp(var(--s-6), 6vw, var(--s-10));
+    }
+
+    /* ---------------- Meta bar ---------------- */
+    .meta-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--s-5);
+      padding-block: var(--s-6);
+      border-bottom: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+      font-size: var(--t-meta);
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-bar > :nth-child(2) { color: var(--dim); }
+    .meta-bar > :nth-child(3) { text-align: right; }
+
+    /* ---------------- Title ---------------- */
+    header.title {
+      padding-block: clamp(var(--s-8), 10vw, var(--s-10)) var(--s-8);
+      display: grid;
+      gap: var(--s-6);
+      max-width: 78ch;
+    }
+    .title-caption {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .title-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-title);
+      line-height: 0.92;
+      letter-spacing: 0.02em;
+      color: var(--white);
+    }
+    .title-sub {
+      font-size: var(--t-label);
+      font-weight: 400;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .title-lede {
+      max-width: 62ch;
+      font-size: var(--t-lead);
+      line-height: 1.6;
+      font-weight: 300;
+    }
+    .title-lede em { font-style: normal; color: var(--muted); }
+
+    /* ---------------- Parallel columns ---------------- */
+    .parallel {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: clamp(var(--s-6), 4vw, var(--s-8));
+      padding-block: var(--s-9);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    @media (max-width: 900px) {
+      .parallel { grid-template-columns: 1fr; }
+      .parallel-spine { display: none; }
+    }
+    .parallel-spine {
+      background: color-mix(in oklch, var(--stack-rule) 40%, transparent);
+    }
+    .parallel-col { min-width: 0; }
+
+    .col-header {
+      display: grid;
+      gap: var(--s-2);
+      margin-bottom: var(--s-7);
+    }
+    .col-index {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 1.75rem;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+      line-height: 1;
+    }
+    .col-name {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-heading);
+      letter-spacing: 0.03em;
+      line-height: 0.9;
+      color: var(--white);
+    }
+    .col-category {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: var(--s-1);
+    }
+    .col-hex {
+      font-size: var(--t-label);
+      letter-spacing: 0.16em;
+      color: var(--dimmer);
+      margin-top: var(--s-3);
+    }
+
+    .col-body {
+      font-size: var(--t-body);
+      max-width: 46ch;
+      line-height: 1.6;
+    }
+    .col-body p + p { margin-top: var(--s-3); }
+    .col-body em { font-style: normal; color: var(--muted); }
+
+    /* ---------------- Section title ---------------- */
+    .section {
+      padding-block: var(--s-9);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: var(--s-6);
+      align-items: baseline;
+      margin-bottom: var(--s-7);
+    }
+    .section-num {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2.25rem;
+      letter-spacing: 0.1em;
+      color: var(--dim);
+      line-height: 0.9;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: var(--d-heading);
+      letter-spacing: 0.03em;
+      line-height: 0.9;
+      color: var(--white);
+    }
+    .section-meta {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+      padding-top: 0.5em;
+    }
+    .section-lede {
+      max-width: 68ch;
+      font-size: var(--t-lead);
+      line-height: 1.55;
+      color: var(--white);
+      font-weight: 300;
+      margin-bottom: var(--s-7);
+    }
+    .section-lede em { font-style: normal; color: var(--muted); }
+
+    /* ---------------- Tonal rows ---------------- */
+    .tonal-family { display: grid; gap: var(--s-3); }
+    .tonal-row {
+      display: grid;
+      grid-template-columns: 3rem minmax(0, 1fr) auto;
+      gap: var(--s-4);
+      align-items: stretch;
+      padding: var(--s-3) var(--s-4);
+      background: var(--stack-dark);
+    }
+    .tonal-label {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      align-self: center;
+    }
+    .tonal-swatch {
+      height: 3rem;
+      background: var(--tone);
+    }
+    .tonal-specs {
+      font-size: 0.6875rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      align-self: center;
+      text-align: right;
+      line-height: 1.4;
+    }
+    .tonal-specs strong {
+      color: var(--white);
+      font-weight: 500;
+      display: block;
+    }
+    .tonal-anchor {
+      outline: 1px solid color-mix(in oklch, var(--white) 60%, transparent);
+      outline-offset: 0;
+      background: var(--stack-mid);
+    }
+
+    /* ---------------- Pair card (anchor + dim) ---------------- */
+    .pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+      margin-top: var(--s-5);
+    }
+    .pair-tile {
+      background: var(--stack-dark);
+      padding: var(--s-4) var(--s-4) var(--s-5);
+      display: grid;
+      gap: var(--s-3);
+    }
+    .pair-tile-label {
+      font-size: var(--t-meta);
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+    .pair-swatch {
+      height: 4.5rem;
+      background: var(--tone);
+    }
+    .pair-spec {
+      font-size: 0.6875rem;
+      letter-spacing: 0.1em;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+    .pair-spec strong {
+      display: block;
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ---------------- Contrast ladder ---------------- */
+    .contrast-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-1);
+    }
+    .contrast-row {
+      display: grid;
+      grid-template-columns: 7rem 1fr 4rem 5rem;
+      gap: var(--s-3);
+      padding: var(--s-3) var(--s-4);
+      background: var(--bg-tone, var(--stack-dark));
+      align-items: center;
+      font-size: var(--t-meta);
+      letter-spacing: 0.1em;
+    }
+    .contrast-bg-label {
+      color: color-mix(in oklch, var(--white) 50%, transparent);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .contrast-sample {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.14em;
+      color: var(--fg-tone, var(--white));
+      line-height: 1;
+    }
+    .contrast-ratio {
+      font-variant-numeric: tabular-nums;
+      color: var(--white);
+      font-weight: 500;
+      font-size: var(--t-label);
+      letter-spacing: 0.08em;
+      text-align: right;
+    }
+    .contrast-verdict {
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-align: right;
+    }
+    .verdict-pass { color: oklch(0.78 0.08 150); }
+    .verdict-marginal { color: oklch(0.72 0.12 80); }
+    .verdict-fail { color: oklch(0.65 0.10 25); }
+
+    .contrast-note {
+      margin-top: var(--s-4);
+      padding: var(--s-4);
+      background: var(--stack-dark);
+      font-size: var(--t-meta);
+      letter-spacing: 0.1em;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 54ch;
+    }
+    .contrast-note strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ---------------- Scale ladder (wordmark at sizes) ---------------- */
+    .scale-ladder { display: grid; gap: var(--s-2); }
+    .scale-row {
+      display: grid;
+      grid-template-columns: 5rem 1fr auto;
+      gap: var(--s-4);
+      align-items: center;
+      padding: var(--s-4) var(--s-5);
+      background: var(--stack-dark);
+    }
+    .scale-px {
+      font-size: var(--t-meta);
+      letter-spacing: 0.18em;
+      color: var(--dim);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .scale-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      letter-spacing: 0.12em;
+      line-height: 1;
+      color: var(--tone);
+    }
+    .scale-mark.sz-24  { font-size: 24px; }
+    .scale-mark.sz-36  { font-size: 36px; }
+    .scale-mark.sz-56  { font-size: 56px; }
+    .scale-mark.sz-96  { font-size: 96px; letter-spacing: 0.1em; }
+    .scale-usecase {
+      font-size: 0.625rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-align: right;
+      line-height: 1.5;
+    }
+
+    /* ---------------- UI sampler ---------------- */
+    .sampler {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s-3);
+      margin-top: var(--s-4);
+    }
+    .sampler-tile {
+      padding: var(--s-5);
+      background: var(--stack-dark);
+      display: grid;
+      gap: var(--s-4);
+    }
+    .sampler-tile-label {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    /* Button primary — filled with accent */
+    .btn-primary {
+      display: inline-block;
+      padding: var(--s-3) var(--s-5);
+      font-family: 'DM Mono', monospace;
+      font-size: var(--t-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--stack-black);
+      background: var(--tone);
+      justify-self: start;
+    }
+    /* Button ghost — accent outline */
+    .btn-ghost {
+      display: inline-block;
+      padding: var(--s-3) var(--s-5);
+      font-family: 'DM Mono', monospace;
+      font-size: var(--t-label);
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tone);
+      background: transparent;
+      border: 1px solid var(--tone);
+      justify-self: start;
+    }
+    /* Inline link */
+    .link-sample {
+      font-size: var(--t-body);
+      color: var(--muted);
+      max-width: 36ch;
+      line-height: 1.6;
+    }
+    .link-sample a {
+      color: var(--tone);
+      text-decoration: none;
+      border-bottom: 1px solid color-mix(in oklch, var(--tone) 50%, transparent);
+    }
+    /* Focus ring demonstrator */
+    .focus-sample {
+      padding: var(--s-3) var(--s-4);
+      font-family: 'DM Mono', monospace;
+      font-size: var(--t-label);
+      letter-spacing: 0.14em;
+      color: var(--white);
+      background: var(--stack-mid);
+      outline: 2px solid var(--tone);
+      outline-offset: 2px;
+      justify-self: start;
+    }
+    /* Tag */
+    .tag-sample {
+      display: inline-block;
+      padding: var(--s-1) var(--s-3);
+      font-size: 0.625rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--tone);
+      background: color-mix(in oklch, var(--tone) 14%, transparent);
+      justify-self: start;
+    }
+    /* Status indicator dot */
+    .status-sample {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--s-3);
+      font-size: var(--t-label);
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      justify-self: start;
+    }
+    .status-sample::before {
+      content: "";
+      display: block;
+      width: 8px;
+      height: 8px;
+      background: var(--tone);
+    }
+
+    /* ---------------- Downstream narrative ---------------- */
+    .downstream {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--s-5);
+      padding: var(--s-6);
+      background: var(--stack-dark);
+      margin-top: var(--s-5);
+    }
+    .downstream-label {
+      font-size: var(--t-meta);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 500;
+    }
+    .downstream-quote {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: clamp(1.25rem, 2vw, 1.625rem);
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--tone);
+    }
+    .downstream-body {
+      font-size: var(--t-body);
+      line-height: 1.65;
+      color: var(--white);
+      max-width: 48ch;
+    }
+    .downstream-body em { font-style: normal; color: var(--muted); }
+    .downstream-list {
+      display: grid;
+      gap: var(--s-2);
+      font-size: var(--t-meta);
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .downstream-list li { list-style: none; padding-left: var(--s-4); position: relative; }
+    .downstream-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 0.625rem;
+      height: 1px;
+      background: var(--tone);
+    }
+    .downstream-list strong { color: var(--white); font-weight: 500; }
+
+    /* ---------------- Closing ---------------- */
+    footer.closing {
+      padding-block: var(--s-9) var(--s-7);
+      border-top: 1px solid color-mix(in oklch, var(--stack-rule) 55%, transparent);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--s-6);
+      align-items: end;
+    }
+    .closing-body {
+      max-width: 64ch;
+      font-size: var(--t-body);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .closing-body strong { color: var(--white); font-weight: 400; }
+    .closing-mark {
+      font-family: 'Bebas Neue', Impact, sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.14em;
+      color: var(--dim);
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+
+    <div class="meta-bar">
+      <span>CustodyZero · Brand</span>
+      <span>Valet · Steward · Accent · Round 02</span>
+      <span>Finalists · Bronze &amp; Slate</span>
+    </div>
+
+    <header class="title">
+      <span class="title-caption">Accent color exploration · Round 02</span>
+      <h1 class="title-mark">FINALISTS</h1>
+      <span class="title-sub">Old Bronze · Deep Slate · Depth before commitment</span>
+
+      <p class="title-lede">
+        Round 01 surfaced four candidates; two earned the second look. Round 02 goes deeper on each: <em>the exact anchor within the family</em>, the companion <em>dim derivative</em> for reduced-emphasis contexts, an honest <em>contrast check</em> against the house dark stack, wordmark rendering across the production size ladder, a chrome sampler that shows how the accent behaves in product UI, and a narrative of what selecting each locks in downstream.
+      </p>
+
+      <p class="title-lede">
+        Read this document in parallel, not in sequence. Every section pairs Bronze on the left and Slate on the right; the eye should hop across, not down. The goal is not to prefer a candidate in the abstract but to <em>see the product that each becomes</em>.
+      </p>
+    </header>
+
+    <!-- ============================================================ -->
+    <!-- 01 · The two families                                         -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <h2 class="section-title">The two families</h2>
+        <span class="section-meta">Why each made the cut</span>
+      </div>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name">OLD&nbsp;BRONZE</span>
+            <span class="col-category">Warm · Classical · Tactile</span>
+            <span class="col-hex">Anchor #8A6B3D · oklch(0.48 0.07 80)</span>
+          </div>
+          <div class="col-body">
+            <p>
+              Bronze leans into the material register of the brief — the tactile warmth of handled objects. A brass fitting on a bound portfolio. The warmth of age, not the shine of new metal.
+            </p>
+            <p>
+              The register is unambiguously classical. The risk is adjacency to house amber; this round confirms whether Bronze reads as a <em>family member</em> or a <em>variant of the parent</em>.
+            </p>
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name">DEEP&nbsp;SLATE</span>
+            <span class="col-category">Cool · Formal · Considered</span>
+            <span class="col-hex">Anchor #3E5366 · oklch(0.37 0.04 240)</span>
+          </div>
+          <div class="col-body">
+            <p>
+              Slate carries the discipline of professional formality without tipping into institutional coldness. The color of record — ink on cooled paper, the back of a leather daybook.
+            </p>
+            <p>
+              The risk is visibility: the anchor sits close to the house dark stack. This round tests whether the mark <em>holds its own against dark</em> or asks the icon geometry to do all the work.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 02 · Tonal variants                                           -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <h2 class="section-title">Tonal refinement</h2>
+        <span class="section-meta">Five points per family</span>
+      </div>
+
+      <p class="section-lede">
+        Each candidate is a region, not a point. The anchor from Round 01 sits in the middle of its family; the four others surround it along the lightness axis at slightly shifted chroma and hue. Pick the shade that carries the product best — <em>the outlined swatch is the current anchor, not a recommendation</em>.
+      </p>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <!-- Bronze family -->
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Bronze family</span>
+            <span class="col-category">Hue ≈ 80°</span>
+          </div>
+
+          <div class="tonal-family">
+            <div class="tonal-row" style="--tone: var(--bronze-1);">
+              <span class="tonal-label">B·01</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#6C522D</strong>oklch(0.38 0.06 78)</div>
+            </div>
+            <div class="tonal-row" style="--tone: var(--bronze-2);">
+              <span class="tonal-label">B·02</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#7A5E35</strong>oklch(0.43 0.065 79)</div>
+            </div>
+            <div class="tonal-row tonal-anchor" style="--tone: var(--bronze-3);">
+              <span class="tonal-label">B·03</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#8A6B3D · anchor</strong>oklch(0.48 0.07 80)</div>
+            </div>
+            <div class="tonal-row" style="--tone: var(--bronze-4);">
+              <span class="tonal-label">B·04</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#9D7E49</strong>oklch(0.54 0.075 82)</div>
+            </div>
+            <div class="tonal-row" style="--tone: var(--bronze-5);">
+              <span class="tonal-label">B·05</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#B08F56</strong>oklch(0.60 0.08 84)</div>
+            </div>
+          </div>
+
+          <div class="col-body" style="margin-top: var(--s-5);">
+            <p>
+              <em>Reading the ladder:</em> B·01–02 sit close to mahogany — risk of drifting toward Type's pencil-red register. B·04–05 brighten toward classical brass polish, which reads newer, less lived-in. The anchor at B·03 holds the intended register; if you prefer more <em>age</em>, step to B·02; if you prefer more <em>presence</em>, step to B·04.
+            </p>
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <!-- Slate family -->
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Slate family</span>
+            <span class="col-category">Hue ≈ 240°</span>
+          </div>
+
+          <div class="tonal-family">
+            <div class="tonal-row" style="--tone: var(--slate-1);">
+              <span class="tonal-label">S·01</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#30404F</strong>oklch(0.30 0.035 240)</div>
+            </div>
+            <div class="tonal-row" style="--tone: var(--slate-2);">
+              <span class="tonal-label">S·02</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#374859</strong>oklch(0.34 0.038 240)</div>
+            </div>
+            <div class="tonal-row tonal-anchor" style="--tone: var(--slate-3);">
+              <span class="tonal-label">S·03</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#3E5366 · anchor</strong>oklch(0.37 0.04 240)</div>
+            </div>
+            <div class="tonal-row" style="--tone: var(--slate-4);">
+              <span class="tonal-label">S·04</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#526878</strong>oklch(0.46 0.048 238)</div>
+            </div>
+            <div class="tonal-row" style="--tone: var(--slate-5);">
+              <span class="tonal-label">S·05</span>
+              <span class="tonal-swatch"></span>
+              <div class="tonal-specs"><strong>#667E8D</strong>oklch(0.55 0.054 236)</div>
+            </div>
+          </div>
+
+          <div class="col-body" style="margin-top: var(--s-5);">
+            <p>
+              <em>Reading the ladder:</em> S·01–02 recede into the dark stack. The anchor at S·03 is the deepest slate that still reads as blue-leaning. S·04 is where the color begins to work as an active UI accent (contrast thresholds in §04). S·05 lifts into silvery pewter — usable as accent, but the register shifts from <em>ink</em> toward <em>polished metal</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 03 · Anchor + dim pair                                        -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <h2 class="section-title">Anchor + dim</h2>
+        <span class="section-meta">Reduced-emphasis companion</span>
+      </div>
+
+      <p class="section-lede">
+        The accent needs a companion for subtler contexts — backgrounds, borders, muted state. Like StationZero's Signal Red + Red Dim pairing. The dim is not a lighter or faded version of the anchor; it is an <em>intentional second tone</em> that the anchor authors would build alongside the primary.
+      </p>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Bronze pair</span>
+          </div>
+
+          <div class="pair">
+            <div class="pair-tile" style="--tone: var(--bronze-3);">
+              <span class="pair-tile-label">Anchor</span>
+              <span class="pair-swatch"></span>
+              <div class="pair-spec"><strong>#8A6B3D</strong>oklch(0.48 0.07 80)<br>Primary accent — wordmark, icon, filled buttons, active state</div>
+            </div>
+            <div class="pair-tile" style="--tone: var(--bronze-dim);">
+              <span class="pair-tile-label">Dim</span>
+              <span class="pair-swatch"></span>
+              <div class="pair-spec"><strong>#4F3F24</strong>oklch(0.30 0.045 80)<br>Tags, inactive borders, quiet backgrounds, muted state</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Slate pair</span>
+          </div>
+
+          <div class="pair">
+            <div class="pair-tile" style="--tone: var(--slate-3);">
+              <span class="pair-tile-label">Anchor</span>
+              <span class="pair-swatch"></span>
+              <div class="pair-spec"><strong>#3E5366</strong>oklch(0.37 0.04 240)<br>Primary accent — wordmark, icon, decorative contexts</div>
+            </div>
+            <div class="pair-tile" style="--tone: var(--slate-dim);">
+              <span class="pair-tile-label">Dim</span>
+              <span class="pair-swatch"></span>
+              <div class="pair-spec"><strong>#242F3D</strong>oklch(0.22 0.025 240)<br>Tags, inactive borders, quiet backgrounds, muted state</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 04 · Contrast reality                                         -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <h2 class="section-title">Contrast reality</h2>
+        <span class="section-meta">WCAG against the dark stack</span>
+      </div>
+
+      <p class="section-lede">
+        WCAG 2.2: <em>3:1 minimum</em> for UI components and large text (18pt+); <em>4.5:1 minimum</em> for normal body text. The house dark stack ranges from <code style="color: var(--muted); background: transparent;">#0A0A0A</code> (base) to <code style="color: var(--muted); background: transparent;">#1A1A1A</code> (elevated). Each candidate is tested below.
+      </p>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Bronze · #8A6B3D</span>
+          </div>
+
+          <div class="contrast-grid">
+            <div class="contrast-row" style="--bg-tone: oklch(0.10 0.002 60); --fg-tone: #8A6B3D;">
+              <span class="contrast-bg-label">on #0A0A0A</span>
+              <span class="contrast-sample">VALET</span>
+              <span class="contrast-ratio">3.94 : 1</span>
+              <span class="contrast-verdict verdict-pass">AA Large</span>
+            </div>
+            <div class="contrast-row" style="--bg-tone: oklch(0.14 0.002 60); --fg-tone: #8A6B3D;">
+              <span class="contrast-bg-label">on #111111</span>
+              <span class="contrast-sample">VALET</span>
+              <span class="contrast-ratio">3.65 : 1</span>
+              <span class="contrast-verdict verdict-pass">AA Large</span>
+            </div>
+            <div class="contrast-row" style="--bg-tone: oklch(0.19 0.003 60); --fg-tone: #8A6B3D;">
+              <span class="contrast-bg-label">on #1A1A1A</span>
+              <span class="contrast-sample">VALET</span>
+              <span class="contrast-ratio">3.31 : 1</span>
+              <span class="contrast-verdict verdict-pass">AA Large</span>
+            </div>
+          </div>
+
+          <div class="contrast-note">
+            <strong>Verdict: usable as-is.</strong> Bronze at the anchor clears the 3:1 threshold for UI components and large text on all three house background values. It does not reach 4.5:1 normal-text — but accents are not body text, and for wordmark / icon / button labels, the anchor is compliant without modification.
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Slate · #3E5366</span>
+          </div>
+
+          <div class="contrast-grid">
+            <div class="contrast-row" style="--bg-tone: oklch(0.10 0.002 60); --fg-tone: #3E5366;">
+              <span class="contrast-bg-label">on #0A0A0A</span>
+              <span class="contrast-sample">VALET</span>
+              <span class="contrast-ratio">2.49 : 1</span>
+              <span class="contrast-verdict verdict-fail">Fails 3:1</span>
+            </div>
+            <div class="contrast-row" style="--bg-tone: oklch(0.14 0.002 60); --fg-tone: #3E5366;">
+              <span class="contrast-bg-label">on #111111</span>
+              <span class="contrast-sample">VALET</span>
+              <span class="contrast-ratio">2.30 : 1</span>
+              <span class="contrast-verdict verdict-fail">Fails 3:1</span>
+            </div>
+            <div class="contrast-row" style="--bg-tone: oklch(0.19 0.003 60); --fg-tone: #3E5366;">
+              <span class="contrast-bg-label">on #1A1A1A</span>
+              <span class="contrast-sample">VALET</span>
+              <span class="contrast-ratio">2.09 : 1</span>
+              <span class="contrast-verdict verdict-fail">Fails 3:1</span>
+            </div>
+          </div>
+
+          <div class="contrast-note">
+            <strong>Verdict: anchor requires lifting for UI use.</strong> Slate at S·03 fails the 3:1 threshold for UI components on every house background. For the wordmark and decorative contexts (large-scale marketing surfaces, splash, hero) this is acceptable — the mark is an object, not UI — but for favicon, active UI, buttons, and links the anchor must shift upward. <strong>S·04 (#526878) clears 3:1 on all backgrounds; S·05 (#667E8D) clears 4.5:1.</strong> Selecting the Slate family likely means authoring two-anchor tokens: a visual-only &quot;deep slate&quot; for decorative surfaces and a brighter &quot;active slate&quot; for UI.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 05 · At scale — wordmark size ladder                          -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <h2 class="section-title">At scale</h2>
+        <span class="section-meta">Wordmark across the size ladder</span>
+      </div>
+
+      <p class="section-lede">
+        How does the color hold as the mark gets smaller? The wordmark appears at four production sizes: <em>24px</em> (favicon context, status bar), <em>36px</em> (chrome header), <em>56px</em> (page identification), <em>96px</em> (hero / splash).
+      </p>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Bronze</span>
+          </div>
+
+          <div class="scale-ladder">
+            <div class="scale-row" style="--tone: var(--bronze-3);">
+              <span class="scale-px">24 px</span>
+              <span class="scale-mark sz-24">VALET</span>
+              <span class="scale-usecase">Chrome · status</span>
+            </div>
+            <div class="scale-row" style="--tone: var(--bronze-3);">
+              <span class="scale-px">36 px</span>
+              <span class="scale-mark sz-36">VALET</span>
+              <span class="scale-usecase">Header</span>
+            </div>
+            <div class="scale-row" style="--tone: var(--bronze-3);">
+              <span class="scale-px">56 px</span>
+              <span class="scale-mark sz-56">VALET</span>
+              <span class="scale-usecase">Page ID</span>
+            </div>
+            <div class="scale-row" style="--tone: var(--bronze-3);">
+              <span class="scale-px">96 px</span>
+              <span class="scale-mark sz-96">VALET</span>
+              <span class="scale-usecase">Hero / splash</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Slate</span>
+          </div>
+
+          <div class="scale-ladder">
+            <div class="scale-row" style="--tone: var(--slate-3);">
+              <span class="scale-px">24 px</span>
+              <span class="scale-mark sz-24">VALET</span>
+              <span class="scale-usecase">Chrome · status</span>
+            </div>
+            <div class="scale-row" style="--tone: var(--slate-3);">
+              <span class="scale-px">36 px</span>
+              <span class="scale-mark sz-36">VALET</span>
+              <span class="scale-usecase">Header</span>
+            </div>
+            <div class="scale-row" style="--tone: var(--slate-3);">
+              <span class="scale-px">56 px</span>
+              <span class="scale-mark sz-56">VALET</span>
+              <span class="scale-usecase">Page ID</span>
+            </div>
+            <div class="scale-row" style="--tone: var(--slate-3);">
+              <span class="scale-px">96 px</span>
+              <span class="scale-mark sz-96">VALET</span>
+              <span class="scale-usecase">Hero / splash</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 06 · In context — UI sampler                                  -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <h2 class="section-title">In context</h2>
+        <span class="section-meta">Chrome behavior</span>
+      </div>
+
+      <p class="section-lede">
+        How the accent behaves as a <em>functional element</em>: filled button, outlined button, inline link, focus ring, tag pill, and status indicator. This is the accent doing work, not sitting on display.
+      </p>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Bronze</span>
+          </div>
+
+          <div class="sampler">
+            <div class="sampler-tile" style="--tone: var(--bronze-3);">
+              <span class="sampler-tile-label">Primary button</span>
+              <button class="btn-primary">Continue</button>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--bronze-3);">
+              <span class="sampler-tile-label">Ghost button</span>
+              <button class="btn-ghost">Review</button>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--bronze-3);">
+              <span class="sampler-tile-label">Inline link</span>
+              <p class="link-sample">Settings live <a href="#">on your device</a>, not in the cloud.</p>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--bronze-3);">
+              <span class="sampler-tile-label">Focus ring</span>
+              <span class="focus-sample">NAME</span>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--bronze-3);">
+              <span class="sampler-tile-label">Tag</span>
+              <span class="tag-sample">Resident</span>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--bronze-3);">
+              <span class="sampler-tile-label">Status indicator</span>
+              <span class="status-sample">Connected · local</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">Slate</span>
+          </div>
+
+          <div class="sampler">
+            <div class="sampler-tile" style="--tone: var(--slate-3);">
+              <span class="sampler-tile-label">Primary button</span>
+              <button class="btn-primary">Continue</button>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--slate-3);">
+              <span class="sampler-tile-label">Ghost button</span>
+              <button class="btn-ghost">Review</button>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--slate-3);">
+              <span class="sampler-tile-label">Inline link</span>
+              <p class="link-sample">Settings live <a href="#">on your device</a>, not in the cloud.</p>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--slate-3);">
+              <span class="sampler-tile-label">Focus ring</span>
+              <span class="focus-sample">NAME</span>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--slate-3);">
+              <span class="sampler-tile-label">Tag</span>
+              <span class="tag-sample">Resident</span>
+            </div>
+            <div class="sampler-tile" style="--tone: var(--slate-3);">
+              <span class="sampler-tile-label">Status indicator</span>
+              <span class="status-sample">Connected · local</span>
+            </div>
+          </div>
+
+          <div class="contrast-note" style="margin-top: var(--s-4);">
+            <strong>Observe:</strong> at the anchor luminance, ghost-button outlines, focus rings, and status dots read as faint. For active UI elements in Slate, the implementation would use <strong>S·04 (#526878)</strong> as the functional accent and reserve S·03 for decorative and text-label surfaces.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 07 · Downstream consequence                                   -->
+    <!-- ============================================================ -->
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <h2 class="section-title">Downstream consequence</h2>
+        <span class="section-meta">What selecting each locks in</span>
+      </div>
+
+      <p class="section-lede">
+        The accent is one decision; the product's visual language follows. What does the whole become, if this is the color?
+      </p>
+
+      <div class="parallel" style="padding-block: 0; border: 0;">
+        <!-- Bronze downstream -->
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">A</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">If Bronze</span>
+          </div>
+
+          <div class="downstream" style="--tone: var(--bronze-3);">
+            <span class="downstream-label">The product becomes</span>
+            <p class="downstream-quote">A well-tended room in a house you have kept for a long time.</p>
+            <p class="downstream-body">
+              The rest of the brand resolves warm. UI neutrals tint toward earth rather than blue. Iconography favors engraved-plate register. Marketing imagery (if any) prefers leather, wood, binder-cloth textures — <em>the materials the brief called for</em>.
+            </p>
+            <ul class="downstream-list">
+              <li><strong>Typography</strong> pairs with transitional or old-style serifs (the voice-serif exploration will confirm — candidates will skew classical)</li>
+              <li><strong>Icon</strong> forms can lean tactile — engraved plate, threshold, door fitting</li>
+              <li><strong>Copy register</strong> tips toward understatement; the warmth does rhetorical work</li>
+              <li><strong>Market differentiation</strong> is strongest — nothing in the consumer-AI space looks like this</li>
+              <li><strong>Risk to navigate</strong>: keeping the execution contemporary, not costume</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="parallel-spine"></div>
+
+        <!-- Slate downstream -->
+        <div class="parallel-col">
+          <div class="col-header">
+            <span class="col-index">B</span>
+            <span class="col-name" style="font-size: 2rem; letter-spacing: 0.03em;">If Slate</span>
+          </div>
+
+          <div class="downstream" style="--tone: var(--slate-3);">
+            <span class="downstream-label">The product becomes</span>
+            <p class="downstream-quote">A well-kept daybook on a quiet desk.</p>
+            <p class="downstream-body">
+              The rest of the brand resolves cool, precise, ledger-register. UI neutrals tint toward the same blue. Iconography favors clean architectural geometry. The product feels closer to Archon in spirit — considered, engineered — but <em>personal</em> rather than institutional.
+            </p>
+            <ul class="downstream-list">
+              <li><strong>Typography</strong> pairs with contemporary serifs or grotesques with narrow counters (the voice-serif exploration will confirm)</li>
+              <li><strong>Icon</strong> forms can lean geometric — ledger marks, ruled lines, formal structure</li>
+              <li><strong>Copy register</strong> tips toward precision; the cool formality carries the tone</li>
+              <li><strong>Market differentiation</strong> is less strong — cool dark accents are common in developer tools; distinctiveness comes from the register, not the hue</li>
+              <li><strong>Risk to navigate</strong>: the two-anchor token system (S·03 decorative + S·04 functional) to maintain WCAG compliance</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Closing                                                       -->
+    <!-- ============================================================ -->
+    <footer class="closing">
+      <div class="closing-body">
+        <strong>Decision format:</strong> (1) which family — Bronze or Slate — and (2) which tonal point within that family (e.g. <em>B·03</em> or <em>S·04</em>). If Slate, also confirm the two-anchor token approach. Once selected, the icon exploration renders its candidates in the chosen color and this round closes.
+      </div>
+      <span class="closing-mark">CZ · 02</span>
+    </footer>
+
+  </div>
+</body>
+</html>

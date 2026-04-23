@@ -307,9 +307,12 @@ The legitimate path to a new `[X]Zero` platform is **convergence**: when multipl
 | Product | Category | Structure | Accent Color | Design Character |
 |---|---|---|---|---|
 | Archon | Agent Coordination | Standalone | Electric blue `#4FC3F7` | Architectural, system-like, brutalist precision. Enforcement as aesthetic. |
-| StationZero | Home Edge Automation | Platform product house | TBD | TBD — inherits house foundation. |
+| StationZero | Home Edge Automation | Platform product house | Signal red `#C04848` | Operational clarity with domestic confidence. |
 | Type | Writing | Standalone | Pencil `#8B3A3A` | Warm, paper metaphor, literary. |
 | Factory | Software Production | Standalone | Industrial green `#5A9A6E` | Utilitarian, restrained, unadorned. |
+| Valet | Local Inference Personal Intelligence | Standalone | Bronze B·04 `#9D7E49` | Classical attendance, bookbound continuity, refined restraint. |
+
+*Valet is also published under the fallback name **Steward** pending trademark clearance. Both names share every brand decision; only the wordmark text differs.*
 
 ### Wordmark
 
