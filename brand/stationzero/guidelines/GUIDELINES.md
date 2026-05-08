@@ -11,7 +11,7 @@ All assets are proprietary. See `../../../LICENSE` for terms.
 
 ## 1 — Brand Character
 
-StationZero is the CustodyZero platform for home edge automation — local, operator-defined, and private by construction. It begins with WiFi camera surveillance and monitoring, and expands into adversarial detection (toddler escaping, pool falls, fire, robbery), device control (door locks, lighting), and whole-home automation.
+StationZero is the CustodyZero platform for edge-native home safety — local, operator-defined, and private by construction. At v1 it watches the people who live in the home and responds in three tiers: silent for routine activity, notification for things worth knowing, escalation to emergency for events that need help right now. Adversarial detection (toddler near pool, package then lurker, grandparent fall, fire, robbery) is included at v1. The phased roadmap extends into device control (door locks, lighting) and whole-home automation. Per §7 below: StationZero owns and protects — it does not surveil.
 
 StationZero is a **platform product house** within CustodyZero, following the `[X]Zero` naming convention. It will contain its own sub-products and modules as the platform expands.
 

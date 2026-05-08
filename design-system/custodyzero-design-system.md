@@ -11,7 +11,7 @@ This document defines the visual language, brand voice, and design tokens for Cu
 
 ### Mission
 
-CustodyZero builds powerful technology that stays where it belongs. On your hardware. Under your rules. Out of everyone else's hands.
+CustodyZero builds local-first instruments that stay where they belong. On your hardware. Under your rules. Out of everyone else's hands.
 
 ### North Star
 

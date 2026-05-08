@@ -11,7 +11,7 @@ All assets are proprietary. See `../../../LICENSE` for terms.
 
 ## 0 — What Valet Is
 
-Valet is the CustodyZero product that runs a silicon-optimized Gemma 4 model as a **lifelong local personal intelligence** on user hardware. It learns the user over time, acts through user-provided substrate (Drive, iCloud, OneDrive), and runs unlimited local inference. The brand register is a **classical gentleman's valet** — present but not forward, attentive but not servile, enduring by design.
+Valet is the CustodyZero product that runs a silicon-optimized Gemma 4 model as a **lifelong local personal intelligence** on user hardware. It learns the user over time, stores its long-term memory in the cloud storage the user already uses (Drive, iCloud, OneDrive) or on local disk, and runs unlimited local inference. The brand register is a **classical gentleman's valet** — present but not forward, attentive but not servile, enduring by design.
 
 Valet is a standalone product in the CustodyZero product naming convention — single plain-English word, classical role, parallels Archon.
 
